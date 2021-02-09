@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".2"
+            android:gravity="left"
+            android:text="000001"
+            local:MvxBind="Text QuotationNr" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".4"
+            android:gravity="left"
+            android:text="21.02.2014"
+            local:MvxBind="Text StartDateTime, Converter=DateTimeString" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".4"
+            android:gravity="left"
+            android:text="28.02.2014"
+            local:MvxBind="Text StopDateTime, Converter=DateTimeString" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:paddingLeft="50dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp"
+            android:layout_height="wrap_content">
+        <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:text="Identification" />
+        <TextView
+                android:id="@+id/loginview_identification"
+                style="@style/TextViewStyleLeft50Percent" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:paddingLeft="50dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/loginview_labelsource"
+            style="@style/TextViewStyleLeft50Percent"
+            android:gravity="left|center"
+            android:text="Source"
+            android:layout_height="50dp"
+            local:MvxBind="Text LabelSource" />
+        <MvxSpinner
+            android:id="@+id/loginview_source"
+            android:gravity="left|center"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            local:MvxItemTemplate="@layout/MySpinnerItem"
+            local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+            local:MvxBind="ItemsSource ListSources; Enabled ControlIsEnabled; SelectedItemPosition SelectedIndexSource; SelectedItem SelectedItemSource" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:paddingLeft="50dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/loginview_labelusername"
+            style="@style/TextViewStyleLeft50Percent"
+            android:text="Username"
+            local:MvxBind="Text LabelUsername" />
+        <TextView
+            android:id="@+id/loginview_username"
+            style="@style/TextViewStyleLeft50Percent"
+            android:text="Mehmet Kartalbas"
+            local:MvxBind="Text Username" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:paddingLeft="50dp"
+        android:paddingRight="30dp"
+        android:paddingTop="0dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/loginview_labelpassword"
+            style="@style/TextViewStyleLeft50Percent"
+            android:text="Password"
+            local:MvxBind="Text LabelPassword" />
+        <EditText
+            android:id="@+id/loginview_password"
+			android:textSize="12sp"
+            android:inputType="textPassword"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="70dp"
+            android:gravity="center|left"
+            android:text="123456"
+            local:MvxBind="Text Password; Enabled ControlIsEnabled" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:paddingLeft="50dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/loginview_login"
+			android:textSize="10sp"
+			android:textStyle="bold"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="50dp"
+            android:gravity="center|center"
+            android:text="Login"
+            local:MvxBind="Text LabelLogin; Enabled ControlIsEnabled" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:paddingLeft="50dp"
+        android:paddingRight="30dp"
+        android:paddingTop="20dp"
+        android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/loginview_exit"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="50dp"
+                android:gravity="center|center"
+                android:text="Exit"
+                local:MvxBind="Text LabelExit; Enabled ControlIsEnabled" />
+    </LinearLayout>
+</LinearLayout>

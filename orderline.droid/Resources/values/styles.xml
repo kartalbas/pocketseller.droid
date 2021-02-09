@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="AppTheme.TextAppearance.Small" parent="android:style/TextAppearance.Holo.Small">
+    <item name="android:textSize">8sp</item>
+  </style>
+  <style name="AppTheme.TextAppearance.Medium" parent="android:style/TextAppearance.Holo.Medium">
+    <item name="android:textSize">12sp</item>
+  </style>
+  <style name="AppTheme.TextAppearance.Large" parent="android:style/TextAppearance.Holo.Large">
+    <item name="android:textSize">16sp</item>
+  </style>
+ 
+  <style name="Theme.Holo.Dialog" parent="@android:style/Theme.Holo.Dialog">
+  </style>
+
+  <style name="DialogAnimation" >
+    <item name="android:windowEnterAnimation">@anim/dialog_fade_in</item>
+    <item name="android:windowExitAnimation">@anim/dialog_fade_out</item>
+  </style>
+
+  <style name="actionspinner" parent="@android:style/Widget.TextView.SpinnerItem">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">match_parent</item>
+  </style>
+
+  <style name="TextViewStyleHeadertItem">
+      <item name="android:layout_width">0dp</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:gravity">center</item>
+      <item name="android:paddingLeft">5dp</item>
+      <item name="android:paddingRight">5dp</item>
+      <item name="android:background">@color/darkgrey</item>
+      <item name="android:textColor">@color/lowdarkwhite</item>
+      <item name="android:textSize">8sp</item>
+      <!--<item name="android:textAppearance">?android:attr/textAppearanceSmall</item>-->
+  </style>
+
+  <style name="TextViewStyleHeadertItemSmall">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center</item>
+    <item name="android:paddingLeft">2dp</item>
+    <item name="android:paddingRight">2dp</item>
+    <item name="android:background">@color/darkgrey</item>
+    <item name="android:textColor">@color/lowdarkwhite</item>
+    <item name="android:textSize">6sp</item>
+    <!--<item name="android:textAppearance">?android:attr/textAppearanceSmall</item>-->
+  </style>
+
+  <style name="TextViewStyleDocumentdetailItem">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">right</item>
+    <item name="android:paddingBottom">1dp</item>
+    <item name="android:paddingTop">1dp</item>
+    <item name="android:paddingLeft">5dp</item>
+    <item name="android:paddingRight">5dp</item>
+    <item name="android:ellipsize">marquee</item>
+    <item name="android:singleLine">false</item>
+    <item name="android:marqueeRepeatLimit">marquee_forever</item>
+    <item name="android:scrollHorizontally">true</item>
+    <item name="android:textSize">11sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@android:color/black</item>
+  </style>
+
+  <style name="TextViewStyleDocumentdetailSubItem">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">right</item>
+    <item name="android:paddingBottom">1dp</item>
+    <item name="android:paddingTop">1dp</item>
+    <item name="android:paddingLeft">1dp</item>
+    <item name="android:paddingRight">1dp</item>
+    <item name="android:ellipsize">marquee</item>
+    <item name="android:singleLine">false</item>
+    <item name="android:marqueeRepeatLimit">marquee_forever</item>
+    <item name="android:scrollHorizontally">true</item>
+    <item name="android:textSize">9sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@android:color/black</item>
+  </style>
+
+  <style name="TextViewStylePricelistItem">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">.5</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:paddingBottom">10dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingLeft">5dp</item>
+    <item name="android:paddingRight">5dp</item>
+    <item name="android:gravity">left</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@android:color/black</item>
+  </style>
+
+  <style name="TextViewStyleItem">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">.33</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:paddingBottom">10dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingLeft">5dp</item>
+    <item name="android:paddingRight">5dp</item>
+    <item name="android:gravity">left</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@android:color/black</item>
+    <!--<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>-->
+  </style>
+
+  <style name="TextViewStyleItemSmall">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">.33</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:paddingBottom">10dp</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:paddingLeft">5dp</item>
+    <item name="android:paddingRight">5dp</item>
+    <item name="android:gravity">left</item>
+    <item name="android:textSize">8sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">@android:color/black</item>
+    <!--<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>-->
+  </style>
+
+  <style name="TextViewStyleLeft50Percent">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">.50</item>
+    <item name="android:gravity">left|center</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    <item name="android:textColor">@android:color/black</item>
+  </style>
+
+  <style name="TextViewStyleRight50Percent">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_weight">.50</item>
+    <item name="android:gravity">right</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    <item name="android:textColor">@android:color/black</item>
+  </style>
+</resources>

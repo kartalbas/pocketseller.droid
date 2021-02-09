@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="5dp">
+    <!-- Adressnumber -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:text="Adressnumber"
+                android:paddingRight="10dp"
+                local:MvxBind="Text LabelAddressnumber" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:layout_weight="0.4"
+                android:padding="0dp"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Adressnumber" />
+        </LinearLayout>
+    <!-- Adressnumber -->
+    <!-- Name1 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="Name1"
+                local:MvxBind="Text LabelName1" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Name1" />
+        </LinearLayout>
+    <!-- Name1 -->
+    <!-- Name2 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="Name2"
+                local:MvxBind="Text LabelName2" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.6"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Name2" />
+        </LinearLayout>
+    <!-- Name2 -->
+    <!-- Street -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:paddingRight="10dp"
+                android:gravity="right"
+                android:text="Street"
+                local:MvxBind="Text LabelStreet" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.6"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Street" />
+        </LinearLayout>
+    <!-- Street -->
+    <!-- Zip -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:paddingRight="10dp"
+                android:gravity="right"
+                android:text="Zip"
+                local:MvxBind="Text LabelZip" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.6"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Zip" />
+        </LinearLayout>
+    <!-- Zip -->
+    <!-- City -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="City"
+                local:MvxBind="Text LabelCity" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.6"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.City" />
+        </LinearLayout>
+    <!-- Zip -->
+    <!-- Phone1 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="Phone1"
+                local:MvxBind="Text LabelPhone1" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.6"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Phone1" />
+        </LinearLayout>
+    <!-- Phone1 -->
+    <!-- Phone2 -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:paddingRight="10dp"
+                android:text="Phone2"
+                local:MvxBind="Text LabelPhone2" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.6"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Phone2" />
+        </LinearLayout>
+    <!-- Phone2 -->
+    <!-- Fax -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleHeadertItem"
+                android:layout_weight="0.4"
+                android:paddingRight="10dp"
+                android:gravity="right"
+                android:text="Fax"
+                local:MvxBind="Text LabelFax" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.6"
+                android:text="" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:gravity="left"
+                android:padding="0dp"
+                android:layout_weight="0.4"
+                android:text="" />
+            <TextView
+                style="@style/TextViewStyleItem"
+                android:layout_weight="0.6"
+                android:padding="0dp"
+                android:text="-----"
+                local:MvxBind="Text Address.Fax" />
+        </LinearLayout>
+    <!-- Fax -->
+    </LinearLayout>
+    <include
+        layout="@layout/SelectionAddressSearchBox" />
+</LinearLayout>

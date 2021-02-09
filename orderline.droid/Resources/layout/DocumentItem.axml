@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".15"
+            android:gravity="left"
+            android:text="2289"
+            local:MvxBind="Text Adress.Adressnumber" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".55"
+            android:gravity="left"
+            android:text="Yilmaz Feinkost Logistik GmbH"
+            local:MvxBind="Text Adress.Name1" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".3"
+            android:paddingRight="5dp"
+            android:gravity="right"
+            android:text="31.12.2013 18:12:34"
+            local:MvxBind="Text TimeStamp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".16"
+            android:gravity="left" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".1"
+            android:gravity="left"
+            android:text="44890"
+            local:MvxBind="Text Adress.Zip" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".54"
+            android:gravity="left"
+            android:text="DÜSSELDORF IM MARKT"
+            local:MvxBind="Text Adress.City" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".1"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:text="99999"
+            local:MvxBind="Text Docnumber" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".1"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:text="9999"
+            local:MvxBind="Text TotalParcels" />
+    </LinearLayout>
+</LinearLayout>

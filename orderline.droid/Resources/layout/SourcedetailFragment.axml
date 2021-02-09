@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.3"
+                local:MvxBind="Text LabelName" />
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.7"
+                local:MvxBind="Text TextName" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.3"
+                local:MvxBind="Text LabelHost" />
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.7"
+                local:MvxBind="Text TextHost" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.3"
+                local:MvxBind="Text LabelDatabase" />
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.7"
+                local:MvxBind="Text TextDatabase" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.3"
+                local:MvxBind="Text LabelUsername" />
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.7"
+                local:MvxBind="Text TextUsername" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.3"
+                local:MvxBind="Text LabelPassword" />
+            <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:layout_weight="0.7"
+                local:MvxBind="Text TextPassword" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

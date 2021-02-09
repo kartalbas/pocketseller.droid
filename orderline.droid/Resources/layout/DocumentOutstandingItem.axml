@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+	android:paddingLeft="40dp"
+	android:paddingRight="40dp">
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="center"
+        android:layout_weight="0.25"
+        local:MvxBind="Text Docdate, Converter=DateTimeString" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="center"
+        android:layout_weight="0.25"
+        local:MvxBind="Text Docnumber" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.25"
+        local:MvxBind="Text Amountorder, Converter=DecimalString" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.25"
+        local:MvxBind="Text Amountopen, Converter=DecimalString" />
+</LinearLayout>

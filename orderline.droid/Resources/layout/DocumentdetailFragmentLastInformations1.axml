@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/documentdetail_linearlayout_lastinformations1"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="LastPrice"
+            local:MvxBind="Text LabelLastPrice" />
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:gravity="center"
+            android:layout_weight="0.30"
+            android:text="LastDate"
+            local:MvxBind="Text LabelLastDate" />
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="Content"
+            local:MvxBind="Text LabelLastCount" />
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="Stock"
+            local:MvxBind="Text LabelStockCount" />
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="Stock"
+            local:MvxBind="Text LabelStockAmount" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/selectionarticle_articlenumber"
+            style="@style/TextViewStyleItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="99.99"
+            local:MvxBind="Text TextLastPrice" />
+        <TextView
+            android:id="@+id/selectionarticle_name1"
+            style="@style/TextViewStyleItem"
+            android:gravity="center"
+            android:layout_weight="0.30"
+            android:text="10.10.2012"
+            local:MvxBind="Text TextLastDate, Converter=DateTimeString" />
+        <TextView
+            android:id="@+id/selectionarticle_content"
+            style="@style/TextViewStyleItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="12"
+            local:MvxBind="Text TextLastCount" />
+        <TextView
+            android:id="@+id/selectionarticle_stock"
+            style="@style/TextViewStyleItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="999"
+            local:MvxBind="Text TextStockCount" />
+        <TextView
+            android:id="@+id/selectionarticle_stock"
+            style="@style/TextViewStyleItem"
+            android:gravity="center"
+            android:layout_weight="0.25"
+            android:text="999"
+            local:MvxBind="Text TextStockAmount" />
+    </LinearLayout>
+</LinearLayout>

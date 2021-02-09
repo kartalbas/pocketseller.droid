@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Average Days"
+        local:MvxBind="Text LabelAveragePaymentCraftInDays" />
+    <TextView
+        style="@style/TextViewStyleDocumentdetailItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="21.56"
+        local:MvxBind="Text AveragePaymentCraftInDays, Converter=DecimalString" />
+    <include
+        layout="@layout/DocumentAccountHeader" />
+    <MvxListView
+        android:id="@+id/documentaccount_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textFilterEnabled="true"
+        android:choiceMode="singleChoice"
+        local:MvxBind="ItemsSource ListAccountInfo"
+        local:MvxItemTemplate="@layout/documentaccountitem"
+        android:clickable="true"
+        android:longClickable="true" />
+</LinearLayout>

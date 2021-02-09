@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/action_documentview_button_address"
+        android:drawableLeft="@drawable/ic_action_person"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/action_documentview_button_order"
+        android:drawableLeft="@drawable/ic_action_storage"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/action_documentview_button_info"
+        android:drawableLeft="@drawable/ic_action_edit"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/action_documentview_button_outstanding"
+        android:drawableLeft="@drawable/ic_action_paste"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/action_documentview_button_account"
+        android:drawableLeft="@drawable/ic_action_view_as_list"
+        style="?android:attr/borderlessButtonStyle"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="wrap_content" />
+</LinearLayout>

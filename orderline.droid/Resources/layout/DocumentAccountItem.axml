@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.25"
+        local:MvxBind="Text PaymentDate, Converter=DateTimeStringAccount" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="left"
+        android:layout_weight="0.15"
+        local:MvxBind="Text PaymentText" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="center"
+        android:layout_weight="0.3"
+        local:MvxBind="Text InvoiceDate, Converter=DateTimeStringAccount" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        local:MvxBind="Text InvoiceNr, Converter=IntegerStringAccount" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        local:MvxBind="Text Payment, Converter=DecimalStringAccount" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        local:MvxBind="Text Credit, Converter=DecimalStringAccount" />
+    <TextView
+        style="@style/TextViewStyleItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        local:MvxBind="Text Debit, Converter=DecimalStringAccount" />
+</LinearLayout>

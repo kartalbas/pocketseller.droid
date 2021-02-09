@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:padding="0dp">
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Total Open"
+        local:MvxBind="Text LabelTotalOpen" />
+    <TextView
+        style="@style/TextViewStyleDocumentdetailItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="9000.00"
+        local:MvxBind="Text TextTotalOpen, Converter=DecimalString" />
+    <include
+        layout="@layout/DocumentOutstandingHeader" />
+    <MvxListView
+        android:id="@+id/documentoutstandingpayments_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textFilterEnabled="true"
+        android:choiceMode="singleChoice"
+        local:MvxBind="ItemsSource ListOutstandingpayments"
+        local:MvxItemTemplate="@layout/documentoutstandingitem"
+        android:clickable="true"
+        android:longClickable="true" />
+</LinearLayout>

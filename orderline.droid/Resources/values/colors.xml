@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <color name="darkgrey">#3F3F3F</color>
+  <color name="lowdarkwhite">#fdfdfd</color>
+
+  <drawable name="transparent">#00ffffff</drawable>
+  <drawable name="alteringcolor1">#ffffffff</drawable>
+  <drawable name="alteringcolor2">#ff000000</drawable>
+</resources>

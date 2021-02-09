@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".14"
+            android:gravity="left"
+            android:text="9999"
+            local:MvxBind="Text Article.Articlenumber" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".62"
+            android:gravity="left"
+            android:text="QQQQQQQQQQQQQQQQQQQQ"
+            local:MvxBind="Text Article.Name1" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".14"
+            android:gravity="right"
+            android:text="99.99"
+            local:MvxBind="Text Nettoprice, Converter=DecimalString" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".14"
+            android:gravity="right"
+            android:text="9999"
+            local:MvxBind="Text Article.StockPerPackage" />
+        <CheckBox
+            android:id="@+id/quotationwelectoritem_checkbox"
+            android:text=""
+            android:layout_width="0dp"
+            android:layout_weight=".1"
+            android:layout_height="wrap_content"
+            local:MvxBind="Checked Selected" />
+    </LinearLayout>
+</LinearLayout>

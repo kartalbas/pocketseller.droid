@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="Theme.Pocketsellertheme1" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+    <item name="android:actionBarItemBackground">@drawable/selectable_background_pocketsellertheme1</item>
+    <item name="android:popupMenuStyle">@style/PopupMenu.Pocketsellertheme1</item>
+    <item name="android:dropDownListViewStyle">@style/DropDownListView.Pocketsellertheme1</item>
+    <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Pocketsellertheme1</item>
+    <item name="android:actionDropDownStyle">@style/DropDownNav.Pocketsellertheme1</item>
+    <item name="android:actionBarStyle">@style/ActionBar.Solid.Pocketsellertheme1</item>
+    <item name="android:actionModeBackground">@drawable/cab_background_top_pocketsellertheme1</item>
+    <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_pocketsellertheme1</item>
+    <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Pocketsellertheme1</item>
+
+    <!-- Light.DarkActionBar specific -->
+    <item name="android:actionBarWidgetTheme">@style/Theme.Pocketsellertheme1.Widget</item>
+
+    <item name="android:textAppearanceSmall">@style/AppTheme.TextAppearance.Small</item>
+    <item name="android:textAppearanceMedium">@style/AppTheme.TextAppearance.Medium</item>
+    <item name="android:textAppearanceLarge">@style/AppTheme.TextAppearance.Large</item>
+
+    <item name="android:contextPopupMenuStyle">@style/myContextPopupMenuStyle</item>
+  </style>
+
+  <style name="myContextPopupMenuStyle" parent="@android:style/Widget.Holo.Light.PopupMenu">
+    <item name="android:overlapAnchor">true</item>
+  </style>
+  
+  <style name="ActionBar.Solid.Pocketsellertheme1" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+    <item name="android:background">@drawable/ab_solid_pocketsellertheme1</item>
+    <item name="android:backgroundStacked">@drawable/ab_stacked_solid_pocketsellertheme1</item>
+    <item name="android:backgroundSplit">@drawable/ab_bottom_solid_pocketsellertheme1</item>
+    <item name="android:progressBarStyle">@style/ProgressBar.Pocketsellertheme1</item>
+  </style>
+  
+  <style name="ActionBar.Transparent.Pocketsellertheme1" parent="@android:style/Widget.Holo.ActionBar">
+    <item name="android:background">@drawable/ab_transparent_pocketsellertheme1</item>
+    <item name="android:progressBarStyle">@style/ProgressBar.Pocketsellertheme1</item>
+  </style>
+
+  <style name="PopupMenu.Pocketsellertheme1" parent="@android:style/Widget.Holo.ListPopupWindow">
+    <!--<item name="android:popupBackground">@drawable/menu_dropdown_panel_pocketsellertheme1</item>-->
+    <item name="android:popupBackground">@android:color/white</item>
+  </style>
+
+  <style name="DropDownListView.Pocketsellertheme1" parent="@android:style/Widget.Holo.ListView.DropDown">
+    <item name="android:listSelector">@drawable/selectable_background_pocketsellertheme1</item>
+  </style>
+
+  <style name="ActionBarTabStyle.Pocketsellertheme1" parent="@android:style/Widget.Holo.ActionBar.TabView">
+    <item name="android:background">@drawable/tab_indicator_ab_pocketsellertheme1</item>
+  </style>
+
+  <style name="DropDownNav.Pocketsellertheme1" parent="@android:style/Widget.Holo.Spinner">
+    <item name="android:background">@drawable/spinner_background_ab_pocketsellertheme1</item>
+    <item name="android:popupBackground">@drawable/menu_dropdown_panel_pocketsellertheme1</item>
+    <item name="android:dropDownSelector">@drawable/selectable_background_pocketsellertheme1</item>
+  </style>
+
+  <style name="ProgressBar.Pocketsellertheme1" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+    <item name="android:progressDrawable">@drawable/progress_horizontal_pocketsellertheme1</item>
+  </style>
+
+  <style name="ActionButton.CloseMode.Pocketsellertheme1" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
+    <item name="android:background">@drawable/btn_cab_done_pocketsellertheme1</item>
+  </style>
+
+  <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+  <style name="Theme.Pocketsellertheme1.Widget" parent="@android:style/Theme.Holo">
+    <item name="android:popupMenuStyle">@style/PopupMenu.Pocketsellertheme1</item>
+    <item name="android:dropDownListViewStyle">@style/DropDownListView.Pocketsellertheme1</item>
+  </style>
+
+</resources>

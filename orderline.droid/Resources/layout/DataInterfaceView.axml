@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/datainterface_button_renewall"
+				android:textSize="10sp"
+				android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="70dp"
+                android:gravity="center|center"
+                android:text="Renew &gt; ALL"
+                local:MvxBind="Text LabelRenewAll; Enabled ControlIsEnabled; Click RenewAllCommand" />
+            <Button
+                android:id="@+id/datainterface_button_update"
+				android:textSize="10sp"
+				android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="70dp"
+                android:gravity="center|center"
+                android:text="Update &gt; ALL"
+                local:MvxBind="Text LabelRenewUpdate; Enabled ControlIsEnabled; Click RenewUpdateCommand" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/datainterface_status"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="STATUS UPDATES"
+            local:MvxBind="Text LabelStatus" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <include
+                layout="@layout/DataInterfaceHeader" />
+            <MvxListView
+                android:id="@+id/listviewSources"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textFilterEnabled="true"
+                android:choiceMode="singleChoice"
+                local:MvxBind="ItemsSource DataTableItems"
+                local:MvxItemTemplate="@layout/datainterfaceitem"
+                android:clickable="true"
+                android:longClickable="true" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

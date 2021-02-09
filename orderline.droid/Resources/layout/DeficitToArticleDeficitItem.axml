@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".1"
+            android:gravity="left"
+            android:text="999"
+            local:MvxBind="Text Pos" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".1"
+            android:gravity="left"
+            android:text="9999"
+            local:MvxBind="Text Articlenumber" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_weight=".8"
+            android:gravity="left"
+            android:text="KAVRULMUS FISTIK 200GR"
+            local:MvxBind="Text Name1" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".7"
+            android:gravity="right"
+            android:text="" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".1"
+            android:gravity="right"
+            android:text="999"
+            local:MvxBind="Text Count, Converter=DecimalString" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".1"
+            android:gravity="right"
+            android:text="12"
+            local:MvxBind="Text Content, Converter=DecimalString" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".1"
+            android:gravity="right"
+            android:text="9999"
+            local:MvxBind="Text Amount, Converter=DecimalString" />
+    </LinearLayout>
+</LinearLayout>

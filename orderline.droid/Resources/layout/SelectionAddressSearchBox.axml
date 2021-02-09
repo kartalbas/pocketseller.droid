@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:text="&gt;..."
+        android:layout_width="fill_parent"
+        local:MvxBind="Text LabelHint" />
+    <MvxAutoCompleteTextView
+        android:id="@+id/selectionaddresssearchbox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        local:MvxItemTemplate="@layout/selectionaddressitem"
+        local:MvxBind="Text SearchKey; ItemsSource ListAddresses; PartialText LabelHint; SelectedObject Address" />
+</LinearLayout>
