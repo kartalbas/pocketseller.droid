@@ -41,7 +41,6 @@ namespace pocketseller.droid.Views.Fragments
             base.OnCreateContextMenu(objMenu, v, menuInfo);
             objMenu.Add(ImportToDeliveryViewModel.LabelImportToDelivery);
             objMenu.Add(ImportToDeliveryViewModel.LabelShow);
-            objMenu.Add(ImportToDeliveryViewModel.LabelDelete);
             objMenu.Add(ImportToDeliveryViewModel.LabelPutBack);
         }
 
