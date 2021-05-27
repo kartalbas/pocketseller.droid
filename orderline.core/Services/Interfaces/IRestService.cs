@@ -9,5 +9,7 @@ namespace pocketseller.core.Services.Interfaces
         Task<ObservableCollection<EMails>> GetMailsAsync();
         Task<ObservableCollection<Source>> GetSourcesAsync();
         Task<FacturaData> GetFacturaDataAsync(int orderNumber);
+
+        Task<string> GetToken();
     }
 }

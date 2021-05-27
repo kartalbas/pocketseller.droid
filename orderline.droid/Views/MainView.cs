@@ -15,6 +15,8 @@ using orderline.core.Resources.Languages;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using pocketseller.droid.Views.Fragments;
+using pocketseller.core;
+using pocketseller.core.Services.Interfaces;
 
 namespace pocketseller.droid.Views
 {
@@ -40,6 +42,9 @@ namespace pocketseller.droid.Views
         protected override void OnCreate(Bundle objInState)
         {
             base.OnCreate(objInState);
+
+            Mvx.IoCProvider.Resolve<IRestService>()?.GetToken().ContinueWith(t => App.BackendToken = t.Result);
+
             RequestWindowFeature(WindowFeatures.IndeterminateProgress);
             SetContentView(orderline.droid.Resource.Layout.MainView);
             SetFinishOnTouchOutside(false);

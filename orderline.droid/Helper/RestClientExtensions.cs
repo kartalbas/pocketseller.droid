@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using pocketseller.core;
 using RestSharp;
 
 namespace pocketseller.droid.Helper
@@ -25,14 +26,19 @@ namespace pocketseller.droid.Helper
             return objTaskDone.Task;
         }
 
-        public static Task<string> GetContentAsync(this RestClient objClient, IRestRequest objRequest)
-        {
-            return objClient.SelectAsync(objRequest, response => response.Content);
-        }
-
         public static Task<IRestResponse> GetResponseAsync(this RestClient objClient, IRestRequest objRequest)
         {
-            return objClient.SelectAsync(objRequest, response => response);
+            try
+            {
+                objRequest.AddHeader("Authorization", "Bearer " + App.BackendToken);
+
+                var result = objClient.SelectAsync(objRequest, response => response);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

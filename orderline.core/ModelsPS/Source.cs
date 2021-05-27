@@ -143,6 +143,11 @@ namespace pocketseller.core.Services
             return string.Format(@"{0}://{1}/{2}", SettingService.Get<string>(ESettingType.RestProtocol), strHost, SettingService.Get<string>(ESettingType.RestDataApi));
         }
 
+        public string GetLoginUrl(string strHost)
+        {
+            return string.Format(@"{0}://{1}/{2}", SettingService.Get<string>(ESettingType.RestProtocol), strHost, SettingService.Get<string>(ESettingType.RestLoginApi));
+        }
+
         public string GetResourceUrl(string strHost)
         {
             return string.Format(@"{0}://{1}/{2}", SettingService.Get<string>(ESettingType.RestProtocol), strHost, SettingService.Get<string>(ESettingType.RestDataResource));

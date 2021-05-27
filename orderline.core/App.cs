@@ -10,6 +10,8 @@ namespace pocketseller.core
 {
     public class App : MvxApplication
     {
+        public static string BackendToken { get; set; }
+            
         public override void Initialize()
         {
             //Register all services

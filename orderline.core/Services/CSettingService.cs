@@ -51,6 +51,7 @@ namespace pocketseller.core.Services
         RestGetSources,
         RestGetKey,
         RestDataApi,
+        RestLoginApi,
         RestSourceApi,
         RestGetDeficitTemplate,
         LoginTime,
@@ -79,6 +80,7 @@ namespace pocketseller.core.Services
 
         private const string RestProtocol = "https";
         private const string SubUrlRestDataApi = "api/v1/pocketseller";
+        private const string SubUrlRestLoginApi = "api/v1/login";
 
         private const string SubUrlRestResourceSource = "psweb";
         private const string SubUrlRestSourceApi = SubUrlRestResourceSource + "/" + "api";
@@ -161,6 +163,7 @@ namespace pocketseller.core.Services
                 //Default values for importing data
                 Set(ESettingType.RestProtocol, RestProtocol);
                 Set(ESettingType.RestDataApi, SubUrlRestDataApi);
+                Set(ESettingType.RestLoginApi, SubUrlRestLoginApi);
                 Set(ESettingType.RestSourceApi, SubUrlRestSourceApi);
 
                 Set(ESettingType.RestCompany, SubUrlRestCompany);

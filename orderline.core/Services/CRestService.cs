@@ -6,6 +6,8 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using MvvmCross.Plugin.Messenger;
 using orderline.core.ModelsPS;
+using MvvmCross;
+using Newtonsoft.Json.Linq;
 
 namespace pocketseller.core.Services
 {
@@ -101,10 +103,44 @@ namespace pocketseller.core.Services
             }
         }
 
+        public async Task<string> GetToken()
+        {
+            try
+            {
+                var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
+
+                var client = new HttpClient();
+                var methodUrl = GetLoginHost("LoginDevice");
+                var serverUri = new Uri($"{methodUrl}?deviceId={deviceId}");
+                Console.WriteLine(serverUri.ToString());
+                var response = await client.GetAsync(serverUri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    var result = JObject.Parse(content)["token"].ToString();
+                    return result;
+                }
+
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         private string GetPocketsellerHost(string method)
         {
             var source = Source.Instance.GetCurrentSource();
             var serverHost = Source.Instance.GetApiUrl(source.Host);
+            var result = $"{serverHost}/{method}";
+            return result;
+        }
+
+        private string GetLoginHost(string method)
+        {
+            var source = Source.Instance.GetCurrentSource();
+            var serverHost = Source.Instance.GetLoginUrl(source.Host);
             var result = $"{serverHost}/{method}";
             return result;
         }
