@@ -14,7 +14,9 @@
             layout="@layout/DocumentdetailFragmentArticleLabel" />
         <include
             layout="@layout/DocumentdetailFragmentLastInformations1" />
-        <include
+      <include
+          layout="@layout/DocumentdetailFragmentLastInformations2" />
+      <include
             layout="@layout/DocumentdetailFragmentInput" />
     </LinearLayout>
 </LinearLayout>
