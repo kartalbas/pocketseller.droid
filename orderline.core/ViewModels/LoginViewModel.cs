@@ -211,8 +211,11 @@ namespace pocketseller.core.ViewModels
                     return false;
 
                 SettingService.Set(ESettingType.LoginTime, DateTime.Now);
-	            return true;
-	        } 	        
+
+                Mvx.IoCProvider.Resolve<IRestService>()?.GetToken().ContinueWith(t => App.BackendToken = t.Result);
+
+                return true;
+	        }
 	    }
 
         private MvxCommand _showMainViewCommand;

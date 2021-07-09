@@ -1,43 +1,52 @@
 ﻿using System;
 using System.Threading.Tasks;
+using MvvmCross;
 using pocketseller.core;
+using pocketseller.core.Services.Interfaces;
 using RestSharp;
 
 namespace pocketseller.droid.Helper
 {
-    public static class RestClientExtensions
+    public class RestClientWrapper
     {
-        private static Task<T> SelectAsync<T>(this RestClient objClient, IRestRequest objRequest, Func<IRestResponse, T> objSelector)
+        private static async Task<IRestResponse> GetResponse(RestClient objClient, IRestRequest objRequest)
         {
-            var objTaskDone = new TaskCompletionSource<T>();
-
-            objClient.ExecuteAsync(objRequest, objResponse =>
+            var result = await Task.Run(() =>
             {
-                if (objResponse.ErrorException == null)
-                {
-                    objTaskDone.SetResult(objSelector(objResponse));
-                }
-                else
-                {
-                    objTaskDone.SetException(objResponse.ErrorException);
-                }
-            });
+                var objTaskDone = new TaskCompletionSource<IRestResponse>();
 
-            return objTaskDone.Task;
+                objClient.ExecuteAsync(objRequest, objResponse =>
+                {
+                    if (objResponse.ErrorException == null)
+                    {
+                        objTaskDone.SetResult(objResponse);
+                    }
+                    else
+                    {
+                        objTaskDone.SetException(objResponse.ErrorException);
+                    }
+                });
+
+                return objTaskDone.Task;
+                });
+
+            return result;
         }
 
-        public static Task<IRestResponse> GetResponseAsync(this RestClient objClient, IRestRequest objRequest)
+        public static async Task<IRestResponse> GetResponseAsync(RestClient objClient, IRestRequest objRequest)
         {
+            objRequest.AddHeader("Authorization", "Bearer " + App.BackendToken);
+
             try
             {
-                objRequest.AddHeader("Authorization", "Bearer " + App.BackendToken);
-
-                var result = objClient.SelectAsync(objRequest, response => response);
+                var result = await GetResponse(objClient, objRequest);
                 return result;
             }
             catch (Exception)
             {
-                throw;
+                App.BackendToken = await Mvx.IoCProvider.Resolve<IRestService>()?.GetToken();
+                var result = await GetResponse(objClient, objRequest);
+                return result;
             }
         }
     }

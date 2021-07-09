@@ -123,8 +123,6 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var objSettings = (CSettingService)Mvx.IoCProvider.Resolve<ISettingService>();
@@ -136,25 +134,21 @@ namespace pocketseller.droid.Helper
                     var strHost = Source.Instance.GetResourceUrl(objSource.Host);
                     var objClient = new RestClient(strHost);
 
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(objTask =>
-                        {
-                            if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                            {
-                                var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                CTools.ShowMessage("Server", message);
-                                throw new Exception(message);
-                            }
+                    var result = await RestClientWrapper.GetResponseAsync(new RestClient(strHost), objRequest);
 
-                            objTaskDone.SetResult(objTask.Result);
-                        });
+                    if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
+                    {
+                        var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                        CTools.ShowMessage("Server", message);
+                        throw new Exception(message);
+                    };
+
+                    return result;
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -167,32 +161,24 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var objRequest = CreateRequest(Method.GET, ESettingType.RestGetLatestOrdernumber, string.Empty);
 
-                    var objClient = CreateClient();
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(objTask =>
-                        {
-                            if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                            {
-                                var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                CTools.ShowMessage("Server", message);
-                                throw new Exception(message);
-                            }
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
+                    {
+                        var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                        CTools.ShowMessage("Server", message);
+                        throw new Exception(message);
+                    };
 
-                            objTaskDone.SetResult(objTask.Result);
-                        });
+                    return result;
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -205,34 +191,24 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{objDocument.Docnumber}/{(int)type}";
                     var objRequest = CreateRequest(Method.POST, ESettingType.RestImportToErpAsDelivery, strSubUrl);
 
-                    var objClient = CreateClient();
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(objTask =>
-                        {
-                            if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                            {
-                                var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                CTools.ShowMessage("Server", message);
-                                throw new Exception(message);
-                            }
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
+                    {
+                        var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                        CTools.ShowMessage("Server", message);
+                    }
 
-                            objTaskDone.SetResult(objTask.Result);
-                            return objTaskDone.Task.Result;
-                        });
+                    return result;
                 }
                 else
                 {
-                    CTools.ShowMessage("App", Language.NoInternet);
+                    throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -245,33 +221,26 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var strSubUrl = $"/{objDocument.Docnumber}/{(int) enmNewState}";
                     var objRequest = CreateRequest(Method.POST, ESettingType.RestChangeDocumentState, strSubUrl);
 
-                    var objClient = CreateClient();
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(objTask =>
-                        {
-                            if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                            {
-                                var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                CTools.ShowMessage("Server", message);
-                                throw new Exception(message);
-                            }
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
-                            objTaskDone.SetResult(objTask.Result);
-                        });
+                    if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
+                    {
+                        var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                        CTools.ShowMessage("Server", message);
+                        throw new Exception(message);
+                    }
+
+                    return result;
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -284,33 +253,26 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var strSubUrl = $"/{objDocument.QuotationNr}/{(int)enmNewState}";
                     var objRequest = CreateRequest(Method.POST, ESettingType.RestChangeQuotationState, strSubUrl);
 
-                    var objClient = CreateClient();
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(objTask =>
-                        {
-                            if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                            {
-                                var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                CTools.ShowMessage("Server", message);
-                                throw new Exception(message);
-                            }
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
-                            objTaskDone.SetResult(objTask.Result);
-                        });
+                    if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
+                    {
+                        var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                        CTools.ShowMessage("Server", message);
+                        throw new Exception(message);
+                    }
+
+                    return result;
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -323,8 +285,6 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var objRequest = CreateRequest( Method.POST, ESettingType.RestQuotationAddOrUpdate, string.Empty);
@@ -335,30 +295,24 @@ namespace pocketseller.droid.Helper
                     var strDeserializedContent = objRequest.JsonSerializer.Serialize(objOrderProxy);
                     objRequest.AddBody(GZipCompressor.CompressString(strDeserializedContent));
 
-                    var objClient = CreateClient();
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(objTask =>
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+
+                    if (result.ResponseStatus == ResponseStatus.Completed)
+                    {
+                        if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
                         {
-                            if (objTask.Result.ResponseStatus == ResponseStatus.Completed)
-                            {
-                                if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                                {
-                                    var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                    CTools.ShowMessage("Server", message);
-                                    throw new Exception(message);
-                                }
+                            var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                            CTools.ShowMessage("Server", message);
+                            throw new Exception(message);
+                        }
+                    }
 
-                                objTaskDone.SetResult(objTask.Result);
-                            }
-
-                        });
+                    return result;
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -371,8 +325,6 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var objRequest = CreateRequest( Method.POST, targetType, string.Empty);
@@ -386,30 +338,24 @@ namespace pocketseller.droid.Helper
 
                     objRequest.AddBody(GZipCompressor.CompressString(strDeserializedContent));
 
-                    var objClient = CreateClient();
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(objTask =>
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+
+                    if (result.ResponseStatus == ResponseStatus.Completed)
+                    {
+                        if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
                         {
-                            if (objTask.Result.ResponseStatus == ResponseStatus.Completed)
-                            {
-                                if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                                {
-                                    var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                    CTools.ShowMessage("Server", message);
-                                    throw new Exception(message);
-                                }
+                            var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                            CTools.ShowMessage("Server", message);
+                            throw new Exception(message);
+                        }
+                    }
 
-                                objTaskDone.SetResult(objTask.Result);
-                            }
-
-                        });
+                    return result;
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -423,41 +369,34 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<List<Order>>();
-
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{(int) enmDocumentState}";
                     var objRequest = CreateRequest( Method.GET, ESettingType.RestGetDocumentsByState, strSubUrl);
-                    var objClient = CreateClient();
 
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(delegate(Task<IRestResponse> objTask)
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+
+                    if (result.ResponseStatus == ResponseStatus.Completed)
+                    {
+                        if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
                         {
-                            if (objTask.Result.ResponseStatus == ResponseStatus.Completed)
-                            {
-                                if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                                {
-                                    var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                    CTools.ShowMessage("Server", message);
-                                    throw new Exception(message);
-                                }
+                            var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                            CTools.ShowMessage("Server", message);
+                            throw new Exception(message);
+                        }
 
-                                var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(objTask.Result);
-                                objTaskDone.SetResult(objDeserialized);
-                            }
-                            else
-                            {
-                                throw new Exception(objTask.Result.ResponseStatus.ToString());
-                            }
-                        });
+                        var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(result);
+                        return objDeserialized;
+                    }
+                    else
+                    {
+                        throw new Exception(result.ResponseStatus.ToString());
+                    }
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -470,41 +409,34 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<List<Order>>();
-
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{(int)enmDocumentState}/{accountNumber}";
                     var objRequest = CreateRequest(Method.GET, ESettingType.RestGetOrdersByAccountNumber, strSubUrl);
-                    var objClient = CreateClient();
 
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(delegate (Task<IRestResponse> objTask)
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+
+                    if (result.ResponseStatus == ResponseStatus.Completed)
+                    {
+                        if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
                         {
-                            if (objTask.Result.ResponseStatus == ResponseStatus.Completed)
-                            {
-                                if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                                {
-                                    var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                    CTools.ShowMessage("Server", message);
-                                    throw new Exception(message);
-                                }
+                            var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                            CTools.ShowMessage("Server", message);
+                            throw new Exception(message);
+                        }
 
-                                var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(objTask.Result);
-                                objTaskDone.SetResult(objDeserialized);
-                            }
-                            else
-                            {
-                                throw new Exception(objTask.Result.ResponseStatus.ToString());
-                            }
-                        });
+                        var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(result);
+                        return objDeserialized;
+                    }
+                    else
+                    {
+                        throw new Exception(result.ResponseStatus.ToString());
+                    }
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -517,43 +449,37 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<List<Order>>();
-
                 if (CTools.Connected())
                 {
                     var sBegin = $"{begin.Year}-{begin.Month}-{begin.Day}";
                     var sEnd = $"{end.Year}-{end.Month}-{end.Day}";
                     var strSubUrl = $@"/{(int)enmDocumentState}/{sBegin}/{sEnd}";
                     var objRequest = CreateRequest(Method.GET, ESettingType.RestGetDocumentsByStateAndTimeframe, strSubUrl);
-                    var objClient = CreateClient();
 
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(delegate (Task<IRestResponse> objTask)
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+
+                    if (result.ResponseStatus == ResponseStatus.Completed)
+                    {
+                        if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
                         {
-                            if (objTask.Result.ResponseStatus == ResponseStatus.Completed)
-                            {
-                                if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                                {
-                                    var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                    CTools.ShowMessage("Server", message);
-                                    throw new Exception(message);
-                                }
+                            var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                            CTools.ShowMessage("Server", message);
+                            throw new Exception(message);
+                        }
 
-                                var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(objTask.Result);
-                                objTaskDone.SetResult(objDeserialized);
-                            }
-                            else
-                            {
-                                throw new Exception(objTask.Result.ResponseStatus.ToString());
-                            }
-                        });
+                        var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(result);
+                        return objDeserialized;
+                    }
+                    else
+                    {
+                        throw new Exception(result.ResponseStatus.ToString());
+                    }
+
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -566,41 +492,34 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<List<Quotation>>();
-
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{(int) enmDocumentState}";
                     var objRequest = CreateRequest( Method.GET, ESettingType.RestGetQuotationsByState, strSubUrl);
-                    var objClient = CreateClient();
 
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(delegate(Task<IRestResponse> objTask)
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+
+                    if (result.ResponseStatus == ResponseStatus.Completed)
+                    {
+                        if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
                         {
-                            if (objTask.Result.ResponseStatus == ResponseStatus.Completed)
-                            {
-                                if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                                {
-                                    var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(objTask.Result.Content);
-                                    CTools.ShowMessage("Server", message);
-                                    throw new Exception(message);
-                                }
+                            var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                            CTools.ShowMessage("Server", message);
+                            throw new Exception(message);
+                        }
 
-                                var objDeserialized = new JsonDeserializer().Deserialize<List<Quotation>>(objTask.Result);
-                                objTaskDone.SetResult(objDeserialized);
-                            }
-                            else
-                            {
-                                throw new Exception(objTask.Result.ResponseStatus.ToString());
-                            }
-                        });
+                        var objDeserialized = new JsonDeserializer().Deserialize<List<Quotation>>(result);
+                        return objDeserialized;
+                    }
+                    else
+                    {
+                        throw new Exception(result.ResponseStatus.ToString());
+                    }
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
@@ -613,73 +532,65 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
                 if (CTools.Connected())
                 {
                     var objRequest = CreateRequest(Method.GET, enmResource, string.Empty);
-                    var objClient = CreateClient();
+
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
                     objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Downloading, EventArgs.Empty);
 
-                    await objClient.GetResponseAsync(objRequest)
-                        .ContinueWith(delegate(Task<IRestResponse> objTask)
+                    try
+                    {
+                        if (result.ResponseStatus == ResponseStatus.Completed && result.Content.Length > 0)
                         {
-                            try
-                            {
-                                if (objTask.Result.ResponseStatus == ResponseStatus.Completed && objTask.Result.Content.Length > 0)
-                                {
-                                    if (objTask.Result.StatusCode != HttpStatusCode.Accepted && objTask.Result.StatusCode != HttpStatusCode.OK)
-                                        throw new Exception(objTask.Result.StatusCode.ToString());
+                            if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
+                                throw new Exception(result.StatusCode.ToString());
 
-                                    objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Deserializing,EventArgs.Empty);
+                            objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Deserializing, EventArgs.Empty);
 
-                                    var objDeserialized =new JsonDeserializer().Deserialize<TInput>(objTask.Result);
+                            var objDeserialized = new JsonDeserializer().Deserialize<TInput>(result);
 
-                                    objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Converting,EventArgs.Empty);
+                            objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Converting, EventArgs.Empty);
 
-                                    var cobjConverted = default(TResult);
+                            var cobjConverted = default(TResult);
 
-                                    if (delConverter != null)
-                                        cobjConverted = delConverter(objDeserialized);
+                            if (delConverter != null)
+                                cobjConverted = delConverter(objDeserialized);
 
-                                    objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Importing,EventArgs.Empty);
+                            objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Importing, EventArgs.Empty);
 
-                                    var objDataService = (CDataService)Mvx.IoCProvider.Resolve<IDataService>();
-                                    objDataService.Recreate<T>(objDataService.PocketsellerConnection);
+                            var objDataService = (CDataService)Mvx.IoCProvider.Resolve<IDataService>();
+                            objDataService.Recreate<T>(objDataService.PocketsellerConnection);
 
-                                    if (!Equals(cobjConverted, default(TResult)))
-                                        objDataService.PocketsellerConnection.InsertAll((IEnumerable)cobjConverted);
-                                    else
-                                        objDataService.PocketsellerConnection.InsertAll((IEnumerable)objDeserialized);
+                            if (!Equals(cobjConverted, default(TResult)))
+                                objDataService.PocketsellerConnection.InsertAll((IEnumerable)cobjConverted);
+                            else
+                                objDataService.PocketsellerConnection.InsertAll((IEnumerable)objDeserialized);
 
-                                    objTask.Result.Content = Globals.TRUE;
-                                    objTaskDone.SetResult(objTask.Result);
-                                    objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Ready,EventArgs.Empty);
-                                }
-                                else
-                                {
-                                    if (objTask.Result.StatusDescription.Length > 0)
-                                        objTask.Result.Content = objTask.Result.StatusDescription;
+                            result.Content = Globals.TRUE;
+                            objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Ready, EventArgs.Empty);
+                        }
+                        else
+                        {
+                            if (result.StatusDescription.Length > 0)
+                                result.Content = result.StatusDescription;
 
-                                    objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Failed, EventArgs.Empty);
-                                    objTaskDone.SetResult(objTask.Result);
-                                }
-                            }
-                            catch (Exception objException)
-                            {
-                                CErrorHandling.Log(objException);
-                                throw new Exception(objException.Message);
-                            }
+                            objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Failed, EventArgs.Empty);
+                        }
 
-                        });
+                        return result;
+                    }
+                    catch (Exception objException)
+                    {
+                        CErrorHandling.Log(objException);
+                        throw new Exception(objException.Message);
+                    }
                 }
                 else
                 {
                     throw new Exception(Language.NoInternet);
                 }
-
-                return objTaskDone.Task.Result;
             }
             catch (Exception objException)
             {
