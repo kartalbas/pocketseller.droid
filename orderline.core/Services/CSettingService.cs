@@ -38,6 +38,7 @@ namespace pocketseller.core.Services
         RestGetDocumentsByState,
         RestChangeDocumentState,
         RestDeleteDocument,
+        RestExportToErp,
         RestImportToErpAsDelivery,
         RestImportToErpAsFactura,
         RestGetLatestOrdernumber,
@@ -111,6 +112,7 @@ namespace pocketseller.core.Services
         private const string SubUrlRestGetOrdersByAccountNumber = "GetOrdersByAccountNumber";
         private const string SubUrlRestDeleteDocument = "DeleteOrderByOrderNumber";
         private const string SubUrlRestChangeDocumentState = "ChangeOrderStateByOrderNumber";
+        private const string SubUrlRestExportToErp= "ExportToErp";
         private const string SubUrlRestImportToErpAsDelivery = "ImportToErpByOrderByOrderNumber";
         private const string SubUrlRestImportToErpAsFactura = "ImportToErpByOrderByOrderNumber";
         private const string SubUrlRestGetLatestOrdernumber = "GetLatestOrderNumber";
@@ -188,6 +190,7 @@ namespace pocketseller.core.Services
                 Set(ESettingType.RestGetOrdersByAccountNumber, SubUrlRestGetOrdersByAccountNumber);
                 Set(ESettingType.RestChangeDocumentState, SubUrlRestChangeDocumentState);
                 Set(ESettingType.RestDeleteDocument, SubUrlRestDeleteDocument);
+                Set(ESettingType.RestExportToErp, SubUrlRestExportToErp);
                 Set(ESettingType.RestImportToErpAsDelivery, SubUrlRestImportToErpAsDelivery);
                 Set(ESettingType.RestImportToErpAsFactura, SubUrlRestImportToErpAsFactura);
                 Set(ESettingType.RestGetLatestOrdernumber, SubUrlRestGetLatestOrdernumber);

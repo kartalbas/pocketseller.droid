@@ -39,7 +39,7 @@ namespace pocketseller.droid.Helper
 //                MvxTrace.Trace(MvxTraceLevel.Error, strMessage);
         }
 
-        public static void ShowError( string strMessage)
+        public static void ShowError(string strMessage)
         {
             CTools.ShowMessage(Language.Attention, strMessage);
         }

@@ -19,11 +19,13 @@ namespace pocketseller.core.ModelsAPI
         FACTURAPRINTED = 5,
         DELETED = 6,
         DEFICIT = 7,
-        CANCELED = 8
+        CANCELED = 8,
+        EXPORTEDTOERP = 9,
     }
 
     public enum ETargetDocumentType
     {
+        ErpOrder = 0,
         DeliveryNote = 1,
         Factura = 2,
         CreditNote = 3

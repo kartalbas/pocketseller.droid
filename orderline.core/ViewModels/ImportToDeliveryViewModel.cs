@@ -44,6 +44,7 @@ namespace pocketseller.core.ViewModels
             LabelMenuTitle = Language.ImportOptionMenu;
 
             LabelImportToDelivery = Language.ToDelivery;
+            LabelErpExport = Language.ErpExport;
             LabelShow = Language.Show;
             LabelPutBack = Language.PutBack;
 
@@ -66,6 +67,13 @@ namespace pocketseller.core.ViewModels
         #endregion
 
         #region Public properties
+
+        private string _labelErpExport;
+        public string LabelErpExport
+        {
+            get => _labelErpExport;
+            set { _labelErpExport = value; RaisePropertyChanged(() => LabelErpExport); }
+        }
 
         private string _labelImportToDelivery;
         public string LabelImportToDelivery { get => _labelImportToDelivery;

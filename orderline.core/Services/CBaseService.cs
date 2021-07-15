@@ -18,9 +18,15 @@ namespace pocketseller.core.Services
 
         public string GetErrorMessage(string json)
         {
-            var error = JObject.Parse(json);
-            var message = error?.Value<string>("type");
-            return message ?? "No Message found";
+            if (!string.IsNullOrEmpty(json))
+            {
+                var error = JObject.Parse(json);
+                var message = error?.Value<string>("type");
+                return message ?? "No Message found";
+            } else
+            {
+                return string.Empty;
+            }
         }
 
     }

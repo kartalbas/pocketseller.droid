@@ -781,6 +781,15 @@ namespace orderline.core.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ERP Export.
+        /// </summary>
+        public static string ErpExport {
+            get {
+                return ResourceManager.GetString("ErpExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string Exit {

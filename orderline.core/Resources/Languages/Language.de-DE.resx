@@ -987,4 +987,7 @@
   <data name="FacturaKonto" xml:space="preserve">
     <value>Konto</value>
   </data>
+  <data name="ErpExport" xml:space="preserve">
+    <value>ERP Export</value>
+  </data>
 </root>

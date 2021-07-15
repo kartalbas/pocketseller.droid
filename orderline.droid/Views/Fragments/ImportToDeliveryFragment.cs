@@ -39,6 +39,7 @@ namespace pocketseller.droid.Views.Fragments
         public override void OnCreateContextMenu(IContextMenu objMenu, View v, IContextMenuContextMenuInfo menuInfo)
         {
             base.OnCreateContextMenu(objMenu, v, menuInfo);
+            objMenu.Add(ImportToDeliveryViewModel.LabelErpExport);
             objMenu.Add(ImportToDeliveryViewModel.LabelImportToDelivery);
             objMenu.Add(ImportToDeliveryViewModel.LabelShow);
             objMenu.Add(ImportToDeliveryViewModel.LabelPutBack);
@@ -68,6 +69,18 @@ namespace pocketseller.droid.Views.Fragments
                     , string.Empty
                     , null);
             }
+            else if (strSelectedAction == ImportToDeliveryViewModel.LabelErpExport)
+            {
+                CTools.ShowDialog(Activity
+                    , Language.Attention
+                    , Language.DoYouWantImport
+                    , Language.Yes
+                    , (sender, args) => ExportToErp(objDocument)
+                    , Language.No
+                    , (sender, args) => { }
+                    , string.Empty
+                    , null);
+            }
             else if (strSelectedAction == ImportToDeliveryViewModel.LabelPutBack)
             {
                 ShowWorking(ImportToDeliveryViewModel);
@@ -81,7 +94,7 @@ namespace pocketseller.droid.Views.Fragments
                         }
                         catch (Exception objException)
                         {
-                            CErrorHandling.Log( objException, true);
+                            CErrorHandling.Log(objException, true);
                             HideWorking(ImportToDeliveryViewModel);
                         }
                     });
@@ -123,6 +136,27 @@ namespace pocketseller.droid.Views.Fragments
                     catch (Exception objException)
                     {
                         CErrorHandling.Log( objException, true);
+                        HideWorking(ImportToDeliveryViewModel);
+                    }
+                });
+        }
+
+        private void ExportToErp(Order objDocument)
+        {
+            ShowWorking(ImportToDeliveryViewModel);
+            Task.Run(() => CGmWebServices.Instance.ExportToErp(objDocument))
+                .ContinueWith(objImportTask =>
+                {
+                    try
+                    {
+                        if (objDocument != null) objDocument.Response = objImportTask.Result.Content;
+                        ImportToDeliveryViewModel.ImportCommand.Execute(objDocument);
+                        HideWorking(ImportToDeliveryViewModel);
+                        RefreshOrders(EOrderState.DELIVERY, this.ImportToDeliveryViewModel);
+                    }
+                    catch (Exception objException)
+                    {
+                        CErrorHandling.Log(objException, true);
                         HideWorking(ImportToDeliveryViewModel);
                     }
                 });

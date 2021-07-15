@@ -187,6 +187,35 @@ namespace pocketseller.droid.Helper
             }
         }
 
+        public async Task<IRestResponse> ExportToErp(Order objDocument)
+        {
+            try
+            {
+                if (CTools.Connected())
+                {
+                    var objRequest = CreateRequest(Method.POST, ESettingType.RestExportToErp, $"?orderNumber={objDocument.Docnumber}");
+                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
+                    {
+                        var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
+                        CTools.ShowMessage("Server", message);
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    throw new Exception(Language.NoInternet);
+                }
+            }
+            catch (Exception objException)
+            {
+                CErrorHandling.ShowError(objException.Message);
+                CErrorHandling.Log(objException);
+                throw;
+            }
+        }
+
         public async Task<IRestResponse> ImportToErp(Order objDocument, ETargetDocumentType type)
         {
             try

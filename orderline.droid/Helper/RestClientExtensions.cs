@@ -35,19 +35,38 @@ namespace pocketseller.droid.Helper
 
         public static async Task<IRestResponse> GetResponseAsync(RestClient objClient, IRestRequest objRequest)
         {
-            objRequest.AddHeader("Authorization", "Bearer " + App.BackendToken);
-
             try
             {
+                if (string.IsNullOrEmpty(App.BackendToken))
+                {
+                    App.BackendToken = await Mvx.IoCProvider.Resolve<IRestService>()?.GetToken();
+                }
+
+                ReplaceAuthParameter(objRequest);
+
                 var result = await GetResponse(objClient, objRequest);
+
+                if(result.StatusDescription.Equals("Unauthorized"))
+                {
+                    throw new Exception("Unauthorized");
+                }
+
                 return result;
             }
             catch (Exception)
             {
                 App.BackendToken = await Mvx.IoCProvider.Resolve<IRestService>()?.GetToken();
+                ReplaceAuthParameter(objRequest);
                 var result = await GetResponse(objClient, objRequest);
                 return result;
             }
+        }
+
+        private static void ReplaceAuthParameter(IRestRequest objRequest)
+        {
+            var authParam = objRequest.Parameters.Find(p => p.Name.Equals("Authorization"));
+            objRequest.Parameters.Remove(authParam);
+            objRequest.AddHeader("Authorization", "Bearer " + App.BackendToken);
         }
     }
 }
