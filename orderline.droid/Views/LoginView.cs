@@ -16,9 +16,6 @@ using orderline.core.Resources.Languages;
 using pocketseller.core.Services.Interfaces;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
-using pocketseller.core.Services;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System;
 
 namespace pocketseller.droid.Views
@@ -61,13 +58,6 @@ namespace pocketseller.droid.Views
             string displayableVersion = $"{version}\r\n{buildDate:g}".Replace("/", ".");
 
             var objIdentification = FindViewById<TextView>(orderline.droid.Resource.Id.loginview_identification);
-            //var sources = Source.Instance.GetSources();
-            //var listPorts = string.Empty;
-            //if (sources != null && sources.Count > 0)
-            //{
-            //    listPorts = string.Join(",", sources.Select(s => new Regex(@"(\d+)", RegexOptions.None, TimeSpan.FromMilliseconds(150)).Match(s.Host).Value));
-            //}
-            //objIdentification.Text = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification() + "\r\n" + " (" + listPorts + ")" + "\r\n" + displayableVersion;
             objIdentification.Text = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification() + "\r\n" + displayableVersion;
         }
 

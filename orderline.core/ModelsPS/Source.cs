@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using MvvmCross;
 using pocketseller.core.Services.Interfaces;
 using SQLite;
@@ -15,7 +14,7 @@ namespace pocketseller.core.Services
         public static CDataService DataService { get; set; }
         public static CSettingService SettingService { get; set; }
 
-        [PrimaryKey, AutoIncrement, Indexed]
+        [PrimaryKey, Indexed]
         public int Id { get; set; }
         public string Application { get; set; }
         public string Name { get; set; }
@@ -51,7 +50,7 @@ namespace pocketseller.core.Services
             if (Name == string.Empty || DbName == string.Empty || Host == string.Empty)
                 return false;
 
-            if (Find(this) != null)
+            if (FindById(Id) != null)
                 DataService.SettingsConnection.Update(this);
             else
                 DataService.SettingsConnection.Insert(this);
@@ -79,52 +78,22 @@ namespace pocketseller.core.Services
             DataService.SettingsConnection.DeleteAll<Source>();
         }
 
-        public string GetCurrentName()
+        public Source FindByName(string name)
         {
-            Source objSource = GetCurrentSource();
-
-            if (objSource != null && objSource.Name != null)
-                return objSource.Name;
-            return string.Empty;
-        }
-
-        public string GetCurrentDestinationMail()
-        {
-            Source objSource = GetCurrentSource();
-
-            if (objSource != null && objSource.DbName != null)
-                return objSource.DbName;
-            return string.Empty;
-        }
-
-        public string GetCurrentSourceFolder()
-        {
-            Source objSource = GetCurrentSource();
-
-            if (objSource != null && objSource.Host != null)
-                return objSource.Host;
-            return string.Empty;
+            return DataService.SettingsConnection.Table<Source>().Where(s => s.Name == name).FirstOrDefault();
         }
 
         public Source GetCurrentSource()
         {
-            var strSourceName = SettingService.Get<string>(ESettingType.DataSourceName);
-            return DataService.SettingsConnection.Table<Source>().Where(s => s.Name == strSourceName).FirstOrDefault();
+            var objSettingService = (CSettingService)Mvx.IoCProvider.Resolve<ISettingService>();
+            var sourceId = objSettingService.Get<int>(ESettingType.DataSourceId);
+            var source = FindById(sourceId);
+            return source;
         }
 
-        public Source Find(Source objSource)
-        {
-            return DataService.SettingsConnection.Table<Source>().Where(s => s.Id == objSource.Id).FirstOrDefault();
-        }
-
-        public Source FindBy(int id)
+        public Source FindById(int id)
         {
             return DataService.SettingsConnection.Table<Source>().Where(s => s.Id == id).FirstOrDefault();
-        }
-
-        public Source GetSourceByName(string strSourceName)
-        {
-            return (DataService.SettingsConnection.Table<Source>().Where(s => s.Name == strSourceName)).FirstOrDefault();
         }
 
         public ObservableCollection<Source> GetSources()

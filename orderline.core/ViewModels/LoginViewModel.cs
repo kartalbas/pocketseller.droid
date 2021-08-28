@@ -47,7 +47,6 @@ namespace pocketseller.core.ViewModels
             LabelMenuTitle = string.Empty;
 
             ListSources = Source.Instance.GetSources();
-            SelectedIndexSource = SettingService.Get<int>(ESettingType.DataSourceIndex);
 
             LabelMenuTitle = string.Empty;
             LabelSource = Language.Source;
@@ -89,18 +88,6 @@ namespace pocketseller.core.ViewModels
 	    public string LabelSource { get => _labelSource;
             set { _labelSource = value; RaisePropertyChanged(() => LabelSource); } }
 
-        private int _selectedIndexSource;
-        public int SelectedIndexSource
-        {
-            get => _selectedIndexSource;
-            set
-            {
-                _selectedIndexSource = value;
-                SettingService.Set(ESettingType.DataSourceIndex, _selectedIndexSource);
-                RaisePropertyChanged(() => SelectedIndexSource);
-            }
-        }
-
         private Source _selectedItemSource;
         public Source SelectedItemSource
         {
@@ -119,16 +106,12 @@ namespace pocketseller.core.ViewModels
 
                 if (_selectedItemSource != null)
                 {
-                    //Change database file
+                    SettingService.Set(ESettingType.DataSourceId, _selectedItemSource.Id);
                     DataService.CreatePocketsellerDb(_selectedItemSource.DbName);
-
-                    //Save settings
-                    SettingService.Set(ESettingType.DataSourceIndex, SelectedIndexSource);
-                    SettingService.Set(ESettingType.DataSourceName, _selectedItemSource.Name);
-                    RaisePropertyChanged(() => SelectedItemSource);
-                    
-                    Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.SourceChanged));
                 }
+
+                RaisePropertyChanged(() => SelectedItemSource);
+                Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.SourceChanged));
             }
         }
 
@@ -157,10 +140,7 @@ namespace pocketseller.core.ViewModels
                 {
                     DataService.CreateSettingDb();
                     SettingService.InitSettings();
-                    Source.Instance.Save(_listSources.ToList());
-                   
-                    SettingService.Set(ESettingType.DataSourceIndex, SelectedIndexSource);
-                    SettingService.Set(ESettingType.DataSourceName, SelectedItemSource.Name);
+                    Source.Instance.Save(_listSources.ToList());                   
                     ActivationInitialized = false;
                 }
 
@@ -204,10 +184,10 @@ namespace pocketseller.core.ViewModels
 	    {
 	        get
 	        {
-	            if (_selectedItemSource == null)
+	            if (SelectedItemSource == null)
                     return false;
 
-	            if (_selectedItemSource.Password != Password || _selectedItemSource.Username != Username)
+	            if (SelectedItemSource.Password != Password || SelectedItemSource.Username != Username)
                     return false;
 
                 SettingService.Set(ESettingType.LoginTime, DateTime.Now);
@@ -245,16 +225,15 @@ namespace pocketseller.core.ViewModels
             var registered = false;
             try
             {
-                var sources = await client.GetSourcesAsync();
-                if(sources == null || sources.Count <= 0)
+                ListSources = await client.GetSourcesAsync();
+
+                if (ListSources == null || ListSources.Count <= 0)
                 {
                     throw new Exception("Received 0 sources");
                 }
 
-                SelectedIndexSource = 0;
-                SelectedItemSource = sources.ElementAt(0);
+                //SelectedItemSource = Source.Instance.GetCurrentSource();
 
-                ListSources = sources;
                 registered = true;
             }
             catch (Exception exception)

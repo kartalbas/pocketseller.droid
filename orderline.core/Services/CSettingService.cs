@@ -18,8 +18,7 @@ namespace pocketseller.core.Services
         KeyboardTypeInDocumentdetail,
         Language,
         SearchMaxChar,
-        DataSourceIndex,
-        DataSourceName,
+        DataSourceId,
         RestProtocol,
         RestAddress,
         RestArticle,
@@ -202,8 +201,7 @@ namespace pocketseller.core.Services
                 Set(ESettingType.RestGetSources, SubUrlRestGetSource);
                 Set(ESettingType.RestGetKey, SubUrlRestGetKey);
 
-                Set(ESettingType.DataSourceIndex, 0);
-                Set(ESettingType.DataSourceName, "");
+                Set(ESettingType.DataSourceId, 1);
 
                 Set(ESettingType.Language, ELanguage.de_DE);
 

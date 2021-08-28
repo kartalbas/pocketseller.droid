@@ -11,7 +11,7 @@ namespace pocketseller.core
     public class App : MvxApplication
     {
         public static string BackendToken { get; set; }
-            
+
         public override void Initialize()
         {
             //Register all services
@@ -39,11 +39,10 @@ namespace pocketseller.core
 
         private void InitDefaultPocketsellerDatabase()
         {
-            var objDataService = ((CDataService)Mvx.IoCProvider.Resolve<IDataService>());
+            var objDataService = (CDataService)Mvx.IoCProvider.Resolve<IDataService>();
             var objCurrentSource = Source.Instance.GetCurrentSource();
 
             string strDatabasename = objCurrentSource == null ? "dummy.db" : objCurrentSource.DbName;
-
             objDataService.CreatePocketsellerDb(strDatabasename);
         }
     }

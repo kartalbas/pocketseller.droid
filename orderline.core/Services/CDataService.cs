@@ -53,10 +53,7 @@ namespace pocketseller.core.Services
             }
 
             PocketsellerConnection = new SQLiteConnection(strDatabaseFile);
-
-            //connection.CreateCollation("NOCASE", (x, y) => string.Compare(x, y, ignoreCase: true));
-            
-            
+           
             PocketsellerConnection.CreateTable<TransferInfo>();
             PocketsellerConnection.CreateTable<OrderSettings>();
             PocketsellerConnection.CreateTable<Company>();

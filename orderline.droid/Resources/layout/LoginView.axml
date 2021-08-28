@@ -41,7 +41,7 @@
             android:layout_height="50dp"
             local:MvxItemTemplate="@layout/MySpinnerItem"
             local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
-            local:MvxBind="ItemsSource ListSources; Enabled ControlIsEnabled; SelectedItemPosition SelectedIndexSource; SelectedItem SelectedItemSource" />
+            local:MvxBind="ItemsSource ListSources; Enabled ControlIsEnabled; SelectedItem SelectedItemSource" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
