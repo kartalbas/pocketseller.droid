@@ -587,12 +587,12 @@ namespace pocketseller.core.ViewModels
                     return;
                 }
 
-                if (currentVkPrice < lowestVkPrice)
-                {
-                    var alertService = Mvx.IoCProvider.Resolve<IUserDialogs>().AlertAsync("Verkaufspreis darf nicht unter Preisgruppe 3 sein", Language.Attention);
-                    Messenger.Publish(new DocumentdetailMessage(this, EDocumentdetailAction.Stay));
-                    return;
-                }
+                //if (currentVkPrice < lowestVkPrice)
+                //{
+                //    var alertService = Mvx.IoCProvider.Resolve<IUserDialogs>().AlertAsync("Verkaufspreis darf nicht unter Preisgruppe 3 sein", Language.Attention);
+                //    Messenger.Publish(new DocumentdetailMessage(this, EDocumentdetailAction.Stay));
+                //    return;
+                //}
 
                 if (lowestVkPrice > 0 && lowestVkPrice < TextPrice)
                 {
