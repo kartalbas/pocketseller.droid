@@ -15,8 +15,8 @@ using orderline.core.Resources.Languages;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using pocketseller.droid.Views.Fragments;
-using Firebase;
-using Firebase.Auth;
+//using Firebase;
+//using Firebase.Auth;
 
 namespace pocketseller.droid.Views
 {
