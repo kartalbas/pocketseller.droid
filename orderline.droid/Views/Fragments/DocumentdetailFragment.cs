@@ -38,8 +38,6 @@ namespace pocketseller.droid.Views.Fragments
         private EditText _objPrice;
 
         private TextView _objArticleLable;
-        private string _strEkBackup;
-        private const string _strEkDefault = "0.00";
 
         private ImageButton _objNextButton;
         private ImageButton _objPreviousButton;

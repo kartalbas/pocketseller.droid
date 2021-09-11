@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "569119279247",
+    "project_id": "pocketseller-orderline",
+    "storage_bucket": "pocketseller-orderline.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569119279247:android:d3a019cbe06c8ab8ba88fa",
+        "android_client_info": {
+          "package_name": "orderline.droid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569119279247-ar876rqo4qv191mudujheorlkf8o12pb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ7btXxB2wNX97HWAiTEGfvpR4mZgV820"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569119279247-ar876rqo4qv191mudujheorlkf8o12pb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

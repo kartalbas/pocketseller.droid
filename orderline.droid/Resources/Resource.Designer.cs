@@ -7105,28 +7105,28 @@ namespace orderline.droid
 			public const int loadingProgressWheel = 2131230884;
 			
 			// aapt resource value: 0x7F0800A5
-			public const int loginview_exit = 2131230885;
+			public const int loginview_code = 2131230885;
 			
 			// aapt resource value: 0x7F0800A6
-			public const int loginview_identification = 2131230886;
+			public const int loginview_exit = 2131230886;
 			
 			// aapt resource value: 0x7F0800A7
-			public const int loginview_labelpassword = 2131230887;
+			public const int loginview_identification = 2131230887;
 			
 			// aapt resource value: 0x7F0800A8
-			public const int loginview_labelsource = 2131230888;
+			public const int loginview_labelcode = 2131230888;
 			
 			// aapt resource value: 0x7F0800A9
-			public const int loginview_labelusername = 2131230889;
+			public const int loginview_labelpassword = 2131230889;
 			
 			// aapt resource value: 0x7F0800AA
-			public const int loginview_login = 2131230890;
+			public const int loginview_labelusername = 2131230890;
 			
 			// aapt resource value: 0x7F0800AB
-			public const int loginview_password = 2131230891;
+			public const int loginview_login = 2131230891;
 			
 			// aapt resource value: 0x7F0800AC
-			public const int loginview_source = 2131230892;
+			public const int loginview_password = 2131230892;
 			
 			// aapt resource value: 0x7F0800AD
 			public const int loginview_username = 2131230893;

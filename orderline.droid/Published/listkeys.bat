@@ -1,0 +1,1 @@
+keytool -list -v -alias simetrix -keystore .\simetrix.keystore
