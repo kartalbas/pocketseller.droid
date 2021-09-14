@@ -5,6 +5,7 @@ using MvvmCross.ViewModels;
 using pocketseller.core.Services;
 using pocketseller.core.Services.Interfaces;
 using pocketseller.core.ViewModels;
+using System.Collections.Generic;
 
 namespace pocketseller.core
 {
@@ -23,9 +24,27 @@ namespace pocketseller.core
             Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
 
             InitSettingDatabase();
+            InitSources();
             InitDefaultPocketsellerDatabase();
 
             RegisterAppStart<LoginViewModel>();
+        }
+
+        private void InitSources()
+        {
+            var sources = new List<Source>
+            {
+                new Source { Id = 1, Name = "DOR", Host = "activator.yilmazfeinkost.de:5001", DbName = "DOR.db" },
+                new Source { Id = 2, Name = "DORT", Host = "activator.yilmazfeinkost.de:5031", DbName = "DORT.db" },
+                new Source { Id = 3, Name = "KOL", Host = "activator.yilmazfeinkost.de:5021", DbName = "KOL.db" },
+                new Source { Id = 4, Name = "KOLT", Host = "activator.yilmazfeinkost.de:5031", DbName = "KOLT.db" },
+                new Source { Id = 5, Name = "NEU", Host = "activator.yilmazfeinkost.de:5041", DbName = "NEU.db" },
+                new Source { Id = 6, Name = "NEUT", Host = "activator.yilmazfeinkost.de:5051", DbName = "NEUT.db" },
+                new Source { Id = 6, Name = "DEV", Host = "activator.yilmazfeinkost.de:6001", DbName = "DEV.db" }
+            };
+
+            Source.Instance.DeleteAll();
+            Source.Instance.Save(sources);
         }
 
         private void InitSettingDatabase()

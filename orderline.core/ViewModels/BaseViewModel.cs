@@ -70,6 +70,11 @@ namespace pocketseller.core.ViewModels
         public abstract void Init();
         public abstract void Init(object objParam);
 
+        protected void ShowDialog(string title, string message)
+        {
+            Mvx.IoCProvider.Resolve<IUserDialogs>().AlertAsync(message, title);
+        }
+
         protected void LogError(Exception objException)
         {
             DoHideWorkingCommand();

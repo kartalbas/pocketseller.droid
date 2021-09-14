@@ -15,8 +15,6 @@ using orderline.core.Resources.Languages;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using pocketseller.droid.Views.Fragments;
-//using Firebase;
-//using Firebase.Auth;
 
 namespace pocketseller.droid.Views
 {
@@ -39,15 +37,10 @@ namespace pocketseller.droid.Views
 
         #region Public and Protected methods
 
-        //public static FirebaseApp app;
-        //internal FirebaseAuth auth;
-
         protected override void OnCreate(Bundle objInState)
         {
             base.OnCreate(objInState);
 
-            //InitFirebaseAuth(); 
-            
             RequestWindowFeature(WindowFeatures.IndeterminateProgress);
             SetContentView(orderline.droid.Resource.Layout.MainView);
             SetFinishOnTouchOutside(false);
@@ -124,18 +117,6 @@ namespace pocketseller.droid.Views
 
         #region private methods
 
-        //private void InitFirebaseAuth()
-        //{
-        //    var options = new FirebaseOptions.Builder()
-        //       .SetApplicationId("1:569119279247:android:d3a019cbe06c8ab8ba88fa")
-        //       .SetApiKey("AIzaSyDQ7btXxB2wNX97HWAiTEGfvpR4mZgV820")
-        //       .Build();
-        //    if (app == null)
-        //        app = FirebaseApp.InitializeApp(this, options);
-
-        //    auth = FirebaseAuth.GetInstance(app);
-        //}
-        
         private void SubscribeMessenger()
         {
             _objTokenWorkingMessage = Mvx.IoCProvider.Resolve<IMvxMessenger>().SubscribeOnMainThread<WorkingMessage>(OnWorking);

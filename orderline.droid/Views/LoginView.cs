@@ -12,11 +12,13 @@ using MvvmCross.Droid.Support.V4;
 using MvvmCross.Plugin.Messenger;
 using pocketseller.core.Messages;
 using pocketseller.core.Models;
-using orderline.core.Resources.Languages;
 using pocketseller.core.Services.Interfaces;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using System;
+using Firebase;
+using Firebase.Auth;
+using Java.Util.Concurrent;
 
 namespace pocketseller.droid.Views
 {
@@ -37,6 +39,9 @@ namespace pocketseller.droid.Views
 
         #region Public and Protected methods
 
+        internal static FirebaseApp FireApp;
+        internal static FirebaseAuth FireAuth;
+        
         protected override void OnCreate(Bundle objInState)
         {
             base.OnCreate(objInState);
@@ -44,6 +49,7 @@ namespace pocketseller.droid.Views
             SetContentView(orderline.droid.Resource.Layout.LoginView);
             ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
+            InitFirebaseAuth();
             RegisterEvents();
             ShowMainView();
 
@@ -59,6 +65,21 @@ namespace pocketseller.droid.Views
 
             var objIdentification = FindViewById<TextView>(orderline.droid.Resource.Id.loginview_identification);
             objIdentification.Text = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification() + "\r\n" + displayableVersion;
+        }
+
+        private void InitFirebaseAuth()
+        {
+            var options = new FirebaseOptions.Builder()
+               .SetApplicationId("1:569119279247:android:d3a019cbe06c8ab8ba88fa")
+               .SetApiKey("AIzaSyDQ7btXxB2wNX97HWAiTEGfvpR4mZgV820")
+               .Build();
+
+            if (FireApp == null)
+                FireApp = FirebaseApp.InitializeApp(this, options);
+
+            FireAuth = FirebaseAuth.GetInstance(FireApp);
+
+            FireAuth.UseAppLanguage();
         }
 
         private void ShowMainView()
@@ -104,16 +125,33 @@ namespace pocketseller.droid.Views
             if (_objButtonLogin != null)
                 _objButtonLogin.Click += (sender, e) =>
                 {
-                    if (LoginViewModel.Login)
-                    {
-                        CTools.ShowToast(Language.LoginSuccessFull);
-                        ShowMainView();
-                        Finish();
-                    }
-                    else
-                    {
-                        CTools.ShowToast(Language.LoginFailed);
-                    }
+                    //if (string.IsNullOrEmpty(LoginViewModel.Username))
+                    //{
+                    //    CTools.ShowToast(Language.LoginFailed + " -> Username?");
+                    //    return;
+                    //}
+                    //else if (string.IsNullOrEmpty(LoginViewModel.Password))
+                    //{
+                    //    CTools.ShowToast(Language.LoginFailed + " -> Password?");
+                    //    return;
+                    //}
+                    //else
+                    //{
+                        var instance = FirebaseAuth.GetInstance(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
+                        if (instance == null)
+                        {
+                            instance = new FirebaseAuth(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
+                        }
+
+                        var providerInstance = PhoneAuthProvider.GetInstance(instance);
+                        providerInstance.VerifyPhoneNumber("+41791288496", 60, TimeUnit.Seconds, CTools.CurrentActivity, new AuthCallbacks());
+
+                        //LoginViewModel.SettingService.Set(ESettingType.LoginTime, DateTime.Now);
+                        //Mvx.IoCProvider.Resolve<IRestService>()?.GetToken().ContinueWith(t => pocketseller.core.App.BackendToken = t.Result);
+                        //CTools.ShowToast(Language.LoginSuccessFull);
+                        //ShowMainView();
+                        //Finish();
+                    //}
                 };
         }
 
@@ -136,5 +174,48 @@ namespace pocketseller.droid.Views
         }
 
         #endregion
+    }
+
+    public class AuthCallbacks : PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    {
+
+        public override async void OnVerificationCompleted(PhoneAuthCredential credential)
+        {
+            try
+            {
+                System.Diagnostics.Debug.WriteLine("OnVerificationCompleted:CODE: " + credential.SmsCode);
+                var result = await LoginView.FireAuth.SignInWithCredentialAsync(credential);
+                var idToken = await result.User.GetIdTokenAsync(false);
+                System.Diagnostics.Debug.WriteLine("OnVerificationCompleted:TOKEN: " + idToken.Token);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+        }
+
+        public override void OnCodeAutoRetrievalTimeOut(string language)
+        {
+            base.OnCodeAutoRetrievalTimeOut(language);
+            System.Diagnostics.Debug.WriteLine("OnCodeAutoRetrievalTimeOut: " + language);
+        }
+
+        public override void OnVerificationFailed(FirebaseException exception)
+        {
+            System.Diagnostics.Debug.WriteLine("OnVerificationFailed: " + exception);
+        }
+
+        public override void OnCodeSent(string verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken)
+        {
+            try
+            {
+                base.OnCodeSent(verificationId, forceResendingToken);
+                System.Diagnostics.Debug.WriteLine("OnCodeSent " + verificationId);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+        }
     }
 }

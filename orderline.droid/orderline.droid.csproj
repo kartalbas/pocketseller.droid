@@ -44,12 +44,12 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <MandroidI18n>West</MandroidI18n>
-    <AndroidKeyStore>false</AndroidKeyStore>
-    <AndroidSigningKeyStore>
-    </AndroidSigningKeyStore>
-    <AndroidSigningStorePass>
-    </AndroidSigningStorePass>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>D:\repos\orderline\orderline.droid\orderline.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>Tikmonca13</AndroidSigningStorePass>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidSigningKeyAlias>simetrix</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>Tikmonca13</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -383,6 +383,7 @@
     <AndroidAsset Include="Assets\cash.template.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
+    <Content Include="google-services.json" />
     <None Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
@@ -941,6 +942,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading">
       <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Firebase.Auth">
+      <Version>71.1605.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
