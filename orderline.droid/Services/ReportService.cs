@@ -42,6 +42,29 @@ namespace pocketseller.droid.Services
             }
         }
 
+        public string CreateLocalReport(Order order, string templateFile, string targetPdfName)
+        {
+            try
+            {
+                ExcelFile excelReport = ReadExcelFileFromAsset(templateFile);
+
+                using (var report = new FlexCelReport(true))
+                {
+                    report.AddTable<Order>("Order", new List<Order> { order });
+                    report.AddTable<Orderdetail>("Orderdetails", order.Orderdetails);
+                    report.AddRelationship("Order", "Orderdetails", "Docnumber", "Docnumber");
+                    report.Run(excelReport);
+                }
+
+                var pdfFile = ExportReportAsPdf(excelReport, targetPdfName);
+                return pdfFile;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Order {order?.Docnumber} could not be created with FlexCelReport! Error: {exception?.Message}");
+            }
+        }
+
         public ExcelFile CreateExcelReport(Order order)
         {
             try

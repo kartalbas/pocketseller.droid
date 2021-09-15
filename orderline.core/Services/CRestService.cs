@@ -8,6 +8,8 @@ using MvvmCross.Plugin.Messenger;
 using orderline.core.ModelsPS;
 using MvvmCross;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace pocketseller.core.Services
 {
@@ -37,6 +39,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
                 var methodUrl = GetPocketsellerHost("GetFacturaData");
                 var serverUri = new Uri($"{methodUrl}/{orderNumber}");
                 Console.WriteLine(serverUri.ToString());
@@ -64,6 +67,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
                 var serverUri = new Uri($"{_activatorServerUri}/Activator/GetMails/{_deviceId}/{_id}/{_key}");
                 var response = await client.GetAsync(serverUri);
                 if (response.IsSuccessStatusCode)
@@ -86,13 +90,15 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
                 var serverUri = new Uri($"{_activatorServerUri}/Activator/GetSources/{_deviceId}/{_id}/{_key}");
                 var response = await client.GetAsync(serverUri);
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<ObservableCollection<Source>>(content);
-                    return result;
+                    var result = JsonConvert.DeserializeObject<List<Source>>(content);
+                    result = result != null ? result.OrderBy(r => r.Id).ToList() : new List<Source>();
+                    return new ObservableCollection<Source>(result);
                 }
 
                 return new ObservableCollection<Source>();
@@ -110,6 +116,7 @@ namespace pocketseller.core.Services
                 var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
 
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
                 var methodUrl = GetLoginHost("LoginDevice");
                 var serverUri = new Uri($"{methodUrl}?deviceId={deviceId}");
                 Console.WriteLine(serverUri.ToString());

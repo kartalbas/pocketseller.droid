@@ -14,6 +14,7 @@ namespace pocketseller.core.Models
 	    {
             LogTag = GetType().Name;
 	        EditMode = false;
+            LocalDocument = false;
 	    }
 
 		private int _doctype;
@@ -54,6 +55,10 @@ namespace pocketseller.core.Models
 	        set { _totalBrutto = value; RaisePropertyChanged(() => TotalBrutto); } }
         public int TotalPos { get => _totalPos;
 	        set { _totalPos = value; RaisePropertyChanged(() => TotalPos); } }
+
+        [Ignore]
+        public bool LocalDocument { get; set; }
+
         public string Info
         {
             get => _info;
