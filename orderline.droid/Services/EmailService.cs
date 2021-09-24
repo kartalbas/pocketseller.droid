@@ -18,7 +18,7 @@ namespace pocketseller.droid.Services
         private const int defaultPort = 587;
         private const string defaultTo = @"by@yilmazfeinkost.de";
         private const string defaultUsername = @"pocketsellersmtp@gmail.com";
-        private const string defaultPassword = "$artalbas13";
+        private const string defaultPassword = "VitaminY2021";
         private const string defaultSmtpServer = "smtp.gmail.com";
         private const string defaultImapServer = "imap.gmail.com";
         private const int defaultImapPort = 993;
