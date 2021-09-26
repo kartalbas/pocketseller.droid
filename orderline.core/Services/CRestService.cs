@@ -92,7 +92,7 @@ namespace pocketseller.core.Services
             {
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
-                var methodUrl = GetMailHost("GetMails");
+                var methodUrl = GetMailHost("SendMail");
                 var serverUri = new Uri($"{methodUrl}");
 
                 using (var request = new HttpRequestMessage(HttpMethod.Post, serverUri))
@@ -156,7 +156,7 @@ namespace pocketseller.core.Services
             {
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
-                var methodUrl = GetMailHost("GetMails");
+                var methodUrl = GetMailHost("DeleteMail");
                 var serverUri = new Uri($"{methodUrl}/{messageId}");
 
                 using (var request = new HttpRequestMessage(HttpMethod.Post, serverUri))
