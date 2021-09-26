@@ -10,6 +10,8 @@ using MvvmCross;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using orderline.core.ModelsAPI;
+using System.Text;
 
 namespace pocketseller.core.Services
 {
@@ -42,7 +44,6 @@ namespace pocketseller.core.Services
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
                 var methodUrl = GetPocketsellerHost("GetFacturaData");
                 var serverUri = new Uri($"{methodUrl}/{orderNumber}");
-                Console.WriteLine(serverUri.ToString());
                 var response = await client.GetAsync(serverUri);
                 if (response.IsSuccessStatusCode)
                 {
@@ -61,6 +62,103 @@ namespace pocketseller.core.Services
                 throw;
             }
         }
+
+        public async Task<bool> SendMailAsync(string from, string to, string subject, string body)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                var methodUrl = GetMailHost("GetMails");
+                var serverUri = new Uri($"{methodUrl}");
+
+                using (var request = new HttpRequestMessage(HttpMethod.Post, serverUri))
+                {
+                    var json = JsonConvert.SerializeObject(new MailMessage
+                    {
+                        From = "",
+                        To = to,
+                        Subject = subject,
+                        Body = body
+                    });
+
+                    using (var stringContent = new StringContent(json, Encoding.UTF8, "application/json"))
+                    {
+                        request.Content = stringContent;
+                        var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string content = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<bool>(content);
+                            return result;
+                        }
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<IList<MailResponse>> GetAllMailsAsync()
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                var methodUrl = GetMailHost("GetMails");
+                var serverUri = new Uri($"{methodUrl}");
+                var response = await client.GetAsync(serverUri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<IList<MailResponse>>(content);
+                    return result;
+                }
+
+                return new List<MailResponse>();
+            }
+            catch (Exception)
+            {
+                return new List<MailResponse>();
+            }
+        }
+
+        public async Task<bool> DeleteMailAsync(string messageId)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                var methodUrl = GetMailHost("GetMails");
+                var serverUri = new Uri($"{methodUrl}/{messageId}");
+
+                using (var request = new HttpRequestMessage(HttpMethod.Post, serverUri))
+                {
+                    using (var stringContent = new StringContent(string.Empty, Encoding.UTF8, "application/json"))
+                    {
+                        request.Content = stringContent;
+                        var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string content = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<bool>(content);
+                            return result;
+                        }
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
 
         public async Task<ObservableCollection<EMails>> GetMailsAsync()
         {
@@ -134,6 +232,14 @@ namespace pocketseller.core.Services
             {
                 throw;
             }
+        }
+
+        private string GetMailHost(string method)
+        {
+            var source = Source.Instance.GetCurrentSource();
+            var serverHost = Source.Instance.GetMailUrl(source.Host);
+            var result = $"{serverHost}/{method}";
+            return result;
         }
 
         private string GetPocketsellerHost(string method)

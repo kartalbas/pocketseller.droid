@@ -114,24 +114,24 @@ namespace pocketseller.core.ViewModels
         
         private MvxCommand<OpenPayment> _deleteDocumentCommand;
         public ICommand MarkAsPayedCommand { get { return _deleteDocumentCommand = _deleteDocumentCommand ?? new MvxCommand<OpenPayment>(DoMarkAsPayedCommand); } }
-        private void DoMarkAsPayedCommand(OpenPayment op)
+        private async void DoMarkAsPayedCommand(OpenPayment op)
         {
             try
             {
                 if(op != null)
                 {                
                     //check if already an answer exists
-                    var mailserver = Mvx.IoCProvider.Resolve<IMailService>();    
-                    var mailItems = mailserver.GetMails();
+                    var rest = Mvx.IoCProvider.Resolve<IRestService>();
+                    var mailItems = await rest.GetAllMailsAsync();
                     foreach (var mailItem in mailItems)
                     {                   
-                        if(mailItem.Value.Subject.Contains(op.Adressnumber)
-                           && mailItem.Value.Subject.Contains(op.Docnumber))
+                        if(mailItem.Subject.Contains(op.Adressnumber)
+                           && mailItem.Subject.Contains(op.Docnumber))
                         {
-                            if (mailItem.Value.TextBody.ToLower().StartsWith("ok"))
+                            if (mailItem.Body.ToLower().StartsWith("ok"))
                             {
                                 OpenPayment.Delete(op);
-                                mailserver.DeleteMessage(mailItem.Key);
+                                await rest.DeleteMailAsync(mailItem.MessageId);
                                 ShowOoutstandingPayments();
                                 return;
                             }
@@ -163,8 +163,7 @@ namespace pocketseller.core.ViewModels
 
                     //var to = "kartalbas@gmail.com";
                     var to = SettingService.Get<string>(ESettingType.OpManager);
-                    var mail = mailserver.CreateEmail(null, to, subject, body, null);
-                    mailserver.SendMail(mail);
+                    await rest.SendMailAsync(null, to, subject, body);
                 }
             }
             catch (Exception exception)
