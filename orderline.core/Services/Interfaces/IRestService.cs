@@ -8,14 +8,14 @@ namespace pocketseller.core.Services.Interfaces
 {
     public interface IRestService
     {
-        Task<IList<MailResponse>> GetAllMailsAsync();
-        Task<bool> DeleteMailAsync(string messageId);
-        Task<bool> SendMailAsync(string from, string to, string subject, string body);
+        Task<IList<MailResponse>> GetAllMails();
+        Task<bool> DeleteMail(string messageId);
+        Task<bool> SendMail(string from, string to, string subject, string body);
 
-        Task<ObservableCollection<EMails>> GetMailsAsync();
-        Task<ObservableCollection<Source>> GetSourcesAsync();
+        Task<ObservableCollection<EMails>> GetMails();
 
-        Task<FacturaData> GetFacturaDataAsync(int orderNumber);
+        Task<FacturaData> GetFacturaData(int orderNumber);
+        Task<IList<Stock>> GetAllStocks();
 
         Task<bool> Test();
         Task<string> GetMobile(string username, string password, string sourcename);

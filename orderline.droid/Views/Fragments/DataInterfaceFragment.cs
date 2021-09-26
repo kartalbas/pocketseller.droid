@@ -14,7 +14,6 @@ using pocketseller.core.Services;
 using pocketseller.core.Services.Interfaces;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
-using RestSharp;
 
 namespace pocketseller.droid.Views.Fragments
 {
@@ -37,6 +36,9 @@ namespace pocketseller.droid.Views.Fragments
             var objButtonAll = objThisView.FindViewById<Button>(orderline.droid.Resource.Id.datainterface_button_renewall);
             objButtonAll.Click += ButtonAllOnClick;
 
+            var objUpdateAll = objThisView.FindViewById<Button>(orderline.droid.Resource.Id.datainterface_button_update);
+            objUpdateAll.Click += ButtonUpdateOnClick;
+
             var objStatus = objThisView.FindViewById<TextView>(orderline.droid.Resource.Id.datainterface_status);
             objStatus.Click += (sender, args) =>
             {
@@ -50,6 +52,39 @@ namespace pocketseller.droid.Views.Fragments
             };
 
             return objThisView;
+        }
+
+        private async void ButtonUpdateOnClick(object sender, EventArgs e)
+        {
+            try
+            {
+                DataInterfaceViewModel.ControlIsEnabled = false;
+
+                var restService = Mvx.IoCProvider.Resolve<IRestService>();
+                var stocks = await restService.GetAllStocks();
+
+                var dataService = (CDataService)Mvx.IoCProvider.Resolve<IDataService>();
+
+                foreach (var stock in stocks)
+                {
+                    var article = Article.FindByArticleNr(stock.Articlenumber);
+                    if(article != null)
+                    {
+                        article.Content = stock.Content;
+                        article.StockName = stock.StockName;
+                        article.StockPlace = stock.StockPlace;
+                        article.StockAmount = stock.StockAmount;
+                        dataService.PocketsellerConnection.Update(article);
+                    }
+                }
+
+                DataInterfaceViewModel.ControlIsEnabled = true;
+            }
+            catch (Exception objException)
+            {
+                DataInterfaceViewModel.ControlIsEnabled = true;
+                CErrorHandling.Log(objException, true);
+            }
         }
 
         private async void ButtonAllOnClick(object sender, EventArgs eventArgs)

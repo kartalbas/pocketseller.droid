@@ -9,7 +9,6 @@ using orderline.core.ModelsPS;
 using MvvmCross;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
 using orderline.core.ModelsAPI;
 using System.Text;
 using orderline.core.Tools;
@@ -37,7 +36,30 @@ namespace pocketseller.core.Services
             _activatorServerUri = settingService.Get<string>(ESettingType.ActivatorUrl);
         }
 
-        public async Task<FacturaData> GetFacturaDataAsync(int orderNumber)
+        public async Task<IList<Stock>> GetAllStocks()
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                var methodUrl = GetPocketsellerHost("GetAllStocks");
+                var response = await client.GetAsync(new Uri(methodUrl));
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<IList<Stock>>(content);
+                    return result;
+                }
+
+                return new List<Stock>();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<FacturaData> GetFacturaData(int orderNumber)
         {
             try
             {
@@ -64,7 +86,7 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<bool> SendMailAsync(string from, string to, string subject, string body)
+        public async Task<bool> SendMail(string from, string to, string subject, string body)
         {
             try
             {
@@ -104,7 +126,7 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<IList<MailResponse>> GetAllMailsAsync()
+        public async Task<IList<MailResponse>> GetAllMails()
         {
             try
             {
@@ -128,7 +150,7 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<bool> DeleteMailAsync(string messageId)
+        public async Task<bool> DeleteMail(string messageId)
         {
             try
             {
@@ -160,7 +182,7 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<ObservableCollection<EMails>> GetMailsAsync()
+        public async Task<ObservableCollection<EMails>> GetMails()
         {
             try
             {
@@ -180,30 +202,6 @@ namespace pocketseller.core.Services
             catch (Exception)
             {
                 return new ObservableCollection<EMails>();
-            }
-        }
-
-        public async Task<ObservableCollection<Source>> GetSourcesAsync()
-        {
-            try
-            {
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
-                var serverUri = new Uri($"{_activatorServerUri}/Activator/GetSources/{_deviceId}/{_id}/{_key}");
-                var response = await client.GetAsync(serverUri);
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<List<Source>>(content);
-                    result = result != null ? result.OrderBy(r => r.Id).ToList() : new List<Source>();
-                    return new ObservableCollection<Source>(result);
-                }
-
-                return new ObservableCollection<Source>();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Gerät ist nicht registriert");
             }
         }
 

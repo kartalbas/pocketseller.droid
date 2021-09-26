@@ -61,7 +61,7 @@ namespace pocketseller.core.Models
 	        get
             {
                 if (_article == null && int.Parse(ArticleNr) > 0)
-                    _article = Article.FindById(ArticleNr);
+                    _article = Article.FindByArticleNr(ArticleNr);
                 return _article;
             }
 	        set

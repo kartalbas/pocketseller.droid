@@ -122,7 +122,7 @@ namespace pocketseller.core.ViewModels
                 {                
                     //check if already an answer exists
                     var rest = Mvx.IoCProvider.Resolve<IRestService>();
-                    var mailItems = await rest.GetAllMailsAsync();
+                    var mailItems = await rest.GetAllMails();
                     foreach (var mailItem in mailItems)
                     {                   
                         if(mailItem.Subject.Contains(op.Adressnumber)
@@ -131,7 +131,7 @@ namespace pocketseller.core.ViewModels
                             if (mailItem.Body.ToLower().StartsWith("ok"))
                             {
                                 OpenPayment.Delete(op);
-                                await rest.DeleteMailAsync(mailItem.MessageId);
+                                await rest.DeleteMail(mailItem.MessageId);
                                 ShowOoutstandingPayments();
                                 return;
                             }
@@ -163,7 +163,7 @@ namespace pocketseller.core.ViewModels
 
                     //var to = "kartalbas@gmail.com";
                     var to = SettingService.Get<string>(ESettingType.OpManager);
-                    await rest.SendMailAsync(null, to, subject, body);
+                    await rest.SendMail(null, to, subject, body);
                 }
             }
             catch (Exception exception)

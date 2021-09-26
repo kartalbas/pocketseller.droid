@@ -117,17 +117,19 @@ namespace pocketseller.core.Models
             return strUrl;
         }
 
-        public static Article FindById(string articleNr)
+        public static Article FindByArticleNr(string articleNr)
         {
-            return Table<Article>().Where(a => a.Articlenumber.Equals(articleNr)).FirstOrDefault();
+            return Table<Article>()
+                .Where(a => a.Articlenumber.Equals(articleNr))
+                .FirstOrDefault();
         }
 
-        public static Article FindByArticleNr(string iArticleNr)
+        public void Save(Article article)
         {
-            string strArticleNr = iArticleNr.ToString();
-            return (Table<Article>()
-                .Where(a => a.Articlenumber.Equals(strArticleNr)))
-                .FirstOrDefault();
+            if (FindByArticleNr(article.Articlenumber) != null)
+                DataService.SettingsConnection.Update(article);
+            else
+                DataService.SettingsConnection.Insert(article);
         }
 
         public static decimal GetBruttoPrice(decimal nettoPrice, decimal taxInPercent)

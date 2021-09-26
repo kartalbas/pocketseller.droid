@@ -177,7 +177,7 @@ namespace pocketseller.core.ViewModels
                     var date = $"{DateTime.Now.Day}-{DateTime.Now.Month}-{DateTime.Now.Year}";
                     var targetPdfFileName = $"{order.Adressnumber}_{date}.pdf";
 
-                    order.FacturaData = await restService.GetFacturaDataAsync(order.Docnumber);
+                    order.FacturaData = await restService.GetFacturaData(order.Docnumber);
                     order.Orderdetails = order.FacturaData.Order.Orderdetails.OrderBy(o => o.Pos).ToList();
 
                     fileName = reportService.CreateReport(order, reportTemplateFileName, targetPdfFileName);
@@ -210,7 +210,7 @@ namespace pocketseller.core.ViewModels
                     var targetPdfFileName = $"{order.Adressnumber}_{date}.pdf";
 
                     order.Orderdetails = order.Orderdetails.OrderBy(o => o.Pos).ToList();
-                    order.FacturaData = await restService.GetFacturaDataAsync(1);
+                    order.FacturaData = await restService.GetFacturaData(1);
 
                     fileName = reportService.CreateLocalReport(order, reportTemplateFileName, targetPdfFileName);
 
@@ -245,7 +245,7 @@ namespace pocketseller.core.ViewModels
 
                     foreach (var order in orders)
                     {
-                        order.FacturaData = await restService.GetFacturaDataAsync(order.Docnumber);
+                        order.FacturaData = await restService.GetFacturaData(order.Docnumber);
                         var excelReport = reportService.CreateExcelReport(order);
                         result.Add(excelReport);
                     }
@@ -280,7 +280,7 @@ namespace pocketseller.core.ViewModels
                     var targetPdfFileName = $"{order.Adressnumber}_{date}.pdf";
 
                     var restService = Mvx.IoCProvider.Resolve<IRestService>();
-                    order.FacturaData = await restService.GetFacturaDataAsync(1);
+                    order.FacturaData = await restService.GetFacturaData(1);
                     var filename = report.CreateLocalReport(order, reportTemplateFileName, targetPdfFileName);
 
                     mail.ShowDraft(order.FacturaData.Company.Subject, order.FacturaData.Company.Body, true, string.Empty, new List<string> { filename });
