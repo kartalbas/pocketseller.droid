@@ -10,11 +10,8 @@ using MvvmCross;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
-<<<<<<< HEAD
-=======
 using orderline.core.ModelsAPI;
 using System.Text;
->>>>>>> allow-lower-prices
 
 namespace pocketseller.core.Services
 {
