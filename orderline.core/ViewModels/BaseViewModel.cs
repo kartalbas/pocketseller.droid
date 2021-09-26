@@ -22,6 +22,7 @@ using pocketseller.core.Services.Interfaces;
 using Quotation = pocketseller.core.Models.Quotation;
 using orderline.core.Resources;
 using FlexCel.Core;
+using orderline.core.ModelsPS;
 
 namespace pocketseller.core.ViewModels
 {
@@ -195,6 +196,38 @@ namespace pocketseller.core.ViewModels
             }
         }
 
+        protected async Task<bool> PrintLocalOrder(Order order, string reportTemplateFileName)
+        {
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    var reportService = Mvx.IoCProvider.Resolve<IReportService>();
+                    var printService = Mvx.IoCProvider.Resolve<IPrintService>();
+                    var restService = Mvx.IoCProvider.Resolve<IRestService>();
+
+                    var fileName = string.Empty;
+                    var date = $"{DateTime.Now.Day}-{DateTime.Now.Month}-{DateTime.Now.Year}";
+                    var targetPdfFileName = $"{order.Adressnumber}_{date}.pdf";
+
+                    order.Orderdetails = order.Orderdetails.OrderBy(o => o.Pos).ToList();
+                    order.FacturaData = await restService.GetFacturaDataAsync(1);
+
+                    fileName = reportService.CreateLocalReport(order, reportTemplateFileName, targetPdfFileName);
+
+                    printService.PrintNative(fileName);
+
+                });
+
+                return true;
+            }
+            catch (Exception exception)
+            {
+                LogError(exception);
+                return false;
+            }
+        }
+
         protected async Task<bool> PrintOrders(List<Order> orders)
         {
             try
@@ -248,8 +281,8 @@ namespace pocketseller.core.ViewModels
                     var targetPdfFileName = $"{order.Adressnumber}_{date}.pdf";
 
                     var restService = Mvx.IoCProvider.Resolve<IRestService>();
-                    order.FacturaData = await restService.GetFacturaDataAsync(order.Docnumber);
-                    var filename = report.CreateReport(order, reportTemplateFileName, targetPdfFileName);
+                    order.FacturaData = await restService.GetFacturaDataAsync(1);
+                    var filename = report.CreateLocalReport(order, reportTemplateFileName, targetPdfFileName);
 
                     mail.ShowDraft(order.FacturaData.Company.Subject, order.FacturaData.Company.Body, true, string.Empty, new List<string> { filename });
                 });
@@ -355,7 +388,15 @@ namespace pocketseller.core.ViewModels
             var source = Source.Instance.GetCurrentSource();
             var order = Converter.CreateOrder(source, document);
             var template = SettingService.Get<string>(ESettingType.RestGetDeliveryWithPriceTemplate);
-            await PrintOrder(order, template);
+
+            if (document.LocalDocument)
+            {
+                await PrintLocalOrder(order, template);
+            }
+            else
+            {
+                await PrintOrder(order, template);
+            }
         }
 
         private MvxAsyncCommand<Order> _printOrderCommand;

@@ -56,8 +56,8 @@ namespace pocketseller.droid.Views.Fragments
             objMenu.Add(DocumentsNewViewModel.LabelSendAsFactura);
             objMenu.Add(DocumentsNewViewModel.LabelSendAsCreditNote);
             objMenu.Add(DocumentsNewViewModel.LabelDelete);
-            objMenu.Add(DocumentsNewViewModel.LabelMail);
-            objMenu.Add(DocumentsNewViewModel.LabelPrint);
+            objMenu.Add($"BESTELLSCHEIN {DocumentsNewViewModel.LabelMail}");
+            objMenu.Add($"BESTELLSCHEIN {DocumentsNewViewModel.LabelPrint}");
         }
 
         public override bool OnContextItemSelected(IMenuItem objItem)
@@ -141,12 +141,13 @@ namespace pocketseller.droid.Views.Fragments
                         , string.Empty
                         , null);
                 }
-                else if (strSelectedAction == DocumentsNewViewModel.LabelPrint)
+                else if (strSelectedAction == $"BESTELLSCHEIN {DocumentsNewViewModel.LabelPrint}")
                 {
+                    objDocument.LocalDocument = true;
                     DocumentsNewViewModel.PrintDocumentCommand.ExecuteAsync(objDocument);
                 }
 
-                else if (strSelectedAction == DocumentsNewViewModel.LabelMail)
+                else if (strSelectedAction == $"BESTELLSCHEIN {DocumentsNewViewModel.LabelMail}")
                 {
                     DocumentsNewViewModel.EmailCommand.ExecuteAsync(objDocument);
                 }
