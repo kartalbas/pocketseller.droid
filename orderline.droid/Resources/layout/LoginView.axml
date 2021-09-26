@@ -14,7 +14,7 @@
             android:layout_height="wrap_content">
         <TextView
                 style="@style/TextViewStyleLeft50Percent"
-                android:text="Identification" />
+                android:text="Version" />
         <TextView
                 android:id="@+id/loginview_identification"
                 style="@style/TextViewStyleLeft50Percent" />
@@ -29,7 +29,7 @@
         <TextView
             android:id="@+id/loginview_labelusername"
             style="@style/TextViewStyleLeft50Percent"
-            android:text="Username"
+            android:text="Email"
             local:MvxBind="Text LabelUsername" />
         <EditText
             android:id="@+id/loginview_username"
@@ -75,18 +75,18 @@
         <TextView
             android:id="@+id/loginview_labelcode"
             style="@style/TextViewStyleLeft50Percent"
-            android:text="Code"
-            local:MvxBind="Text LabelCode" />
+            android:text="Filiale"
+            local:MvxBind="Text LabelBranch" />
         <EditText
             android:id="@+id/loginview_code"
 			android:textSize="12sp"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="70dp"
             android:gravity="center|left"
             android:text=""
-            local:MvxBind="Text Code; Enabled ControlIsEnabled" />
+            local:MvxBind="Text Branch; Enabled ControlIsEnabled" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"

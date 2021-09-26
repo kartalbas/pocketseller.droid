@@ -15,6 +15,8 @@ using orderline.core.Resources.Languages;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using pocketseller.droid.Views.Fragments;
+using pocketseller.core.Services.Interfaces;
+using pocketseller.core;
 
 namespace pocketseller.droid.Views
 {
@@ -32,6 +34,8 @@ namespace pocketseller.droid.Views
         private MvxSubscriptionToken _objTokenWorkingMessage;
         private MvxSubscriptionToken _objTokenTitleMessage;
         private bool _bWorking;
+        private IRestService _restService;
+
 
         #endregion
 
@@ -51,7 +55,29 @@ namespace pocketseller.droid.Views
             InitFragments();
             InitDrawer();
 
+            _restService = Mvx.IoCProvider.Resolve<IRestService>();
+
             ShowMenu(EMenu.Documents);
+        }
+
+        protected override async void OnStart()
+        {
+            base.OnStart();
+
+            var result = await _restService.Test();
+            if (!result)
+            {
+                MainViewModel.ShowLoginViewCommand.Execute(null);
+                CTools.ShowToast(Language.LoginFailed);
+                Finish();
+            }
+
+            CTools.ShowToast(Language.LoginSuccessFull);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
         }
 
         public override void OnBackPressed()

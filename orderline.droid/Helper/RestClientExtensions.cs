@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MvvmCross;
+using orderline.core.Resources.Languages;
 using pocketseller.core;
 using pocketseller.core.Services.Interfaces;
 using RestSharp;
@@ -39,7 +40,8 @@ namespace pocketseller.droid.Helper
             {
                 if (string.IsNullOrEmpty(App.BackendToken))
                 {
-                    App.BackendToken = await Mvx.IoCProvider.Resolve<IRestService>()?.GetToken();
+                    CTools.ShowToast(Language.IsNotActivated);
+                    throw new UnauthorizedAccessException();
                 }
 
                 ReplaceAuthParameter(objRequest);
@@ -48,17 +50,15 @@ namespace pocketseller.droid.Helper
 
                 if(result.StatusDescription.Equals("Unauthorized"))
                 {
-                    throw new Exception("Unauthorized");
+                    throw new UnauthorizedAccessException();
                 }
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                App.BackendToken = await Mvx.IoCProvider.Resolve<IRestService>()?.GetToken();
-                ReplaceAuthParameter(objRequest);
-                var result = await GetResponse(objClient, objRequest);
-                return result;
+                CTools.ShowToast(exception.Message);
+                throw;
             }
         }
 

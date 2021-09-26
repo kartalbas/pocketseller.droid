@@ -12,6 +12,7 @@ namespace pocketseller.core
     public class App : MvxApplication
     {
         public static string BackendToken { get; set; }
+        public static string SourceName{ get; set; }
 
         public override void Initialize()
         {
@@ -24,13 +25,12 @@ namespace pocketseller.core
             Mvx.IoCProvider.RegisterSingleton(() => UserDialogs.Instance);
 
             InitSettingDatabase();
-            InitSources();
-            InitDefaultPocketsellerDatabase();
+            InitDefaultPocketsellerDatabase(InitSources());
 
             RegisterAppStart<LoginViewModel>();
         }
 
-        private void InitSources()
+        private List<Source> InitSources()
         {
             var sources = new List<Source>
             {
@@ -40,11 +40,12 @@ namespace pocketseller.core
                 new Source { Id = 4, Name = "KOLT", Host = "activator.yilmazfeinkost.de:5031", DbName = "KOLT.db" },
                 new Source { Id = 5, Name = "NEU", Host = "activator.yilmazfeinkost.de:5041", DbName = "NEU.db" },
                 new Source { Id = 6, Name = "NEUT", Host = "activator.yilmazfeinkost.de:5051", DbName = "NEUT.db" },
-                new Source { Id = 6, Name = "DEV", Host = "activator.yilmazfeinkost.de:6001", DbName = "DEV.db" }
+                new Source { Id = 7, Name = "DEV", Host = "activator.yilmazfeinkost.de:6001", DbName = "DEV.db" }
             };
 
             Source.Instance.DeleteAll();
             Source.Instance.Save(sources);
+            return sources;
         }
 
         private void InitSettingDatabase()
@@ -56,13 +57,13 @@ namespace pocketseller.core
             objSettingService.InitSettings();
         }
 
-        private void InitDefaultPocketsellerDatabase()
+        private void InitDefaultPocketsellerDatabase(List<Source> sources)
         {
             var objDataService = (CDataService)Mvx.IoCProvider.Resolve<IDataService>();
-            var objCurrentSource = Source.Instance.GetCurrentSource();
-
-            string strDatabasename = objCurrentSource == null ? "dummy.db" : objCurrentSource.DbName;
-            objDataService.CreatePocketsellerDb(strDatabasename);
+            foreach (var source in sources)
+            {
+                objDataService.CreatePocketsellerDb(source.DbName);
+            }
         }
     }
 }

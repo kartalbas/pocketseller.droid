@@ -987,7 +987,7 @@
   <data name="ErpExport" xml:space="preserve">
     <value>ERP Export</value>
   </data>
-  <data name="Code" xml:space="preserve">
-    <value>Code</value>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
   </data>
 </root>

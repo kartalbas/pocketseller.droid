@@ -80,15 +80,17 @@ namespace pocketseller.core.Services
 
         public Source FindByName(string name)
         {
-            return DataService.SettingsConnection.Table<Source>().Where(s => s.Name == name).FirstOrDefault();
+            return DataService.SettingsConnection.Table<Source>().Where(s => s.Name == name.ToUpper()).FirstOrDefault();
         }
 
         public Source GetCurrentSource()
         {
-            var objSettingService = (CSettingService)Mvx.IoCProvider.Resolve<ISettingService>();
-            var sourceId = objSettingService.Get<int>(ESettingType.DataSourceId);
-            var source = FindById(sourceId);
-            return source;
+            return FindByName(App.SourceName);
+        }
+
+        public Source GetCurrentSource(string sourcename)
+        {
+            return FindByName(sourcename);
         }
 
         public Source FindById(int id)

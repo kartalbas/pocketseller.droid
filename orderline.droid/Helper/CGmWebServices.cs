@@ -625,7 +625,7 @@ namespace pocketseller.droid.Helper
             catch (Exception objException)
             {
                 CErrorHandling.Log(objException);
-                throw new Exception(objException.Message);
+                throw new Exception(objException?.Message);
             }
         }
 
@@ -640,12 +640,7 @@ namespace pocketseller.droid.Helper
                         throw new Exception("No source found, do you need to activate your pocketseller?");
 
                     var strHost = Source.Instance.GetApiUrl(objSource.Host);
-
-                    var objClient = new RestClient(strHost)
-                    {
-                        Authenticator = new HttpBasicAuthenticator(RSACrypter.Encrypt(objSource.Username), RSACrypter.Encrypt(objSource.Password))
-                    };
-
+                    var objClient = new RestClient(strHost);
                     return objClient;
                 }
                 catch (Exception objException)

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using orderline.core.ModelsAPI;
 using System.Text;
+using orderline.core.Tools;
 
 namespace pocketseller.core.Services
 {
@@ -159,7 +160,6 @@ namespace pocketseller.core.Services
             }
         }
 
-
         public async Task<ObservableCollection<EMails>> GetMailsAsync()
         {
             try
@@ -207,18 +207,41 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<string> GetToken()
+        public async Task<bool> Test()
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                var methodUrl = GetLoginHost("LoginTest", App.SourceName);
+                var response = await client.GetAsync(new Uri(methodUrl));
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<bool>(content);
+                    return result;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<string> GetMobileToken(string username, string mobile, string token, string sourcename)
         {
             try
             {
                 var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
 
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
-                var methodUrl = GetLoginHost("LoginDevice");
-                var serverUri = new Uri($"{methodUrl}?deviceId={deviceId}");
-                Console.WriteLine(serverUri.ToString());
-                var response = await client.GetAsync(serverUri);
+                client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
+                client.DefaultRequestHeaders.Add("mobile", Base64Tools.Base64Encode(mobile));
+                client.DefaultRequestHeaders.Add("token", token);
+                var methodUrl = GetLoginHost("GetMobileToken", sourcename);
+                var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
@@ -230,7 +253,32 @@ namespace pocketseller.core.Services
             }
             catch (Exception)
             {
-                throw;
+                return string.Empty;
+            }
+        }
+
+        public async Task<string> GetMobile(string username, string password, string sourcename)
+        {
+            try
+            {
+                var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
+
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
+                client.DefaultRequestHeaders.Add("password", Base64Tools.Base64Encode(password));
+                var methodUrl = GetLoginHost("GetMobile", sourcename);
+                var response = await client.GetAsync(new Uri(methodUrl));
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = await response.Content.ReadAsStringAsync();
+                    return result;
+                }
+
+                return string.Empty;
+            }
+            catch (Exception)
+            {
+                return string.Empty;
             }
         }
 
@@ -250,9 +298,9 @@ namespace pocketseller.core.Services
             return result;
         }
 
-        private string GetLoginHost(string method)
+        private string GetLoginHost(string method, string sourcename)
         {
-            var source = Source.Instance.GetCurrentSource();
+            var source = Source.Instance.GetCurrentSource(sourcename);
             var serverHost = Source.Instance.GetLoginUrl(source.Host);
             var result = $"{serverHost}/{method}";
             return result;

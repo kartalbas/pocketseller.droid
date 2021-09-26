@@ -22,7 +22,6 @@ using pocketseller.core.Services.Interfaces;
 using Quotation = pocketseller.core.Models.Quotation;
 using orderline.core.Resources;
 using FlexCel.Core;
-using orderline.core.ModelsPS;
 
 namespace pocketseller.core.ViewModels
 {
@@ -354,13 +353,6 @@ namespace pocketseller.core.ViewModels
 
                 return objLoginDate != default(DateTime);
             }
-        }
-
-        private MvxCommand _logoutCommand;
-        public ICommand LogoutCommand { get { _logoutCommand = _logoutCommand ?? new MvxCommand(DoLogoutCommand); return _logoutCommand; } }
-        private void DoLogoutCommand()
-        {
-            SettingService.Set(ESettingType.LoginTime, default(DateTime));
         }
 
         private MvxCommand _checkLoginCommand;

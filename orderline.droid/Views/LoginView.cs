@@ -19,6 +19,7 @@ using System;
 using Firebase;
 using Firebase.Auth;
 using Java.Util.Concurrent;
+using orderline.core.Resources.Languages;
 
 namespace pocketseller.droid.Views
 {
@@ -93,8 +94,6 @@ namespace pocketseller.droid.Views
             {
                 ActivityCompat.RequestPermissions(this, new[] { Manifest.Permission.BindPrintService }, 0);
             }
-
-            LoginViewModel.ShowMainViewCommand.Execute(null);
         }
 
         public override void OnBackPressed()
@@ -123,35 +122,28 @@ namespace pocketseller.droid.Views
                 _objButtonExit.Click += (sender, e) => Finish();
 
             if (_objButtonLogin != null)
-                _objButtonLogin.Click += (sender, e) =>
+                _objButtonLogin.Click += async (sender, e) =>
                 {
-                    //if (string.IsNullOrEmpty(LoginViewModel.Username))
-                    //{
-                    //    CTools.ShowToast(Language.LoginFailed + " -> Username?");
-                    //    return;
-                    //}
-                    //else if (string.IsNullOrEmpty(LoginViewModel.Password))
-                    //{
-                    //    CTools.ShowToast(Language.LoginFailed + " -> Password?");
-                    //    return;
-                    //}
-                    //else
-                    //{
-                        var instance = FirebaseAuth.GetInstance(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
-                        if (instance == null)
-                        {
-                            instance = new FirebaseAuth(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
-                        }
+                    LoginViewModel.ControlIsEnabled = false;
+                    var resultTuple = await LoginViewModel.GetMobile();
+                    var sourcename = resultTuple.Item1;
+                    var username = resultTuple.Item2;
+                    var mobile = resultTuple.Item3;
 
-                        var providerInstance = PhoneAuthProvider.GetInstance(instance);
-                        providerInstance.VerifyPhoneNumber("+41791288496", 60, TimeUnit.Seconds, CTools.CurrentActivity, new AuthCallbacks());
+                    if (string.IsNullOrEmpty(sourcename) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(mobile))
+                    {
+                        CTools.ShowToast(Language.IsNotActivated);
+                        return;
+                    } 
 
-                        //LoginViewModel.SettingService.Set(ESettingType.LoginTime, DateTime.Now);
-                        //Mvx.IoCProvider.Resolve<IRestService>()?.GetToken().ContinueWith(t => pocketseller.core.App.BackendToken = t.Result);
-                        //CTools.ShowToast(Language.LoginSuccessFull);
-                        //ShowMainView();
-                        //Finish();
-                    //}
+                    var instance = FirebaseAuth.GetInstance(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
+                    if (instance == null)
+                    {
+                        instance = new FirebaseAuth(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
+                    }
+
+                    var providerInstance = PhoneAuthProvider.GetInstance(instance);
+                    providerInstance.VerifyPhoneNumber(mobile, 60, TimeUnit.Seconds, CTools.CurrentActivity, new AuthCallbacks(username, mobile, sourcename, LoginViewModel));
                 };
         }
 
@@ -174,48 +166,5 @@ namespace pocketseller.droid.Views
         }
 
         #endregion
-    }
-
-    public class AuthCallbacks : PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    {
-
-        public override async void OnVerificationCompleted(PhoneAuthCredential credential)
-        {
-            try
-            {
-                System.Diagnostics.Debug.WriteLine("OnVerificationCompleted:CODE: " + credential.SmsCode);
-                var result = await LoginView.FireAuth.SignInWithCredentialAsync(credential);
-                var idToken = await result.User.GetIdTokenAsync(false);
-                System.Diagnostics.Debug.WriteLine("OnVerificationCompleted:TOKEN: " + idToken.Token);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex);
-            }
-        }
-
-        public override void OnCodeAutoRetrievalTimeOut(string language)
-        {
-            base.OnCodeAutoRetrievalTimeOut(language);
-            System.Diagnostics.Debug.WriteLine("OnCodeAutoRetrievalTimeOut: " + language);
-        }
-
-        public override void OnVerificationFailed(FirebaseException exception)
-        {
-            System.Diagnostics.Debug.WriteLine("OnVerificationFailed: " + exception);
-        }
-
-        public override void OnCodeSent(string verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken)
-        {
-            try
-            {
-                base.OnCodeSent(verificationId, forceResendingToken);
-                System.Diagnostics.Debug.WriteLine("OnCodeSent " + verificationId);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex);
-            }
-        }
     }
 }

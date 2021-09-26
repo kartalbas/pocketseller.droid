@@ -9,6 +9,11 @@ using pocketseller.core.Messages;
 using orderline.core.Resources.Languages;
 using pocketseller.core.Services;
 using pocketseller.core.Services.Interfaces;
+using System.Threading.Tasks;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using orderline.core.Tools;
+using Acr.UserDialogs;
 
 namespace pocketseller.core.ViewModels
 {
@@ -46,7 +51,7 @@ namespace pocketseller.core.ViewModels
             LabelMenuTitle = string.Empty;
 
             LabelMenuTitle = string.Empty;
-            LabelCode = Language.Code;
+            LabelBranch = Language.Branch;
             LabelUsername = Language.Username;
             LabelPassword = Language.Password;
             LabelLogin = Language.Login;
@@ -81,11 +86,11 @@ namespace pocketseller.core.ViewModels
             }
         }
         
-        private string _labelCode;
-	    public string LabelCode
+        private string _labelBranch;
+	    public string LabelBranch
         {
-            get => _labelCode;
-            set { _labelCode = value; RaisePropertyChanged(() => LabelCode); }
+            get => _labelBranch;
+            set { _labelBranch = value; RaisePropertyChanged(() => LabelBranch); }
         }
 
         public bool ActivationInitialized { get; set; }
@@ -112,8 +117,12 @@ namespace pocketseller.core.ViewModels
 	    private string _username;
         public string Username
         {
-            get => _username;
-            set { _username = value; RaisePropertyChanged(() => Username); }
+            get => _username; 
+            set 
+            {
+                _username = value;
+                RaisePropertyChanged(() => Username); 
+            }
         }
 
 	    private string _labelPassword;
@@ -130,11 +139,11 @@ namespace pocketseller.core.ViewModels
             set { _password = value; RaisePropertyChanged(() => Password); }
         }
 
-        private string _code;
-        public string Code
+        private string _branch;
+        public string Branch
         {
-            get => _code;
-            set { _code = value; RaisePropertyChanged(() => Code); }
+            get => _branch;
+            set { _branch = value; RaisePropertyChanged(() => Branch); }
         }
         
         private string _labelLogin;
@@ -165,20 +174,54 @@ namespace pocketseller.core.ViewModels
             set { _labelChangePassword = value; RaisePropertyChanged(() => LabelChangePassword); }
         }
 
-	    public bool Login
-	    {
-	        get
-	        {
-                //TODO: implement login here
+        private string DomainMapper(Match match)
+        {
+            string domainName = new IdnMapping().GetAscii(match.Groups[2].Value);
+            return match.Groups[1].Value + domainName;
+        }
 
-                //TODO: get emails
-                //ListEMails = await client.GetMailsAsync();
+        public async Task<Tuple<string, string, string>> GetMobile()
+        {
+            try
+            {
+                var dialag = Mvx.IoCProvider.Resolve<IUserDialogs>();
+                var rest = Mvx.IoCProvider.Resolve<IRestService>();
 
-                SettingService.Set(ESettingType.LoginTime, DateTime.Now);
-                Mvx.IoCProvider.Resolve<IRestService>()?.GetToken().ContinueWith(t => App.BackendToken = t.Result);
-                return true;
-	        }
-	    }
+                if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(Branch))
+                {
+                    dialag.Toast($"Check {Language.Branch}/{Language.Mail}/{Language.Password}", TimeSpan.FromSeconds(3));
+                    return new Tuple<string, string, string>(string.Empty, string.Empty, string.Empty);
+                }
+
+                var source = Source.Instance.FindByName(Branch);
+                if(source == null)
+                {
+                    dialag.Toast($"Check {Language.Branch}", TimeSpan.FromSeconds(3));
+                    return new Tuple<string, string, string>(string.Empty, string.Empty, string.Empty);
+                }
+
+                var valid = RegexUtilities.IsValidEmail(Username);
+                if (!valid)
+                {
+                    dialag.Toast($"Check {Language.Mail}", TimeSpan.FromSeconds(3));
+                    return new Tuple<string, string, string>(string.Empty, string.Empty, string.Empty);
+                }
+
+                var result = await rest.GetMobile(Username, Password, source.Name);
+
+                if(string.IsNullOrEmpty(result))
+                {
+                    dialag.Toast(Language.CouldNotBeActivated, TimeSpan.FromSeconds(3));
+                    return new Tuple<string, string, string>(string.Empty, string.Empty, string.Empty);
+                }
+
+                return new Tuple<string, string, string>(source.Name, Username, result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         private MvxCommand _showMainViewCommand;
         public ICommand ShowMainViewCommand { get { _showMainViewCommand = _showMainViewCommand ?? new MvxCommand(DoShowMainViewCommand); return _showMainViewCommand; } }

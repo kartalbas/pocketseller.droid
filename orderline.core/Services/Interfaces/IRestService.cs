@@ -17,6 +17,8 @@ namespace pocketseller.core.Services.Interfaces
 
         Task<FacturaData> GetFacturaDataAsync(int orderNumber);
 
-        Task<string> GetToken();
+        Task<bool> Test();
+        Task<string> GetMobile(string username, string password, string sourcename);
+        Task<string> GetMobileToken(string username, string mobile, string token, string sourcename);
     }
 }

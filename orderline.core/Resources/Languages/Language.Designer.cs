@@ -322,6 +322,15 @@ namespace orderline.core.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Branch.
+        /// </summary>
+        public static string Branch {
+            get {
+                return ResourceManager.GetString("Branch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -399,15 +408,6 @@ namespace orderline.core.Resources.Languages {
         public static string City {
             get {
                 return ResourceManager.GetString("City", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Code.
-        /// </summary>
-        public static string Code {
-            get {
-                return ResourceManager.GetString("Code", resourceCulture);
             }
         }
         
