@@ -39,7 +39,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item1);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetPocketsellerHost("GetAllStocks");
                 var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)
