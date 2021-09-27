@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MvvmCross;
 using orderline.core.Resources.Languages;
-using pocketseller.core;
+using pocketseller.core.Services;
 using pocketseller.core.Services.Interfaces;
 using RestSharp;
 
@@ -38,13 +38,15 @@ namespace pocketseller.droid.Helper
         {
             try
             {
-                if (string.IsNullOrEmpty(App.BackendToken))
+                var backendToken = Mvx.IoCProvider.Resolve<ISettingService>().Get<string>(ESettingType.BackendToken);
+
+                if (string.IsNullOrEmpty(backendToken))
                 {
                     CTools.ShowToast(Language.IsNotActivated);
                     throw new UnauthorizedAccessException();
                 }
 
-                ReplaceAuthParameter(objRequest);
+                ReplaceAuthParameter(objRequest, backendToken);
 
                 var result = await GetResponse(objClient, objRequest);
 
@@ -62,11 +64,11 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        private static void ReplaceAuthParameter(IRestRequest objRequest)
+        private static void ReplaceAuthParameter(IRestRequest objRequest, string backendToken)
         {
             var authParam = objRequest.Parameters.Find(p => p.Name.Equals("Authorization"));
             objRequest.Parameters.Remove(authParam);
-            objRequest.AddHeader("Authorization", "Bearer " + App.BackendToken);
+            objRequest.AddHeader("Authorization", "Bearer " + backendToken);
         }
     }
 }

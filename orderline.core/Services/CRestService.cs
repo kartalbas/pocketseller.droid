@@ -41,7 +41,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item1);
                 var methodUrl = GetPocketsellerHost("GetAllStocks");
                 var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)
@@ -64,7 +64,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetPocketsellerHost("GetFacturaData");
                 var serverUri = new Uri($"{methodUrl}/{orderNumber}");
                 var response = await client.GetAsync(serverUri);
@@ -91,7 +91,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetMailHost("SendMail");
                 var serverUri = new Uri($"{methodUrl}");
 
@@ -131,7 +131,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetMailHost("GetMails");
                 var serverUri = new Uri($"{methodUrl}");
                 var response = await client.GetAsync(serverUri);
@@ -155,9 +155,9 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetMailHost("DeleteMail");
-                var serverUri = new Uri($"{methodUrl}/{messageId}");
+                var serverUri = new Uri($"{methodUrl}?messageId={messageId}");
 
                 using (var request = new HttpRequestMessage(HttpMethod.Post, serverUri))
                 {
@@ -187,7 +187,7 @@ namespace pocketseller.core.Services
             try
             {
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var serverUri = new Uri($"{_activatorServerUri}/Activator/GetMails/{_deviceId}/{_id}/{_key}");
                 var response = await client.GetAsync(serverUri);
                 if (response.IsSuccessStatusCode)
@@ -209,9 +209,13 @@ namespace pocketseller.core.Services
         {
             try
             {
+                var loginData = GetLoginData();
+                if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
+                    return false;
+
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.BackendToken);
-                var methodUrl = GetLoginHost("LoginTest", App.SourceName);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + loginData.Item2);
+                var methodUrl = GetLoginHost("LoginTest", loginData.Item1);
                 var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)
                 {
@@ -302,6 +306,13 @@ namespace pocketseller.core.Services
             var serverHost = Source.Instance.GetLoginUrl(source.Host);
             var result = $"{serverHost}/{method}";
             return result;
+        }
+
+        private Tuple<string, string> GetLoginData()
+        {
+            var backendToken = _settingService.Get<string>(ESettingType.BackendToken);
+            var sourceName = _settingService.Get<string>(ESettingType.SourceName);
+            return new Tuple<string, string>(sourceName, backendToken);
         }
     }
 }

@@ -16,7 +16,6 @@ using pocketseller.core.ViewModels;
 using RestSharp;
 using RestSharp.Deserializers;
 using Quotation = pocketseller.core.ModelsAPI.Quotation;
-using pocketseller.core;
 
 namespace pocketseller.droid.Helper
 {

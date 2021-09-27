@@ -339,30 +339,6 @@ namespace pocketseller.core.ViewModels
             Messenger.Publish(new OrdersViewServiceMessage(this, enmOrderView));
         }
 
-        public bool CheckLoginTimeOut
-        {
-            get
-            {
-                var objLoginDate = SettingService.Get<DateTime>(ESettingType.LoginTime);
-
-                if (DateTime.Now.Subtract(objLoginDate).TotalMinutes >= (60 * 12))
-                {
-                    objLoginDate = default(DateTime);
-                    SettingService.Set(ESettingType.LoginTime, default(DateTime));
-                }
-
-                return objLoginDate != default(DateTime);
-            }
-        }
-
-        private MvxCommand _checkLoginCommand;
-        public ICommand CheckLoginCommand { get { _checkLoginCommand = _checkLoginCommand ?? new MvxCommand(DoCheckLoginCommand); return _checkLoginCommand; } }
-        private void DoCheckLoginCommand()
-        {
-            if (!CheckLoginTimeOut)
-                NavigationService.Navigate<LoginViewModel>();
-        }
-
         private MvxAsyncCommand<Document> _emailCommand;
         public IMvxAsyncCommand<Document> EmailCommand => _emailCommand = _emailCommand ?? new MvxAsyncCommand<Document>(DoEmailCommand);
         private async Task DoEmailCommand(Document document)
@@ -452,6 +428,45 @@ namespace pocketseller.core.ViewModels
             }
 
             return quotationdetails;
+        }
+
+        public async Task<bool> CheckLogin(bool navigateToLogin, bool navigateToMain)
+        {
+            var loginData = GetLoginData();
+            if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
+            {
+                SetLoginData(string.Empty, string.Empty);
+                if(navigateToLogin)
+                    await NavigationService.Navigate<LoginViewModel>();
+                return false;
+            }
+
+            if (!await Mvx.IoCProvider.Resolve<IRestService>().Test())
+            {
+                SetLoginData(string.Empty, string.Empty);
+                if (navigateToLogin)
+                    await NavigationService.Navigate<LoginViewModel>();
+                return false;
+            }
+            else
+            {
+                if (navigateToMain)
+                    await NavigationService.Navigate<MainViewModel>();
+                return true;
+            }
+        }
+
+        public void SetLoginData(string sourceName, string backendToken)
+        {
+            SettingService.Set(ESettingType.BackendToken, backendToken);
+            SettingService.Set(ESettingType.SourceName, sourceName);
+        }
+
+        public Tuple<string, string> GetLoginData()
+        {
+            var backendToken = SettingService.Get<string>(ESettingType.BackendToken);
+            var sourceName = SettingService.Get<string>(ESettingType.SourceName);
+            return new Tuple<string, string>(sourceName, backendToken);
         }
 
         #endregion

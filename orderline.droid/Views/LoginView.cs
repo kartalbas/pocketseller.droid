@@ -20,6 +20,7 @@ using Firebase;
 using Firebase.Auth;
 using Java.Util.Concurrent;
 using orderline.core.Resources.Languages;
+using System.Threading.Tasks;
 
 namespace pocketseller.droid.Views
 {
@@ -43,7 +44,7 @@ namespace pocketseller.droid.Views
         internal static FirebaseApp FireApp;
         internal static FirebaseAuth FireAuth;
         
-        protected override void OnCreate(Bundle objInState)
+        protected async override void OnCreate(Bundle objInState)
         {
             base.OnCreate(objInState);
             RequestWindowFeature(WindowFeatures.IndeterminateProgress);
@@ -52,13 +53,13 @@ namespace pocketseller.droid.Views
 
             InitFirebaseAuth();
             RegisterEvents();
-            ShowMainView();
+            CheckPermissions();
+            await CheckLogin();
 
             CTools.InitActionBar(ActionBar, LoginViewModel.LabelTitle);
 
             OrderSettings.Instance.CheckVKMustHigher = true; // setting disabled and fixed to true
             OrderSettings.Instance.CheckStock = true; // setting disabled and fixed to true
-
 
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             DateTime buildDate = new DateTime(2000, 1, 1).AddDays(version.Build).AddSeconds(version.Revision * 2);
@@ -83,7 +84,7 @@ namespace pocketseller.droid.Views
             FireAuth.UseAppLanguage();
         }
 
-        private void ShowMainView()
+        private void CheckPermissions()
         {
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessNetworkState) != (int)Permission.Granted)
             {
@@ -94,6 +95,19 @@ namespace pocketseller.droid.Views
             {
                 ActivityCompat.RequestPermissions(this, new[] { Manifest.Permission.BindPrintService }, 0);
             }
+        }
+
+        private async Task CheckLogin()
+        {
+            if (!await LoginViewModel.CheckLogin(false, true))
+            {
+                CTools.ShowToast(Language.LoginFailed);
+                return;
+            }
+
+            CTools.ShowToast(Language.LoginSuccessFull);
+
+            Finish();
         }
 
         public override void OnBackPressed()
@@ -133,6 +147,7 @@ namespace pocketseller.droid.Views
                     if (string.IsNullOrEmpty(sourcename) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(mobile))
                     {
                         CTools.ShowToast(Language.IsNotActivated);
+                        LoginViewModel.ControlIsEnabled = true;
                         return;
                     } 
 

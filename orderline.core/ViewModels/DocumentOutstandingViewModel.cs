@@ -118,7 +118,9 @@ namespace pocketseller.core.ViewModels
         {
             try
             {
-                if(op != null)
+                DoShowWorkingCommand();
+
+                if (op != null)
                 {                
                     //check if already an answer exists
                     var rest = Mvx.IoCProvider.Resolve<IRestService>();
@@ -161,13 +163,16 @@ namespace pocketseller.core.ViewModels
                     body = body + "*****************************<br/>";
                     body = body + "<br/>";
 
-                    //var to = "kartalbas@gmail.com";
-                    var to = SettingService.Get<string>(ESettingType.OpManager);
+                    var to = "kartalbas@gmail.com";
+                    //var to = SettingService.Get<string>(ESettingType.OpManager);
                     await rest.SendMail(null, to, subject, body);
                 }
+
+                DoHideWorkingCommand();
             }
             catch (Exception exception)
             {
+                DoHideWorkingCommand();
                 LogError(exception);
             }
         }

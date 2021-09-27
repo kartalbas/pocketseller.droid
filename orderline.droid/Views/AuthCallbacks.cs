@@ -6,7 +6,6 @@ using System;
 using Firebase;
 using Firebase.Auth;
 using orderline.core.Resources.Languages;
-using pocketseller.core;
 using pocketseller.core.Services;
 using MvvmCross.Platforms.Android;
 
@@ -42,20 +41,20 @@ namespace pocketseller.droid.Views
                     CTools.ShowToast(Language.NotRegistered);
                 }
 
-                App.BackendToken = token;
-                App.SourceName = Sourcename;
+                LoginViewModel.SetLoginData(Sourcename, token);
 
                 LoginViewModel.ControlIsEnabled = true;
 
-                LoginViewModel.SettingService.Set(ESettingType.LoginTime, DateTime.Now);
                 CTools.ShowToast(Language.LoginSuccessFull);
 
-                LoginViewModel.ShowMainViewCommand.Execute(null);
+                await LoginViewModel.CheckLogin(false, true);
+
                 Mvx.IoCProvider.Resolve<IMvxAndroidCurrentTopActivity>()?.Activity?.Finish();
             }
             catch (Exception)
             {
                 CTools.ShowToast(Language.NotRegistered);
+                LoginViewModel.ControlIsEnabled = true;
             }
         }
 
@@ -67,6 +66,7 @@ namespace pocketseller.droid.Views
         public override void OnVerificationFailed(FirebaseException exception)
         {
             CTools.ShowToast(exception.Message);
+            LoginViewModel.ControlIsEnabled = true;
         }
 
         public override void OnCodeSent(string verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken)
@@ -78,6 +78,7 @@ namespace pocketseller.droid.Views
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
+                LoginViewModel.ControlIsEnabled = true;
             }
         }
     }

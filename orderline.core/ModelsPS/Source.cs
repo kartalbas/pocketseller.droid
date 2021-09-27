@@ -85,7 +85,8 @@ namespace pocketseller.core.Services
 
         public Source GetCurrentSource()
         {
-            return FindByName(App.SourceName);
+            var sourceName = SettingService.Get<string>(ESettingType.SourceName);
+            return FindByName(sourceName);
         }
 
         public Source GetCurrentSource(string sourcename)
@@ -121,7 +122,7 @@ namespace pocketseller.core.Services
 
         public string GetMailUrl(string strHost)
         {
-            return string.Format(@"{0}://{1}/{2}", SettingService.Get<string>(ESettingType.RestProtocol), strHost, "api/v1/login");
+            return string.Format(@"{0}://{1}/{2}", SettingService.Get<string>(ESettingType.RestProtocol), strHost, "api/v1/mail");
         }
 
         public string GetResourceUrl(string strHost)

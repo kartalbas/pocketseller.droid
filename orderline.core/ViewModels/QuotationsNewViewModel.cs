@@ -1,12 +1,8 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Acr.UserDialogs;
-using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using pocketseller.core.Messages;
-using pocketseller.core.Models;
 using pocketseller.core.ModelsAPI;
 using orderline.core.Resources.Languages;
 using pocketseller.core.Services.Interfaces;
@@ -14,7 +10,7 @@ using Quotation = pocketseller.core.Models.Quotation;
 
 namespace pocketseller.core.ViewModels
 {
-	public class QuotationsNewViewModel : BaseViewModel
+    public class QuotationsNewViewModel : BaseViewModel
 	{
 		#region Private properties
 		#endregion

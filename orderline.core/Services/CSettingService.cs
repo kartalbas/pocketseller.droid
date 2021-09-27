@@ -10,7 +10,7 @@ namespace pocketseller.core.Services
 {
     public enum ESettingType
     {
-        Init,        
+        Init,
         SearchType,
         SearchTypeAddress,
         SearchTypeArticle,
@@ -54,7 +54,6 @@ namespace pocketseller.core.Services
         RestLoginApi,
         RestSourceApi,
         RestGetDeficitTemplate,
-        LoginTime,
         OpManager,
         RestGetDeliveryWithPriceTemplate,
         RestGetFacturaTemplate,
@@ -69,6 +68,8 @@ namespace pocketseller.core.Services
         ActivatorUrl,
         RestGetDocumentsByStateAndTimeframe,
         RestGetOrdersByAccountNumber,
+        BackendToken,
+        SourceName
     }
 
     public class CSettingService : CBaseService, ISettingService, IBaseService

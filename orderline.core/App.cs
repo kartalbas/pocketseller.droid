@@ -11,12 +11,8 @@ namespace pocketseller.core
 {
     public class App : MvxApplication
     {
-        public static string BackendToken { get; set; }
-        public static string SourceName{ get; set; }
-
         public override void Initialize()
         {
-            //Register all services
             CreatableTypes()
                 .EndingWith("Service")
                 .AsInterfaces()

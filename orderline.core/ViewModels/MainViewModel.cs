@@ -6,8 +6,6 @@ using pocketseller.core.Messages;
 using orderline.core.Resources.Languages;
 using pocketseller.core.Services.Interfaces;
 using pocketseller.core.Tools;
-using pocketseller.core.Services;
-using System;
 
 namespace pocketseller.core.ViewModels
 {
@@ -155,16 +153,6 @@ namespace pocketseller.core.ViewModels
             set { _labelDataflow = value; RaisePropertyChanged(() => LabelDataflow); }
         }
         
-        private MvxCommand _showMainViewCommand;
-        public ICommand ShowLoginViewCommand { get { _showMainViewCommand = _showMainViewCommand ?? new MvxCommand(DoShowLoginViewCommand); return _showMainViewCommand; } }
-        private void DoShowLoginViewCommand()
-        {
-            SettingService.Set(ESettingType.LoginTime, default(DateTime));
-            App.BackendToken = string.Empty;
-            App.SourceName = string.Empty;
-            NavigationService.Navigate<LoginViewModel>();
-        }
-
         #endregion
     }
 }

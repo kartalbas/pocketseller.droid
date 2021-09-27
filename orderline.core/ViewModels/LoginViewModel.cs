@@ -1,9 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 using MvvmCross;
-using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
 using pocketseller.core.Messages;
 using orderline.core.Resources.Languages;
@@ -220,16 +218,6 @@ namespace pocketseller.core.ViewModels
             catch (Exception)
             {
                 throw;
-            }
-        }
-
-        private MvxCommand _showMainViewCommand;
-        public ICommand ShowMainViewCommand { get { _showMainViewCommand = _showMainViewCommand ?? new MvxCommand(DoShowMainViewCommand); return _showMainViewCommand; } }
-        private void DoShowMainViewCommand()
-        {
-            if (CheckLoginTimeOut)
-            {
-                NavigationService.Navigate<MainViewModel>();
             }
         }
 

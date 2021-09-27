@@ -16,7 +16,6 @@ using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using pocketseller.droid.Views.Fragments;
 using pocketseller.core.Services.Interfaces;
-using pocketseller.core;
 
 namespace pocketseller.droid.Views
 {
@@ -35,7 +34,6 @@ namespace pocketseller.droid.Views
         private MvxSubscriptionToken _objTokenTitleMessage;
         private bool _bWorking;
         private IRestService _restService;
-
 
         #endregion
 
@@ -64,10 +62,8 @@ namespace pocketseller.droid.Views
         {
             base.OnStart();
 
-            var result = await _restService.Test();
-            if (!result)
+            if(!await MainViewModel.CheckLogin(true, false))
             {
-                MainViewModel.ShowLoginViewCommand.Execute(null);
                 CTools.ShowToast(Language.LoginFailed);
                 Finish();
             }
@@ -294,11 +290,12 @@ namespace pocketseller.droid.Views
             _objDrawer = FindViewById<DrawerLayout>(orderline.droid.Resource.Id.main_drawer_layout);
             _objDrawer.SetScrimColor(GetColor(Android.Resource.Color.Transparent));
             _objDrawerList = FindViewById<ListView>(orderline.droid.Resource.Id.main_drawer_menu);
-            _objDrawerList.ItemClick += delegate(object sender, AdapterView.ItemClickEventArgs args)
+            _objDrawerList.ItemClick += async delegate(object sender, AdapterView.ItemClickEventArgs args)
             {
                 if ((EMenu) args.Position == EMenu.Logout)
                 {
-                    MainViewModel.ShowLoginViewCommand.Execute(null);
+                    MainViewModel.SetLoginData(string.Empty, string.Empty);
+                    await MainViewModel.CheckLogin(true, false);
                     Finish();
                 }
 
