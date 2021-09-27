@@ -299,7 +299,7 @@ namespace pocketseller.droid.Views
             {
                 if ((EMenu) args.Position == EMenu.Logout)
                 {
-                    MainViewModel.SetLoginData(string.Empty, string.Empty);
+                    MainViewModel.SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty);
                     await MainViewModel.CheckLogin(true, false);
                     Finish();
                 }

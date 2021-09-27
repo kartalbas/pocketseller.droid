@@ -143,12 +143,15 @@ namespace pocketseller.core.ViewModels
                     //if no answer exists, send an mail
                     var currentSource = Source.Instance.GetCurrentSource();
                     var konto = Adress.FindByKontoNr(op.Adressnumber);
+                    var externalId = SettingService.Get<string>(ESettingType.ExternalId);
+                    var username = SettingService.Get<string>(ESettingType.Username);
 
                     var subject = $"KONTO: {op.Adressnumber} - RENR:{op.Docnumber} - REDT:{op.Docdate:d}";
                     var body = "<br/>";
                     body = body + "*****************************<br/>";
-                    body = body + $"USER: {currentSource?.Username} <br/>";
-                    body = body + $"LAGER: {currentSource?.Name} <br/>";
+                    body = body + $"USERNAME: {username}<br/>";
+                    body = body + $"ERP USER: {externalId}<br/>";
+                    body = body + $"LAGER: {currentSource?.Name}<br/>";
                     body = body + "*****************************<br/>";
                     body = body + "<br/>";
                     body = body + "*****************************<br/>";

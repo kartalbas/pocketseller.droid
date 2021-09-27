@@ -68,7 +68,9 @@ namespace pocketseller.core.Services
         RestGetDocumentsByStateAndTimeframe,
         RestGetOrdersByAccountNumber,
         BackendToken,
-        SourceName
+        SourceName,
+        ExternalId,
+        Username
     }
 
     public class CSettingService : CBaseService, ISettingService, IBaseService

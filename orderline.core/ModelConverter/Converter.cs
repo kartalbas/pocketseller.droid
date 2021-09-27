@@ -13,7 +13,9 @@ namespace pocketseller.core.ModelConverter
     {
         public static Order CreateOrder(Source source, Document document)
         {
-            var dataService = ((CDataService)Mvx.IoCProvider.Resolve<IDataService>());
+            var dataService = (CDataService)Mvx.IoCProvider.Resolve<IDataService>();
+            var externalId = Mvx.IoCProvider.Resolve<ISettingService>().Get<string>(ESettingType.ExternalId);
+            var username = Mvx.IoCProvider.Resolve<ISettingService>().Get<string>(ESettingType.Username);
 
             var order = new Order
             {
@@ -57,8 +59,8 @@ namespace pocketseller.core.ModelConverter
                 Usr15 = string.Empty,
                 Usr16 = string.Empty,
                 Usr17 = string.Empty,
-                Usr18 = string.Empty,
-                Usr19 = source.UserId.ToString()
+                Usr18 = username,
+                Usr19 = externalId
             };
 
             var orderdetails = new List<Orderdetail>();

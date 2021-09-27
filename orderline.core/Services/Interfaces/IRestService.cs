@@ -1,5 +1,6 @@
 ﻿using orderline.core.ModelsAPI;
 using orderline.core.ModelsPS;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -18,6 +19,6 @@ namespace pocketseller.core.Services.Interfaces
 
         Task<bool> Test();
         Task<string> GetMobile(string username, string password, string sourcename);
-        Task<string> GetMobileToken(string username, string mobile, string token, string sourcename);
+        Task<Tuple<string, string>> GetMobileToken(string username, string mobile, string token, string sourcename);
     }
 }

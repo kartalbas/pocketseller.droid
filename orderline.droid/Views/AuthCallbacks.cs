@@ -6,7 +6,6 @@ using System;
 using Firebase;
 using Firebase.Auth;
 using orderline.core.Resources.Languages;
-using pocketseller.core.Services;
 using MvvmCross.Platforms.Android;
 
 namespace pocketseller.droid.Views
@@ -35,13 +34,13 @@ namespace pocketseller.droid.Views
                 var idToken = await result.User.GetIdTokenAsync(false);
 
                 var rest = Mvx.IoCProvider.Resolve<IRestService>();
-                var token = await rest.GetMobileToken(Username, Mobile, idToken.Token, Sourcename);
-                if(string.IsNullOrEmpty(token))
+                var tuple = await rest.GetMobileToken(Username, Mobile, idToken.Token, Sourcename);
+                if(string.IsNullOrEmpty(tuple.Item1) || string.IsNullOrEmpty(tuple.Item2))
                 {
                     CTools.ShowToast(Language.NotRegistered);
                 }
 
-                LoginViewModel.SetLoginData(Sourcename, token);
+                LoginViewModel.SetLoginData(Sourcename, tuple.Item2, tuple.Item1, Username);
 
                 LoginViewModel.ControlIsEnabled = true;
 
@@ -53,6 +52,7 @@ namespace pocketseller.droid.Views
             }
             catch (Exception)
             {
+                LoginViewModel.SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty);
                 CTools.ShowToast(Language.NotRegistered);
                 LoginViewModel.ControlIsEnabled = true;
             }
