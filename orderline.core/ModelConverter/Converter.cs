@@ -21,7 +21,7 @@ namespace pocketseller.core.ModelConverter
             {
                 Id = document.Id,
                 DocumentType = document.Doctype,
-                User = source.Username,
+                User = username,
                 Adressnumber = document.Adress.Adressnumber,
                 Name1 = document.Adress.Name1,
                 Name2 = document.Adress.Name2,
@@ -59,7 +59,7 @@ namespace pocketseller.core.ModelConverter
                 Usr15 = string.Empty,
                 Usr16 = string.Empty,
                 Usr17 = string.Empty,
-                Usr18 = username,
+                Usr18 = string.Empty,
                 Usr19 = externalId
             };
 
