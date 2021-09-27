@@ -65,7 +65,6 @@ namespace pocketseller.core.Services
         ArticleChanged,
         ArticlePriceChanged,
         OutstandingpaymentsChanged,
-        ActivatorUrl,
         RestGetDocumentsByStateAndTimeframe,
         RestGetOrdersByAccountNumber,
         BackendToken,
@@ -131,8 +130,6 @@ namespace pocketseller.core.Services
         private const string SubUrlRestGetDeliveryWithPriceTemplate = "deliverynote_with.template.xls";
         private const string SubUrlRestGetDeliveryWithoutPriceTemplate = "deliverynote_without.template.xls";
         private const string SubUrlRestGetDeficitTemplate = "deficit.template.xls";
-
-        private const string ActivatorUrl = @"https://activator.yilmazfeinkost.de:7979";
 
         protected CDataService DataService { get; set; }
 
@@ -212,8 +209,6 @@ namespace pocketseller.core.Services
                 Set(ESettingType.SearchTypeAddress, 0);
                 Set(ESettingType.SearchTypeArticle, 0);
                 Set(ESettingType.SearchMaxChar, 3);
-
-                Set(ESettingType.ActivatorUrl, ActivatorUrl);
 
                 Set(ESettingType.Init, 1);
             }

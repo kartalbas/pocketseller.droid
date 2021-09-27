@@ -32,8 +32,6 @@ namespace pocketseller.core.Services
             _deviceId = "Pocketseller" + "_" + _platformService.GetDeviceIdentification();
             _id = "771e28e5-1da7-4af6-bc65-34fd74231d76";
             _key = "8c7920a1-a599-4981-af40-6448222aa4a3";
-
-            _activatorServerUri = settingService.Get<string>(ESettingType.ActivatorUrl);
         }
 
         public async Task<IList<Stock>> GetAllStocks()
@@ -126,7 +124,7 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<IList<MailResponse>> GetAllMails()
+        public async Task<IList<MailResponse>> GetMails()
         {
             try
             {
@@ -182,18 +180,34 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<ObservableCollection<EMails>> GetMails()
+        public async Task<IList<EMails>> GetOpMails()
         {
             try
             {
+                var loginData = GetLoginData();
+                if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
+                    return new ObservableCollection<EMails>();
+
                 var client = new HttpClient();
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
-                var serverUri = new Uri($"{_activatorServerUri}/Activator/GetMails/{_deviceId}/{_id}/{_key}");
-                var response = await client.GetAsync(serverUri);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + loginData.Item2);
+                var methodUrl = GetPocketsellerHost("GetOpMails");
+                var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    var result = JsonConvert.DeserializeObject<ObservableCollection<EMails>>(content);
+                    var mails = JsonConvert.DeserializeObject<IList<string>>(content);
+                    var result = new List<EMails>();
+                    var index = 1;
+                    foreach(var mail in mails)
+                    {
+                        result.Add(new EMails
+                        {
+                            Id = index++,
+                            Mail = mail,
+                            TimeStamp = DateTime.Now
+                        });
+                    }
+
                     return result;
                 }
 

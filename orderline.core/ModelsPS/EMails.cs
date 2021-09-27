@@ -51,7 +51,7 @@ namespace pocketseller.core.Services
             return true;
         }
 
-        public void Save(List<EMails> mails)
+        public void Save(IList<EMails> mails)
         {
             DeleteAll();
 

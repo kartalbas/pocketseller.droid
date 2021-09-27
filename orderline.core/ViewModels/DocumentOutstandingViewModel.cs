@@ -124,7 +124,7 @@ namespace pocketseller.core.ViewModels
                 {                
                     //check if already an answer exists
                     var rest = Mvx.IoCProvider.Resolve<IRestService>();
-                    var mailItems = await rest.GetAllMails();
+                    var mailItems = await rest.GetMails();
                     foreach (var mailItem in mailItems)
                     {                   
                         if(mailItem.Subject.Contains(op.Adressnumber)

@@ -8,12 +8,11 @@ namespace pocketseller.core.Services.Interfaces
 {
     public interface IRestService
     {
-        Task<IList<MailResponse>> GetAllMails();
+        Task<IList<MailResponse>> GetMails();
         Task<bool> DeleteMail(string messageId);
         Task<bool> SendMail(string from, string to, string subject, string body);
 
-        Task<ObservableCollection<EMails>> GetMails();
-
+        Task<IList<EMails>> GetOpMails();
         Task<FacturaData> GetFacturaData(int orderNumber);
         Task<IList<Stock>> GetAllStocks();
 

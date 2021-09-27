@@ -16,6 +16,7 @@ using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using pocketseller.droid.Views.Fragments;
 using pocketseller.core.Services.Interfaces;
+using pocketseller.core.Services;
 
 namespace pocketseller.droid.Views
 {
@@ -39,7 +40,7 @@ namespace pocketseller.droid.Views
 
         #region Public and Protected methods
 
-        protected override void OnCreate(Bundle objInState)
+        protected async override void OnCreate(Bundle objInState)
         {
             base.OnCreate(objInState);
 
@@ -54,6 +55,10 @@ namespace pocketseller.droid.Views
             InitDrawer();
 
             _restService = Mvx.IoCProvider.Resolve<IRestService>();
+
+            var mails = await _restService.GetOpMails();
+
+            new EMails().Save(mails);
 
             ShowMenu(EMenu.Documents);
         }
