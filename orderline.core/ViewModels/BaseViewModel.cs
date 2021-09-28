@@ -451,7 +451,12 @@ namespace pocketseller.core.ViewModels
             else
             {
                 if (navigateToMain)
+                {
+                    DataService.CreatePocketsellerDb(Source.Instance.GetCurrentSource().DbName);
+                    Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.SourceChanged));
                     await NavigationService.Navigate<MainViewModel>();
+                }
+
                 return true;
             }
         }

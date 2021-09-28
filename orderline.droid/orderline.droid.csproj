@@ -162,8 +162,6 @@
     <Compile Include="Views\Fragments\QuotationsFragment.cs" />
     <Compile Include="Views\Fragments\SettingFragment.cs" />
     <Compile Include="Views\Fragments\DocumentsNewFragment.cs" />
-    <Compile Include="Helper\RSACrypter.cs" />
-    <Compile Include="Helper\GZipCompressor.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\ic_action_next_item.png" />

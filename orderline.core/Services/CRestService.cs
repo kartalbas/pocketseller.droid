@@ -282,7 +282,7 @@ namespace pocketseller.core.Services
 
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
-                client.DefaultRequestHeaders.Add("password", Base64Tools.Base64Encode(password));
+                client.DefaultRequestHeaders.Add("password", RsaCrypter.Encrypt(password));
                 var methodUrl = GetLoginHost("GetMobile", sourcename);
                 var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)

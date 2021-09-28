@@ -16,6 +16,7 @@ using pocketseller.core.ViewModels;
 using RestSharp;
 using RestSharp.Deserializers;
 using Quotation = pocketseller.core.ModelsAPI.Quotation;
+using orderline.core.Tools;
 
 namespace pocketseller.droid.Helper
 {
@@ -322,7 +323,7 @@ namespace pocketseller.droid.Helper
 
                     var objOrderProxy = QuoToProxyQuotation.CreateQuotation(objDocument);
                     var strDeserializedContent = objRequest.JsonSerializer.Serialize(objOrderProxy);
-                    objRequest.AddBody(GZipCompressor.CompressString(strDeserializedContent));
+                    objRequest.AddBody(GzipCompressor.CompressString(strDeserializedContent));
 
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
@@ -365,7 +366,7 @@ namespace pocketseller.droid.Helper
                     var objOrderProxy = Converter.CreateOrder(source, objDocument);
                     var strDeserializedContent = objRequest.JsonSerializer.Serialize(objOrderProxy);
 
-                    objRequest.AddBody(GZipCompressor.CompressString(strDeserializedContent));
+                    objRequest.AddBody(GzipCompressor.CompressString(strDeserializedContent));
 
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
@@ -658,7 +659,7 @@ namespace pocketseller.droid.Helper
                 {
                     var objSettings = (CSettingService)Mvx.IoCProvider.Resolve<ISettingService>();
                     var strResource = objSettings.Get<string>(enmResource);
-                    var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
+                    var username = Mvx.IoCProvider.Resolve<ISettingService>().Get<string>(ESettingType.Username);
 
                     if (!string.IsNullOrEmpty(strSubUrl))
                         strResource = $"{strResource}{strSubUrl}";
@@ -666,7 +667,7 @@ namespace pocketseller.droid.Helper
                     var objRequest = new RestRequest(strResource, enmMethod) { RequestFormat = DataFormat.Json };
                     objRequest.Timeout = 10 * 60 * 1000; // 10min
                     objRequest.AddHeader("Accept", "application/json");
-                    objRequest.AddHeader("IMEI", RSACrypter.Encrypt(deviceId));
+                    objRequest.AddHeader("Username", RsaCrypter.Encrypt(username));
 
                     return objRequest;
                 }
