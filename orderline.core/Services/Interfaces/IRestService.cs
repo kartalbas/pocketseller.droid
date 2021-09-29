@@ -18,7 +18,7 @@ namespace pocketseller.core.Services.Interfaces
         Task<IList<Stock>> GetAllStocks();
 
         Task<bool> Test();
-        Task<string> GetMobile(string username, string password, string sourcename);
+        Task<string> GetMobileNumber(string username, string password, string sourcename);
         Task<Tuple<string, string>> GetMobileToken(string username, string mobile, string token, string sourcename);
     }
 }

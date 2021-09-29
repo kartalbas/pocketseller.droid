@@ -205,7 +205,7 @@ namespace pocketseller.core.ViewModels
                     return new Tuple<string, string, string>(string.Empty, string.Empty, string.Empty);
                 }
 
-                var result = await rest.GetMobile(Username, Password, source.Name);
+                var result = await rest.GetMobileNumber(Username, Password, source.Name);
 
                 if(string.IsNullOrEmpty(result))
                 {

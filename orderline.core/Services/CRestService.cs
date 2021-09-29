@@ -274,7 +274,7 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<string> GetMobile(string username, string password, string sourcename)
+        public async Task<string> GetMobileNumber(string username, string password, string sourcename)
         {
             try
             {
