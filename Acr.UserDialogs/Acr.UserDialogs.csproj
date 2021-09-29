@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;monoandroid90;monoandroid10.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;monoandroid10.0</TargetFrameworks>
         <PackageProjectUrl>https://github.com/aritchie/userdialogs</PackageProjectUrl>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
         <Authors>Allan Ritchie</Authors>
@@ -48,11 +48,6 @@
 
     <ItemGroup>
         <None Include="readme.txt" pack="true" PackagePath="." />
-        <Compile Remove="Platforms\**\*.*" />
-        <Compile Remove="Platforms\ios\**" />
-        <Compile Remove="Platforms\macOS\**" />
-        <Compile Remove="Platforms\Tizen\**" />
-        <Compile Remove="Platforms\Uwp\**" />
         <None Include="Platforms\**\*.*" />
     </ItemGroup>
 
@@ -60,60 +55,10 @@
         <Compile Include="Platforms\Shared\**\*.cs" />
     </ItemGroup>
 
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid9')) ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Android\**\*.cs" />
-        <PackageReference Include="AndHUD" Version="1.4.2" />
-        <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid10')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid10')) ">
         <Compile Include="Platforms\Shared\**\*.cs" />
         <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="AndHUD" Version="1.4.2" />
         <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\ios\**\*.cs" />
-        <Compile Include="Platforms\Apple\**\*.cs" />
-        <PackageReference Include="BTProgressHUD" Version="1.3.1" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.tvos')) ">
-        <Reference Include="System.Drawing.Common" />
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\ios\**\*.cs" />
-        <Compile Include="Platforms\Apple\**\*.cs" />
-        <Compile Include="Platforms\tvOS\**\*.cs" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('uap')) ">
-        <PackageReference Include="Coding4Fun.Toolkit.Controls" Version="2.1.8" />
-        <Compile Include="Platforms\Shared\**\*.cs" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\Tizen\**\*.cs" />
-        <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
-    </ItemGroup>
-
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.mac')) ">
-        <Compile Include="Platforms\Shared\**\*.cs" />
-        <Compile Include="Platforms\macOS\**\*.cs" />
-        <Reference Include="System.Drawing.Common" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="Platforms\ios\**" />
-      <EmbeddedResource Remove="Platforms\macOS\**" />
-      <EmbeddedResource Remove="Platforms\Tizen\**" />
-      <EmbeddedResource Remove="Platforms\Uwp\**" />
-      <None Remove="Platforms\ios\**" />
-      <None Remove="Platforms\macOS\**" />
-      <None Remove="Platforms\Tizen\**" />
-      <None Remove="Platforms\Uwp\**" />
     </ItemGroup>
 </Project>
