@@ -435,7 +435,7 @@ namespace pocketseller.core.ViewModels
             var loginData = GetLoginData();
             if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
             {
-                SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty);
+                SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty, false);
                 if (navigateToLogin)
                     await NavigationService.Navigate<LoginViewModel>();
                 return false;
@@ -443,7 +443,7 @@ namespace pocketseller.core.ViewModels
 
             if (!await Mvx.IoCProvider.Resolve<IRestService>().Test())
             {
-                SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty);
+                SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty, false);
                 if (navigateToLogin)
                     await NavigationService.Navigate<LoginViewModel>();
                 return false;
@@ -461,12 +461,13 @@ namespace pocketseller.core.ViewModels
             }
         }
 
-        public void SetLoginData(string sourceName, string backendToken, string externalId, string username)
+        public void SetLoginData(string sourceName, string backendToken, string externalId, string username, bool changePassword)
         {
             SettingService.Set(ESettingType.ExternalId, externalId);
             SettingService.Set(ESettingType.BackendToken, backendToken);
             SettingService.Set(ESettingType.SourceName, sourceName);
             SettingService.Set(ESettingType.Username, username);
+            SettingService.Set(ESettingType.ChangePassword, changePassword);
         }
 
         public Tuple<string, string> GetLoginData()

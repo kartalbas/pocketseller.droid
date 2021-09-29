@@ -13,7 +13,6 @@
     <Compile Remove="Services\ActivatorServiceOLD.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
     <PackageReference Include="MvvmCross" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Plugin.File" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.2" />
@@ -21,6 +20,9 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
     <PackageReference Include="TMS.FlexCel" Version="7.10.0" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Acr.UserDialogs\Acr.UserDialogs.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Globals.Designer.cs">

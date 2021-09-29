@@ -246,7 +246,7 @@ namespace pocketseller.core.Services
             }
         }
 
-        public async Task<Tuple<string, string>> GetMobileToken(string username, string mobile, string token, string sourcename)
+        public async Task<Tuple<string, string, bool>> GetMobileToken(string username, string mobile, string token, string sourcename)
         {
             try
             {
@@ -263,14 +263,15 @@ namespace pocketseller.core.Services
                     string content = await response.Content.ReadAsStringAsync();
                     var jwt = JObject.Parse(content)["token"].ToString();
                     var id = JObject.Parse(content)["id"].ToString();
-                    return new Tuple<string, string>(id, jwt);
+                    var changePassword = bool.Parse(JObject.Parse(content)["changePassword"].ToString());
+                    return new Tuple<string, string, bool>(id, jwt, changePassword);
                 }
 
-                return new Tuple<string, string>(string.Empty, string.Empty);
+                return new Tuple<string, string, bool>(string.Empty, string.Empty, false);
             }
             catch (Exception)
             {
-                return new Tuple<string, string>(string.Empty, string.Empty);
+                return new Tuple<string, string, bool>(string.Empty, string.Empty, false);
             }
         }
 

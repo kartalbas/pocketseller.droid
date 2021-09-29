@@ -784,6 +784,10 @@
     <AndroidResource Include="Resources\xml\file_provider_paths.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Acr.UserDialogs\Acr.UserDialogs.csproj">
+      <Project>{8de820e5-ad43-419e-b36f-1e88f5c79b16}</Project>
+      <Name>Acr.UserDialogs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\orderline.core\orderline.core.csproj">
       <Project>{934066D8-61D7-4121-B5B7-44E1B70A63C7}</Project>
       <Name>orderline.core</Name>
@@ -795,9 +799,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Acr.UserDialogs">
-      <Version>7.1.0.514</Version>
-    </PackageReference>
     <PackageReference Include="MvvmCross.Droid.Support.Fragment">
       <Version>6.4.2</Version>
     </PackageReference>

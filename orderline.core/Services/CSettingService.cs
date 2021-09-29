@@ -70,7 +70,8 @@ namespace pocketseller.core.Services
         BackendToken,
         SourceName,
         ExternalId,
-        Username
+        Username,
+        ChangePassword
     }
 
     public class CSettingService : CBaseService, ISettingService, IBaseService

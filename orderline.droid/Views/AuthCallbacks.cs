@@ -40,7 +40,7 @@ namespace pocketseller.droid.Views
                     CTools.ShowToast(Language.NotRegistered);
                 }
 
-                LoginViewModel.SetLoginData(Sourcename, tuple.Item2, tuple.Item1, Username);
+                LoginViewModel.SetLoginData(Sourcename, tuple.Item2, tuple.Item1, Username, tuple.Item3);
 
                 LoginViewModel.ControlIsEnabled = true;
 
@@ -52,7 +52,7 @@ namespace pocketseller.droid.Views
             }
             catch (Exception)
             {
-                LoginViewModel.SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty);
+                LoginViewModel.SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty, false);
                 CTools.ShowToast(Language.NotRegistered);
                 LoginViewModel.ControlIsEnabled = true;
             }
