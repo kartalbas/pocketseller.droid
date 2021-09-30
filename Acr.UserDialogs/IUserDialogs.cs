@@ -36,6 +36,10 @@ namespace Acr.UserDialogs
         Task<LoginResult> LoginAsync(string title = null, string message = null, CancellationToken? cancelToken = null);
         Task<LoginResult> LoginAsync(LoginConfig config, CancellationToken? cancelToken = null);
 
+        IDisposable PasswordChange(PasswordChangeConfig config);
+        Task<PasswordChangeResult> PasswordChangeAsync(string title = null, string message = null, CancellationToken? cancelToken = null);
+        Task<PasswordChangeResult> PasswordChangeAsync(PasswordChangeConfig config, CancellationToken? cancelToken = null);
+
         IProgressDialog Progress(ProgressDialogConfig config);
         IProgressDialog Loading(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);
         IProgressDialog Progress(string title = null, Action onCancel = null, string cancelText = null, bool show = true, MaskType? maskType = null);

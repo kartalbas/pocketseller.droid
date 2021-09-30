@@ -39,8 +39,15 @@ namespace Acr.UserDialogs.Builders
             };
             txtNewPass.SetSingleLine(true);
 
+            var txtNewPassConfirm = new EditText(activity)
+            {
+                Hint = config.NewPasswordConfirmPlaceholder ?? "*"
+            };
+            txtNewPassConfirm.SetSingleLine(true);
+
             PromptBuilder.SetInputType(txtOldPass, InputType.Password);
             PromptBuilder.SetInputType(txtNewPass, InputType.Password);
+            PromptBuilder.SetInputType(txtNewPassConfirm, InputType.Password);
 
             var layout = new LinearLayout(activity)
             {
@@ -53,6 +60,7 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtOldPass, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtNewPass, ViewGroup.LayoutParams.MatchParent);
+            layout.AddView(txtNewPassConfirm, ViewGroup.LayoutParams.MatchParent);
 
             return new AlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
@@ -60,10 +68,10 @@ namespace Acr.UserDialogs.Builders
                 .SetMessage(config.Message)
                 .SetView(layout)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnAction(new PasswordChangeResult(true, txtUser.Text, txtOldPass.Text, txtNewPass.Text))
+                    config.OnAction(new PasswordChangeResult(true, txtUser.Text, txtOldPass.Text, txtNewPass.Text, txtNewPassConfirm.Text))
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnAction(new PasswordChangeResult(false, txtUser.Text, txtOldPass.Text, txtNewPass.Text))
+                    config.OnAction(new PasswordChangeResult(false, txtUser.Text, txtOldPass.Text, txtNewPass.Text, txtNewPassConfirm.Text))
                 )
                 .Create();
         }
@@ -83,15 +91,23 @@ namespace Acr.UserDialogs.Builders
             {
                 Hint = config.OldPasswordPlaceholder ?? "*"
             };
-            PromptBuilder.SetInputType(txtOldPass, InputType.Password);
+            txtOldPass.SetSingleLine(true);
 
             var txtNewPass = new EditText(activity)
             {
                 Hint = config.NewPasswordPlaceholder ?? "*"
             };
+            txtNewPass.SetSingleLine(true);
+
+            var txtNewPassConfirm = new EditText(activity)
+            {
+                Hint = config.NewPasswordConfirmPlaceholder ?? "*"
+            };
+            txtNewPassConfirm.SetSingleLine(true);
 
             PromptBuilder.SetInputType(txtOldPass, InputType.Password);
             PromptBuilder.SetInputType(txtNewPass, InputType.Password);
+            PromptBuilder.SetInputType(txtNewPassConfirm, InputType.Password);
 
             var layout = new LinearLayout(activity)
             {
@@ -104,6 +120,7 @@ namespace Acr.UserDialogs.Builders
             layout.AddView(txtUser, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtOldPass, ViewGroup.LayoutParams.MatchParent);
             layout.AddView(txtNewPass, ViewGroup.LayoutParams.MatchParent);
+            layout.AddView(txtNewPassConfirm, ViewGroup.LayoutParams.MatchParent);
 
             return new AppCompatAlertDialog.Builder(activity, config.AndroidStyleId ?? 0)
                 .SetCancelable(false)
@@ -111,10 +128,10 @@ namespace Acr.UserDialogs.Builders
                 .SetMessage(config.Message)
                 .SetView(layout)
                 .SetPositiveButton(config.OkText, (s, a) =>
-                    config.OnAction(new PasswordChangeResult(true, txtUser.Text, txtOldPass.Text, txtNewPass.Text))
+                    config.OnAction(new PasswordChangeResult(true, txtUser.Text, txtOldPass.Text, txtNewPass.Text, txtNewPassConfirm.Text))
                 )
                 .SetNegativeButton(config.CancelText, (s, a) =>
-                    config.OnAction(new PasswordChangeResult(false, txtUser.Text, txtOldPass.Text, txtNewPass.Text))
+                    config.OnAction(new PasswordChangeResult(false, txtUser.Text, txtOldPass.Text, txtNewPass.Text, txtNewPassConfirm.Text))
                 )
                 .Create();
         }

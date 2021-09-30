@@ -7,7 +7,7 @@
         public string Password => this.Value.OldPassword;
 
 
-        public LoginResult(bool ok, string login, string password) : base(ok, new Credentials(login, password, string.Empty))
+        public LoginResult(bool ok, string login, string password) : base(ok, new Credentials(login, password, string.Empty, string.Empty))
         {
         }
     }

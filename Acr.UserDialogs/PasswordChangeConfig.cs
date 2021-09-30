@@ -12,6 +12,7 @@ namespace Acr.UserDialogs
         public static string DefaultLoginPlaceholder { get; set; } = "User Name";
         public static string DefaultOldPasswordPlaceholder { get; set; } = "Password";
         public static string DefaultNewPasswordPlaceholder { get; set; } = "New Password";
+        public static string DefaultNewConfirmPasswordPlaceholder { get; set; } = "New Password";
         public static int? DefaultAndroidStyleId { get; set; }
 
         public string Title { get; set; } = DefaultTitle;
@@ -22,6 +23,7 @@ namespace Acr.UserDialogs
         public string LoginPlaceholder { get; set; } = DefaultLoginPlaceholder;
         public string OldPasswordPlaceholder { get; set; } = DefaultOldPasswordPlaceholder;
         public string NewPasswordPlaceholder { get; set; } = DefaultNewPasswordPlaceholder;
+        public string NewPasswordConfirmPlaceholder { get; set; } = DefaultNewConfirmPasswordPlaceholder;
         public int? AndroidStyleId { get; set; } = DefaultAndroidStyleId;
         public Action<PasswordChangeResult> OnAction { get; set; }
 
@@ -77,6 +79,12 @@ namespace Acr.UserDialogs
         public PasswordChangeConfig SetNewPasswordPlaceholder(string txt)
         {
             this.NewPasswordPlaceholder = txt;
+            return this;
+        }
+
+        public PasswordChangeConfig SetNewPasswordConfirmPlaceholder(string txt)
+        {
+            this.NewPasswordConfirmPlaceholder = txt;
             return this;
         }
 

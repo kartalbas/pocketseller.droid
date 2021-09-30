@@ -433,11 +433,16 @@ namespace pocketseller.core.ViewModels
         public async Task<bool> CheckLogin(bool navigateToLogin, bool navigateToMain)
         {
             var loginData = GetLoginData();
-            if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
+            if ((string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2)) && !loginData.Item3)
             {
                 SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty, false);
                 if (navigateToLogin)
                     await NavigationService.Navigate<LoginViewModel>();
+                return false;
+            }
+
+            if(loginData.Item3)
+            {
                 return false;
             }
 
@@ -470,11 +475,12 @@ namespace pocketseller.core.ViewModels
             SettingService.Set(ESettingType.ChangePassword, changePassword);
         }
 
-        public Tuple<string, string> GetLoginData()
+        public Tuple<string, string, bool> GetLoginData()
         {
             var backendToken = SettingService.Get<string>(ESettingType.BackendToken);
             var sourceName = SettingService.Get<string>(ESettingType.SourceName);
-            return new Tuple<string, string>(sourceName, backendToken);
+            var changePassword = SettingService.Get<bool>(ESettingType.ChangePassword);
+            return new Tuple<string, string, bool>(sourceName, backendToken, changePassword);
         }
 
         #endregion

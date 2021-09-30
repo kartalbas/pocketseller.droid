@@ -246,6 +246,42 @@ namespace pocketseller.core.Services
             }
         }
 
+        public async Task<bool> ChangePassword(string username, string oldPassword, string newPassword, string newPasswordConfirm)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
+                client.DefaultRequestHeaders.Add("oldPassword", RsaCrypter.Encrypt(oldPassword));
+                client.DefaultRequestHeaders.Add("newPassword", RsaCrypter.Encrypt(newPassword));
+                client.DefaultRequestHeaders.Add("confirmNewPassword", RsaCrypter.Encrypt(newPasswordConfirm));
+
+                var methodUrl = GetLoginHost("ChangePassword", Source.Instance.GetCurrentSource().Name);
+
+                using (var request = new HttpRequestMessage(HttpMethod.Post, new Uri(methodUrl)))
+                {
+                    using (var stringContent = new StringContent(string.Empty, Encoding.UTF8, "application/json"))
+                    {
+                        request.Content = stringContent;
+                        var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string content = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<bool>(content);
+                            return result;
+                        }
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         public async Task<Tuple<string, string, bool>> GetMobileToken(string username, string mobile, string token, string sourcename)
         {
             try
@@ -318,7 +354,7 @@ namespace pocketseller.core.Services
 
         private string GetLoginHost(string method, string sourcename)
         {
-            var source = Source.Instance.GetCurrentSource(sourcename);
+            var source = Source.Instance.GetSource(sourcename);
             var serverHost = Source.Instance.GetLoginUrl(source.Host);
             var result = $"{serverHost}/{method}";
             return result;

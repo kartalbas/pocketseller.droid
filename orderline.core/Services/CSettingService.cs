@@ -242,6 +242,10 @@ namespace pocketseller.core.Services
                         {
                             objValue = objSetting.Value;
                         }
+                        else if (typeof(T) == typeof(bool))
+                        {
+                            objValue = bool.Parse(objSetting.Value);
+                        }
                         else if (typeof(T) == typeof(int))
                         {
                             objValue = Convert.ToInt32(objSetting.Value);

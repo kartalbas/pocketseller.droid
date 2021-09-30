@@ -89,7 +89,7 @@ namespace pocketseller.core.Services
             return FindByName(sourceName);
         }
 
-        public Source GetCurrentSource(string sourcename)
+        public Source GetSource(string sourcename)
         {
             return FindByName(sourcename);
         }
