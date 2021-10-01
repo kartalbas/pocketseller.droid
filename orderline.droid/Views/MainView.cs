@@ -67,13 +67,16 @@ namespace pocketseller.droid.Views
         {
             base.OnStart();
 
-            if(!await MainViewModel.CheckLogin(true, false))
+            if (CTools.Connected())
             {
-                CTools.ShowToast(Language.LoginFailed);
-                Finish();
-            }
+                if (!await MainViewModel.CheckLogin(true, false))
+                {
+                    CTools.ShowToast(Language.LoginFailed);
+                    Finish();
+                }
 
-            CTools.ShowToast(Language.LoginSuccessFull);
+                CTools.ShowToast(Language.LoginSuccessFull);
+            }
         }
 
         protected override void OnResume()
