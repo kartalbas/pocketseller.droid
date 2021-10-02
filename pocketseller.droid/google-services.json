@@ -14,6 +14,51 @@
       },
       "oauth_client": [
         {
+          "client_id": "569119279247-s29jr01rmqoklbrd2u8li78530omvnmp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "orderline.droid",
+            "certificate_hash": "5a44c0f833a55f10a2f48b1789ccf8a8fe101052"
+          }
+        },
+        {
+          "client_id": "569119279247-ar876rqo4qv191mudujheorlkf8o12pb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ7btXxB2wNX97HWAiTEGfvpR4mZgV820"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "569119279247-ar876rqo4qv191mudujheorlkf8o12pb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569119279247:android:53873e809534dadaba88fa",
+        "android_client_info": {
+          "package_name": "pocketseller.droid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "569119279247-1be27aj906cdr78it9kikohla0jkld92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pocketseller.droid",
+            "certificate_hash": "5a44c0f833a55f10a2f48b1789ccf8a8fe101052"
+          }
+        },
+        {
           "client_id": "569119279247-ar876rqo4qv191mudujheorlkf8o12pb.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -45,7 +45,7 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <MandroidI18n>West</MandroidI18n>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>D:\repos\orderline\orderline.droid\orderline.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>D:\repos\orderline\orderline.droid\pocketseller.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Tikmonca13</AndroidSigningStorePass>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidSigningKeyAlias>simetrix</AndroidSigningKeyAlias>

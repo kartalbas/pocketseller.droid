@@ -61,12 +61,10 @@ namespace pocketseller.droid.Views
             OrderSettings.Instance.CheckVKMustHigher = true; // setting disabled and fixed to true
             OrderSettings.Instance.CheckStock = true; // setting disabled and fixed to true
 
-            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            DateTime buildDate = new DateTime(2000, 1, 1).AddDays(version.Build).AddSeconds(version.Revision * 2);
-            string displayableVersion = $"{version}\r\n{buildDate:g}".Replace("/", ".");
-
+            var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            var buildDate = new DateTime(2000, 1, 1).AddDays(version.Build).AddSeconds(version.Revision * 2);
             var objIdentification = FindViewById<TextView>(pocketseller.droid.Resource.Id.loginview_identification);
-            objIdentification.Text = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification() + "\r\n" + displayableVersion;
+            objIdentification.Text = $"{version}\r\n{buildDate.Day}.{buildDate.Month}.{buildDate.Year}".Replace("/", "."); ;
         }
 
         private void InitFirebaseAuth()

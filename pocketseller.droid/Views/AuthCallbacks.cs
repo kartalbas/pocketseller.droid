@@ -68,11 +68,11 @@ namespace pocketseller.droid.Views
                 LoginViewModel.ControlIsEnabled = true;
                 activity?.Activity?.Finish();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 LoginViewModel.SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty, false);
-                CTools.ShowToast(Language.NotRegistered);
                 LoginViewModel.ControlIsEnabled = true;
+                CTools.ShowToast(exception.Message);
             }
         }
 
@@ -133,9 +133,10 @@ namespace pocketseller.droid.Views
                 return false;
 
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                throw;
+                CTools.ShowToast(exception.Message);
+                return false;
             }
         }
     }
