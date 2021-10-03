@@ -166,8 +166,8 @@ namespace pocketseller.core.ViewModels
                     body = body + "*****************************<br/>";
                     body = body + "<br/>";
 
-                    var to = "kartalbas@gmail.com";
-                    //var to = SettingService.Get<string>(ESettingType.OpManager);
+                    //var to = "kartalbas@gmail.com";
+                    var to = SettingService.Get<string>(ESettingType.OpManager);
                     await rest.SendMail(null, to, subject, body);
                 }
 
