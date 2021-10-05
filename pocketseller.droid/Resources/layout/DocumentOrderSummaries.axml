@@ -7,7 +7,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_weight="0.33"
+        android:layout_weight="0.15"
         android:layout_height="wrap_content">
         <TextView
             style="@style/TextViewStyleHeadertItem"
@@ -27,7 +27,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_weight="0.33"
+        android:layout_weight="0.30"
         android:layout_height="wrap_content">
         <TextView
             style="@style/TextViewStyleHeadertItem"
@@ -47,7 +47,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_weight="0.33"
+        android:layout_weight="0.30"
         android:layout_height="wrap_content">
         <TextView
             style="@style/TextViewStyleHeadertItem"
@@ -63,5 +63,26 @@
             android:gravity="center"
             android:text="Document.TotalBrutto"
             local:MvxBind="Text Document.TotalBrutto, Converter=DecimalString" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.25"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LabelDate"
+            local:MvxBind="Text LabelDate" />
+        <TextView
+            android:id="@+id/profit"
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="00.00.0000"
+            local:MvxBind="Text Date" />
     </LinearLayout>
 </LinearLayout>

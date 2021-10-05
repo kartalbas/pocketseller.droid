@@ -50,7 +50,7 @@
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidSigningKeyAlias>simetrix</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Tikmonca13</AndroidSigningKeyPass>
-    <AndroidPackageFormat>aab</AndroidPackageFormat>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>

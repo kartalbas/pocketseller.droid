@@ -21,6 +21,7 @@ namespace pocketseller.core.Models
 		private decimal _amount;
 		private decimal _nettoprice;
 		private decimal _nettosum;
+        private decimal _profit;
 		private int _state;
 		private int _pos;
 		private decimal _bruttosum;
@@ -28,32 +29,77 @@ namespace pocketseller.core.Models
 
 	    [Indexed]
         [Collation("NOCASE")]
-        public Guid DocumentId { get => _documentId;
+        public Guid DocumentId
+        {
+            get => _documentId;
 	        set 
             { 
                 _documentId = value; 
                 RaisePropertyChanged(() => DocumentId); 
-            } }
+            }
+        }
+        
         [Indexed]
-        public string ArticleNr { get => _articleNr;
-	        set { _articleNr = value; RaisePropertyChanged(() => ArticleNr); } }
-        public decimal Count { get => _count;
-	        set { _count = value; OnCountChanged(); RaisePropertyChanged(() => Count); } }
-		public decimal Content { get => _content;
-			set { _content = value; RaisePropertyChanged(() => Content); } }
-        public decimal Amount { get => _amount;
-	        set { _amount = value; OnAmountChanged(); RaisePropertyChanged(() => Amount); } }
-        public decimal Nettoprice { get => _nettoprice;
-	        set { _nettoprice = value; OnNettopriceChanged(); RaisePropertyChanged(() => Nettoprice); } }
-        public decimal Nettosum { get => _nettosum;
-	        set { _nettosum = value; RaisePropertyChanged(() => Nettosum); } }
-        public int Pos { get => _pos;
-	        set { _pos = value; RaisePropertyChanged(() => Pos); } }
-		public int State { get => _state;
-			set { _state = value; RaisePropertyChanged(() => State); } }
-		[Ignore]
-		public decimal Bruttosum { get => _bruttosum;
-			set { _bruttosum = value; RaisePropertyChanged(() => Bruttosum); } }
+        public string ArticleNr
+        {
+            get => _articleNr;
+	        set { _articleNr = value; RaisePropertyChanged(() => ArticleNr); }
+        }
+
+        public decimal Count
+        {
+            get => _count;
+	        set { _count = value; OnCountChanged(); RaisePropertyChanged(() => Count); }
+        }
+
+        public decimal Content
+        {
+            get => _content;
+			set { _content = value; RaisePropertyChanged(() => Content); }
+        }
+        
+        public decimal Amount
+        {
+            get => _amount;
+	        set { _amount = value; OnAmountChanged(); RaisePropertyChanged(() => Amount); }
+        }
+        
+        public decimal Nettoprice 
+        {
+            get => _nettoprice;
+	        set { _nettoprice = value; OnNettopriceChanged(); RaisePropertyChanged(() => Nettoprice); }
+        }
+        
+        public decimal Nettosum 
+        {
+            get => _nettosum;
+	        set { _nettosum = value; RaisePropertyChanged(() => Nettosum); }
+        }
+        
+        public int Pos 
+        {
+            get => _pos;
+	        set { _pos = value; RaisePropertyChanged(() => Pos); }
+        }
+		
+        public int State 
+        {
+            get => _state;
+			set { _state = value; RaisePropertyChanged(() => State); }
+        }
+        
+        public decimal Profit
+        {
+            get => _profit;
+            set { _profit = value; RaisePropertyChanged(() => Profit); }
+        }
+		
+        [Ignore]
+		public decimal Bruttosum 
+        {
+            get => _bruttosum;
+			set { _bruttosum = value; RaisePropertyChanged(() => Bruttosum); }
+        }
 
 	    [Ignore]
 	    public Article Article
@@ -68,8 +114,8 @@ namespace pocketseller.core.Models
 	        {
 	            _article = value;
                 ArticleNr = (_article != null) ? _article.Articlenumber : "0";
-                Content = (_article != null) ? _article.Content : 0;
-	            Nettoprice = (_article != null && _article.Articleprice != null) ? _article.Articleprice.Price : 0;
+                Content = _article?.Content ?? 0;
+	            Nettoprice = _article?.Articleprice?.Price ?? 0;
                 if(State == (int)EOrderdetailState.NEW)
                     Count = 1;
                 RaisePropertyChanged(() => Article);
@@ -109,7 +155,7 @@ namespace pocketseller.core.Models
 
         public static Documentdetail FindById(Guid iId)
         {
-            var result = DataService.PocketsellerConnection.Table<Documentdetail>().Where(a => a.Id == iId).FirstOrDefault();
+            var result = DataService.PocketsellerConnection.Table<Documentdetail>().FirstOrDefault(a => a.Id == iId);
             return result;
         }
 

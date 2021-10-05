@@ -22,7 +22,8 @@ namespace pocketseller.core.Models
         private int _state;
         private int _phase;
         private int _docnumber;
-		private string _info;
+        private string _info;
+        private decimal _profit;
         private decimal _totalParcels;
         private decimal _totalNetto;
         private int _totalPos;
@@ -33,28 +34,68 @@ namespace pocketseller.core.Models
 
         [Indexed]
         [Collation("NOCASE")]
-        public int Docnumber { get => _docnumber;
-	        set { _docnumber = value; RaisePropertyChanged(() => Docnumber); } }
-        [Indexed]
-        public string AdressNr { get => _adressNr;
-	        set { _adressNr = value; RaisePropertyChanged(() => AdressNr); } }
-        [Indexed]
-        public int Doctype { get => _doctype;
-	        set { _doctype = value; RaisePropertyChanged(() => Doctype); } }
-        [Indexed]
-        public int State { get => _state;
-	        set { _state = value; RaisePropertyChanged(() => State); } }
-        public int Phase { get => _phase;
-	        set { _phase = value; RaisePropertyChanged(() => Phase); } }
+        public int Docnumber
+        {
+            get => _docnumber;
+            set { _docnumber = value; RaisePropertyChanged(() => Docnumber); }
+        }
 
-        public decimal TotalParcels { get => _totalParcels;
-	        set { _totalParcels = value; RaisePropertyChanged(() => TotalParcels); } }
-        public decimal TotalNetto { get => _totalNetto;
-	        set { _totalNetto = value; RaisePropertyChanged(() => TotalNetto); } }
-        public decimal TotalBrutto { get => _totalBrutto;
-	        set { _totalBrutto = value; RaisePropertyChanged(() => TotalBrutto); } }
-        public int TotalPos { get => _totalPos;
-	        set { _totalPos = value; RaisePropertyChanged(() => TotalPos); } }
+        [Indexed]
+        public string AdressNr
+        {
+            get => _adressNr;
+	        set { _adressNr = value; RaisePropertyChanged(() => AdressNr); }
+        }
+
+        [Indexed]
+        public int Doctype
+        {
+            get => _doctype;
+	        set { _doctype = value; RaisePropertyChanged(() => Doctype); }
+        }
+
+        [Indexed]
+        public int State
+        {
+            get => _state;
+	        set { _state = value; RaisePropertyChanged(() => State); }
+        }
+
+        public decimal Profit
+        {
+            get => _profit;
+            set { _profit = value; RaisePropertyChanged(() => Profit); }
+        }
+
+        public int Phase
+        {
+            get => _phase;
+	        set { _phase = value; RaisePropertyChanged(() => Phase); }
+        }
+
+        public decimal TotalParcels
+        {
+            get => _totalParcels;
+	        set { _totalParcels = value; RaisePropertyChanged(() => TotalParcels); }
+        }
+
+        public decimal TotalNetto 
+        {
+            get => _totalNetto;
+	        set { _totalNetto = value; RaisePropertyChanged(() => TotalNetto); }
+        }
+
+        public decimal TotalBrutto
+        {
+            get => _totalBrutto;
+	        set { _totalBrutto = value; RaisePropertyChanged(() => TotalBrutto); }
+        }
+
+        public int TotalPos
+        {
+            get => _totalPos;
+	        set { _totalPos = value; RaisePropertyChanged(() => TotalPos); }
+        }
 
         [Ignore]
         public bool LocalDocument { get; set; }
@@ -133,17 +174,18 @@ namespace pocketseller.core.Models
             OrderSettings.Instance.CurrentDocNr = iCurrentDocNr;
             return iCurrentDocNr;
         }
-        
+
         private void CalculateTotals()
 	    {
-            TotalNetto = Documentdetails != null ? Documentdetails.Sum(p => p.Nettosum) : 0;
+            TotalNetto = Documentdetails?.Sum(p => p.Nettosum) ?? 0;
             TotalBrutto = Documentdetails != null ? Math.Round(Documentdetails.Sum(p => p.Bruttosum), 2, MidpointRounding.AwayFromZero) : 0;
-            TotalParcels = Documentdetails != null ? Documentdetails.Sum(p => p.Count) : 0;
+            TotalParcels = Documentdetails?.Sum(p => p.Count) ?? 0;
+            Profit = Documentdetails?.Sum(p => p.Profit) ?? 0;
         }
 
         public static ObservableCollection<Document> FindSent()
 		{
-            IEnumerable<Document> cobjDocs = (DataService.PocketsellerConnection.Table<Document>()
+            var cobjDocs = (DataService.PocketsellerConnection.Table<Document>()
                 .Where(o => o.Phase == (int)EPhaseState.SERVER)
                 .OrderByDescending(o => o.TimeStamp)).AsEnumerable();
 
@@ -152,7 +194,7 @@ namespace pocketseller.core.Models
 
         public static ObservableCollection<Document> FindNewOrChanged()
         {
-            IEnumerable<Document> cobjDocs = (DataService.PocketsellerConnection.Table<Document>()
+            var cobjDocs = (DataService.PocketsellerConnection.Table<Document>()
                 .Where(o => o.Phase == (int)EPhaseState.LOCAL || o.Phase == (int)EPhaseState.ACTIVATED)
                 .OrderByDescending(o => o.TimeStamp)).AsEnumerable();
 
@@ -171,7 +213,7 @@ namespace pocketseller.core.Models
 		
         public void ReOrderDocumentdetails()
         {
-            int iPos = 1;
+            var iPos = 1;
             foreach (var objDocDetail in Documentdetails)
                 objDocDetail.Pos = iPos++;
         }
@@ -179,31 +221,31 @@ namespace pocketseller.core.Models
 	    public Article FindArticle(string articleNr)
 	    {
 	        var objDocumentdetail = (Documentdetails.Where(article => article.ArticleNr == articleNr)).FirstOrDefault();
-	        return objDocumentdetail != null ? objDocumentdetail.Article : null;
+	        return objDocumentdetail?.Article;
 	    }
 
-        public Document Add(Documentdetail objDocumentdetail)
+        public Document Add(Documentdetail documentdetail)
         {
             TotalPos = Documentdetails.Count + 1;
-            objDocumentdetail.Pos = TotalPos;
-            Documentdetails.Add(objDocumentdetail);
+            documentdetail.Pos = TotalPos;
+            Documentdetails.Add(documentdetail);
             CalculateTotals();
             return this;
         }
 
-        public Document Update(Documentdetail objDocumentdetail)
+        public Document Update(Documentdetail documentdetail)
         {
-            int iIndex = Documentdetails.IndexOf(objDocumentdetail);
-            Remove(objDocumentdetail);
-            Documentdetails.Insert(iIndex, objDocumentdetail);
+            var iIndex = Documentdetails.IndexOf(documentdetail);
+            Remove(documentdetail);
+            Documentdetails.Insert(iIndex, documentdetail);
             CalculateTotals();
             return this;
         }
 
-	    public Document Remove(Documentdetail objDocumentdetail)
+	    public Document Remove(Documentdetail documentdetail)
 	    {
-	        Documentdetails.Remove(objDocumentdetail);
-            DocumentdetailsDeleted.Add(objDocumentdetail);
+	        Documentdetails.Remove(documentdetail);
+            DocumentdetailsDeleted.Add(documentdetail);
             CalculateTotals();
             return this;
 	    }

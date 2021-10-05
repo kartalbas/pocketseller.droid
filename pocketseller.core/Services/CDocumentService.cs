@@ -17,6 +17,7 @@ namespace pocketseller.core.Services
     public class CDocumentService : CBaseService, IDocumentService, IBaseService
     {
         #region Private properties
+
         #endregion
 
         #region Constructors
@@ -42,28 +43,29 @@ namespace pocketseller.core.Services
         #endregion
 
         #region Public methods Order
+
         public void DeleteDocument()
         {
             Document.DeleteDocument(Document);
             Init();
         }
+
         public void DeleteDocument(Document objDocument)
         {
-            if(objDocument != null)
-                Document.DeleteDocument(objDocument);
-            else
-                Document.DeleteDocument(Document);
+            Document.DeleteDocument(objDocument ?? Document);
 
             Init();
 
             Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.Added));
         }
+
         public void SaveDocument()
         {
             Document.SaveOrUpdate();
             Init();
             Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.Added));
         }
+
         public void RemoveDocumentdetail()
         {
             Document.Remove(Documentdetail).ReOrderDocumentdetails();
@@ -76,12 +78,14 @@ namespace pocketseller.core.Services
             Document.ChangetState(EOrderState.CHANGED);
             Documentdetail = CreateNewDocumentdetail;
         }
+
         public void AddDocumentdetail()
         {
             int iMaxDocumentdetail = OrderSettings.Instance.MaxDocumentdetails;
             if (Document.Documentdetails.Count >= iMaxDocumentdetail)
             {
-                Mvx.IoCProvider.Resolve<IUserDialogs>().AlertAsync(Language.MaxDocumentDetailsAchieved, Language.Attention, Language.Ok);
+                Mvx.IoCProvider.Resolve<IUserDialogs>().AlertAsync(Language.MaxDocumentDetailsAchieved,
+                    Language.Attention, Language.Ok);
                 return;
             }
 
@@ -89,26 +93,31 @@ namespace pocketseller.core.Services
             Document.ChangetState(EOrderState.CHANGED);
             Documentdetail = CreateNewDocumentdetail;
         }
+
         public void AddOrUpdateDocumentdetail()
         {
-            if (Documentdetail.State == (int)EOrderdetailState.NEW)
+            if (Documentdetail.State == (int) EOrderdetailState.NEW)
                 AddDocumentdetail();
             else
                 UpdateDocumentdetail();
         }
+
         public bool ArticleAlreadyExistsInDocument()
         {
             var objArticle = Document.FindArticle(Documentdetail.ArticleNr);
             return objArticle != null;
         }
+
         #endregion
 
         #region Public methods Quotation
+
         public void DeleteQuotation()
         {
             Quotation.DeleteQuotation(Quotation);
             Init();
         }
+
         public void DeleteQuotation(Quotation objDocument)
         {
             if (objDocument != null)
@@ -120,41 +129,48 @@ namespace pocketseller.core.Services
 
             Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.Added));
         }
+
         public void SaveQuotation()
         {
             Quotation.SaveOrUpdate();
             Init();
             Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.Added));
         }
+
         public void RemoveQuotationdetail()
         {
             Quotation.Remove(Quotationdetail).ReOrderQuotationdetails();
             Quotation.ChangetState(EOrderState.CHANGED);
         }
+
         public void UpdateQuotationdetail()
         {
             Quotation.Update(Quotationdetail);
             Quotation.ChangetState(EOrderState.CHANGED);
             Quotationdetail = CreateNewQuotationdetail;
         }
+
         public void AddQuotationdetail()
         {
             Quotation.Add(Quotationdetail);
             Quotation.ChangetState(EOrderState.CHANGED);
             Quotationdetail = CreateNewQuotationdetail;
         }
+
         public void AddOrUpdateQuotationdetail()
         {
-            if (Quotationdetail.State == (int)EOrderdetailState.NEW)
+            if (Quotationdetail.State == (int) EOrderdetailState.NEW)
                 AddQuotationdetail();
             else
                 UpdateQuotationdetail();
         }
+
         public bool ArticleAlreadyExistsInQuotation()
         {
             var objArticle = Quotation.FindArticle(Quotationdetail.Article.Articlenumber);
             return objArticle != null;
         }
+
         public void CopyQuototationdetailsToOrderdetails()
         {
             foreach (var objQuotationdetail in Quotation.Quotationdetails)
@@ -173,7 +189,7 @@ namespace pocketseller.core.Services
                         Amount = objQuotationdetail.Amount,
                         Nettoprice = objQuotationdetail.Nettoprice,
                         Nettosum = objQuotationdetail.Nettosum,
-                        State = (int)EOrderdetailState.NEW,
+                        State = (int) EOrderdetailState.NEW,
                         TimeStamp = DateTime.Now
                     };
 
@@ -181,9 +197,11 @@ namespace pocketseller.core.Services
                 }
             }
         }
+
         #endregion
 
         #region Public methods generic
+
         public void DiscarDocument()
         {
             Init();
@@ -202,16 +220,19 @@ namespace pocketseller.core.Services
             var result = objArticle.StockPerAmount;
             return result;
         }
+
         #endregion
 
         #region Public properties Quotation
+
         public Quotation Quotation { get; set; }
         public Quotationdetail Quotationdetail { get; set; }
+
         public Quotation CreateNewQuotation =>
             new Quotation
             {
                 Id = Guid.NewGuid(),
-                State = (int)EOrderState.ORDER,
+                State = (int) EOrderState.ORDER,
                 StartDateTime = default(DateTime),
                 StopDateTime = default(DateTime),
                 Quotationdetails = new ObservableCollection<Quotationdetail>()
@@ -222,16 +243,18 @@ namespace pocketseller.core.Services
             {
                 Id = Guid.NewGuid(),
                 QuotationId = Quotation.Id,
-                State = (int)EOrderdetailState.NEW
+                State = (int) EOrderdetailState.NEW
             };
 
         public void ChangeQuotationdetailState(EOrderdetailState enmDocumentdetailState)
         {
-            Quotationdetail.State = (int)enmDocumentdetailState;
+            Quotationdetail.State = (int) enmDocumentdetailState;
         }
+
         #endregion
 
         #region Public properties Order
+
         public Lastprice Lastprice => Lastprice.GetLastPrice(Document.Adress, Documentdetail.Article);
         public Document Document { get; set; }
         public Documentdetail Documentdetail { get; set; }
@@ -242,7 +265,7 @@ namespace pocketseller.core.Services
             new Document
             {
                 Id = Guid.NewGuid(),
-                State = (int)EOrderState.ORDER,
+                State = (int) EOrderState.ORDER,
                 Documentdetails = new ObservableCollection<Documentdetail>()
             };
 
@@ -251,18 +274,19 @@ namespace pocketseller.core.Services
             {
                 Id = Guid.NewGuid(),
                 DocumentId = Document.Id,
-                Count =  1,
-                State = (int)EOrderdetailState.NEW
+                Count = 1,
+                State = (int) EOrderdetailState.NEW
             };
 
         public void ChangeDocumentdetailState(EOrderdetailState enmDocumentdetailState)
         {
-            Documentdetail.State = (int)enmDocumentdetailState;
+            Documentdetail.State = (int) enmDocumentdetailState;
         }
-        
+
         public decimal GetAlreadyInOrderPerPackage(Article article)
         {
-            var countPackage = Document?.Documentdetails?.Where(d => d.ArticleNr.Equals(article.Articlenumber)).Sum(d => d.Count);
+            var countPackage = Document?.Documentdetails?.Where(d => d.ArticleNr.Equals(article.Articlenumber))
+                .Sum(d => d.Count);
             return countPackage ?? 0.0M;
         }
 

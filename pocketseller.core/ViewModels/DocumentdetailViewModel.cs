@@ -562,7 +562,6 @@ namespace pocketseller.core.ViewModels
 
             if(Mode == CDocumentService.EMode.Order)
             {
-
                 var isNormalOrder = DocumentService.Documentdetail.Amount > 0;
                 var lowestVkPrice = DocumentService.Documentdetail.Article.Articleprices.FirstOrDefault(a => a.PriceGroupNr == 3)?.Price;
                 var currentVkPrice = TextPrice;
@@ -618,6 +617,14 @@ namespace pocketseller.core.ViewModels
             switch (Mode)
             {
                 case CDocumentService.EMode.Order:
+
+                    var documentdetail = DocumentService.Documentdetail;
+                    var purchasePrice = (documentdetail.Article.PurchasePrice == 0
+                                            ? documentdetail.Nettoprice
+                                            : documentdetail.Article.PurchasePrice)
+                                        ?? documentdetail.Nettoprice;
+                    documentdetail.Profit = (documentdetail.Nettoprice - purchasePrice) * documentdetail.Amount;
+
                     if (DocumentService.ArticleAlreadyExistsInDocument() && DocumentService.Documentdetail.State == (int)EOrderdetailState.NEW)
                     {
                         var objConfirmConfig = new ConfirmConfig

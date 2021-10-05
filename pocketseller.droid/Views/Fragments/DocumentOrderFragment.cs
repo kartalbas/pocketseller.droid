@@ -1,3 +1,6 @@
+using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -40,6 +43,26 @@ namespace pocketseller.droid.Views.Fragments
             objAutoCompleteTextView.InputType = CTools.GetInputType((int)DocumentOrderViewModel.KeyboardSetting);
             objAutoCompleteTextView.RequestFocus();
 
+            var objProfit = objView.FindViewById<TextView>(pocketseller.droid.Resource.Id.profit);
+            if (objProfit != null)
+                objProfit.LongClick += async (sender, e) =>
+                {
+                    this.Activity.RunOnUiThread(() =>
+                    {
+                        var profit = DocumentOrderViewModel.Document.Profit;
+                        var total = DocumentOrderViewModel.Document.TotalNetto;
+
+                        DocumentOrderViewModel.Date = total > 0
+                            ? (Math.Round(profit / total, 2, MidpointRounding.AwayFromZero) * 100).ToString(CultureInfo.InvariantCulture)
+                            : "00";
+                    });
+                    await Task.Delay(1000);
+                    this.Activity.RunOnUiThread(() =>
+                    {
+                        DocumentOrderViewModel.Date = $"{DateTime.Now.Day}.{DateTime.Now.Month}.{DateTime.Now.Year}";
+                    });
+                };
+
             _objListView = objView.FindViewById<MvxListView>(pocketseller.droid.Resource.Id.documentorder_listview);
             _objListView.SmoothScrollbarEnabled = true;
             _objListView.SmoothScrollBy(1,1);
@@ -73,6 +96,5 @@ namespace pocketseller.droid.Views.Fragments
 
             return base.OnContextItemSelected(objItem);
         }
-    
     }
 }
