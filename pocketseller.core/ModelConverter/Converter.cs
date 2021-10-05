@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using MvvmCross;
 using pocketseller.core.Models;
@@ -59,7 +61,7 @@ namespace pocketseller.core.ModelConverter
                 Usr15 = string.Empty,
                 Usr16 = string.Empty,
                 Usr17 = string.Empty,
-                Usr18 = string.Empty,
+                Usr18 = Math.Round(document.Profit, 2, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture),
                 Usr19 = externalId
             };
 
@@ -84,7 +86,8 @@ namespace pocketseller.core.ModelConverter
                     Amount = documentdetail.Amount,
                     Nettoprice = documentdetail.Nettoprice,
                     Nettosum = documentdetail.Nettosum,
-                    usr1 = article?.StockPlace
+                    usr1 = article?.StockPlace,
+                    usr10 = Math.Round(documentdetail.Profit, 2, MidpointRounding.AwayFromZero).ToString(CultureInfo.InvariantCulture),
                 };
                 orderdetails.Add(iIndex);
             }
@@ -127,6 +130,12 @@ namespace pocketseller.core.ModelConverter
                 var documentdetail = new Documentdetail();
                 documentdetail.Article = article;
 
+                var purchasePrice = (documentdetail.Article.PurchasePrice == 0 
+                                        ? documentdetail.Nettoprice
+                                        : documentdetail.Article.PurchasePrice)
+                                    ?? documentdetail.Nettoprice;
+
+                documentdetail.Profit = (orderdetails.Nettoprice - purchasePrice) * orderdetails.Amount;
                 documentdetail.Id = orderdetails.Id;
                 documentdetail.DocumentId = document.Id;
                 documentdetail.State = (int)EOrderdetailState.EDIT;
@@ -144,6 +153,7 @@ namespace pocketseller.core.ModelConverter
             }
 
             document.Documentdetails = new ObservableCollection<Documentdetail>(documentdetails.OrderBy(o => o.Pos));
+            document.Profit = documentdetails.Sum(d => d.Profit);
 
             return document;
         }
