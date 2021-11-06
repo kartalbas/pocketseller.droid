@@ -39,7 +39,7 @@ namespace pocketseller.droid.Views.Fragments
         public override void OnCreateContextMenu(IContextMenu objMenu, View v, IContextMenuContextMenuInfo menuInfo)
         {
             base.OnCreateContextMenu(objMenu, v, menuInfo);
-            objMenu.Add(ImportToDeliveryViewModel.LabelErpExport);
+            //objMenu.Add(ImportToDeliveryViewModel.LabelErpExport);
             objMenu.Add(ImportToDeliveryViewModel.LabelImportToDelivery);
             objMenu.Add(ImportToDeliveryViewModel.LabelShow);
             objMenu.Add(ImportToDeliveryViewModel.LabelPutBack);
@@ -173,32 +173,11 @@ namespace pocketseller.droid.Views.Fragments
                         if (objDocument != null) objDocument.Response = objImportTask.Result.Content;
                         ImportToDeliveryViewModel.ImportCommand.Execute(objDocument);
                         HideWorking(ImportToDeliveryViewModel);
-                        ChangeOrderState(EOrderState.FACTURA, objDocument);
                         RefreshOrders(EOrderState.DELIVERY, this.ImportToDeliveryViewModel);
                     }
                     catch (Exception objException)
                     {
                         CErrorHandling.Log( objException, true);
-                        HideWorking(ImportToDeliveryViewModel);
-                    }
-                });
-        }
-
-        private void ChangeOrderState(EOrderState toState, Order objOrder)
-        {
-            ShowWorking(ImportToDeliveryViewModel);
-            Task.Run(() => CGmWebServices.Instance.ChangeDocumentState(toState, objOrder))
-                .ContinueWith(task =>
-                {
-                    try
-                    {
-                        if (objOrder != null) objOrder.Response = task.Result.Content;
-                        ImportToDeliveryViewModel.ImportCommand.Execute(objOrder);
-                        HideWorking(ImportToDeliveryViewModel);
-                    }
-                    catch (Exception objException)
-                    {
-                        CErrorHandling.Log(objException, true);
                         HideWorking(ImportToDeliveryViewModel);
                     }
                 });

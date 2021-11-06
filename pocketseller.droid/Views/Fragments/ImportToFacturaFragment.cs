@@ -133,28 +133,7 @@ namespace pocketseller.droid.Views.Fragments
                         if (objOrder != null) objOrder.Response = objImportTask.Result.Content;
                         ImportToFacturaViewModel.ImportCommand.Execute(objOrder);
                         HideWorking(ImportToFacturaViewModel);
-                        ChangeOrderState(EOrderState.FACTURAIMPORTED, objOrder);
                         RefreshOrders(EOrderState.FACTURA, this.ImportToFacturaViewModel);
-                    }
-                    catch (Exception objException)
-                    {
-                        CErrorHandling.Log(objException, true);
-                        HideWorking(ImportToFacturaViewModel);
-                    }
-                });
-        }
-
-        private void ChangeOrderState(EOrderState toState, Order objOrder)
-        {
-            ShowWorking(ImportToFacturaViewModel);
-            Task.Run(() => CGmWebServices.Instance.ChangeDocumentState(toState, objOrder))
-                .ContinueWith(task =>
-                {
-                    try
-                    {
-                        if (objOrder != null) objOrder.Response = task.Result.Content;
-                        ImportToFacturaViewModel.ImportCommand.Execute(objOrder);
-                        HideWorking(ImportToFacturaViewModel);
                     }
                     catch (Exception objException)
                     {
