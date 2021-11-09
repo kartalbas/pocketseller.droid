@@ -11,6 +11,8 @@ namespace pocketseller.core
 {
     public class App : MvxApplication
     {
+        public static string Version { get; set; }
+
         public override void Initialize()
         {
             CreatableTypes()

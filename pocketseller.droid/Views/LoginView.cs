@@ -21,6 +21,7 @@ using Firebase.Auth;
 using Java.Util.Concurrent;
 using pocketseller.core.Resources.Languages;
 using System.Threading.Tasks;
+using pocketseller.core;
 
 namespace pocketseller.droid.Views
 {
@@ -64,7 +65,8 @@ namespace pocketseller.droid.Views
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             var buildDate = new DateTime(2000, 1, 1).AddDays(version.Build).AddSeconds(version.Revision * 2);
             var objIdentification = FindViewById<TextView>(pocketseller.droid.Resource.Id.loginview_identification);
-            objIdentification.Text = $"{version}\r\n{buildDate.Day}.{buildDate.Month}.{buildDate.Year}".Replace("/", "."); ;
+            App.Version = $"{version}\r\n{buildDate.Day}.{buildDate.Month}.{buildDate.Year}".Replace("/", ".");
+            objIdentification.Text = App.Version;
         }
 
         private void InitFirebaseAuth()

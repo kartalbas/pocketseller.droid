@@ -229,6 +229,7 @@ namespace pocketseller.core.Services
 
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + loginData.Item2);
+                client.DefaultRequestHeaders.Add("version", Base64Tools.Base64Encode(App.Version));
                 var methodUrl = GetLoginHost("LoginTest", loginData.Item1);
                 var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)
