@@ -10,6 +10,8 @@ namespace pocketseller.core.Services.Interfaces
     {
         Task<IList<MailResponse>> GetMails();
         Task<bool> DeleteMail(string messageId);
+        Task<bool> InsertDeletedOpenPayment(string accountNumber, string documentNumber);
+
         Task<bool> SendMail(string from, string to, string subject, string body);
 
         Task<IList<EMails>> GetOpMails();

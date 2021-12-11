@@ -148,6 +148,38 @@ namespace pocketseller.core.Services
             }
         }
 
+        public async Task<bool> InsertDeletedOpenPayment(string accountNumber, string documentNumber)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
+                var methodUrl = GetPocketsellerHost("InsertDeletedOpenPayment");
+                var serverUri = new Uri($"{methodUrl}?accountNumber={accountNumber}&documentNumber={documentNumber}");
+
+                using (var request = new HttpRequestMessage(HttpMethod.Post, serverUri))
+                {
+                    using (var stringContent = new StringContent(string.Empty, Encoding.UTF8, "application/json"))
+                    {
+                        request.Content = stringContent;
+                        var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string content = await response.Content.ReadAsStringAsync();
+                            var result = JsonConvert.DeserializeObject<bool>(content);
+                            return result;
+                        }
+                    }
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> DeleteMail(string messageId)
         {
             try

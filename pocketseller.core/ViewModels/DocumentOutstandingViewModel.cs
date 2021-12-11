@@ -119,14 +119,14 @@ namespace pocketseller.core.ViewModels
             try
             {
                 DoShowWorkingCommand();
-
+                    
                 if (op != null)
                 {                
                     //check if already an answer exists
                     var rest = Mvx.IoCProvider.Resolve<IRestService>();
                     var mailItems = await rest.GetMails();
                     foreach (var mailItem in mailItems)
-                    {                   
+                    {
                         if(mailItem.Subject.Contains(op.Adressnumber)
                            && mailItem.Subject.Contains(op.Docnumber))
                         {
@@ -134,6 +134,7 @@ namespace pocketseller.core.ViewModels
                             {
                                 OpenPayment.Delete(op);
                                 await rest.DeleteMail(mailItem.MessageId);
+                                await rest.InsertDeletedOpenPayment(op.Adressnumber, op.Docnumber);
                                 ShowOoutstandingPayments();
                                 return;
                             }
