@@ -363,7 +363,7 @@ namespace pocketseller.core.Services
 
                 return string.Empty;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
                 return string.Empty;
             }
