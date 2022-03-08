@@ -29,6 +29,13 @@ namespace pocketseller.core.Models
         public string Street { get; set; }
         public string Zip { get; set; }
         public string City { get; set; }
+        public string Country { get; set; }
+        public string DName1 { get; set; }
+        public string DName2 { get; set; }
+        public string DStreet { get; set; }
+        public string DZip { get; set; }
+        public string DCity { get; set; }
+        public string DCountry { get; set; }
         public string Phone1 { get; set; }
         public string Phone2 { get; set; }
         public string Fax { get; set; }
