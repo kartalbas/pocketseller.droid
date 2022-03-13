@@ -287,6 +287,7 @@ namespace pocketseller.droid.Views
                                 if (document != null)
                                 {
                                     Document.DeleteDocument(document);
+                                    Mvx.IoCProvider.Resolve<IMvxMessenger>().Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.Added));
                                 }
                             }
 
