@@ -14,8 +14,6 @@ namespace pocketseller.core.Services
         public LoginViewModel LoginViewModel { get; set; }
 
         public DocumentsNewViewModel DocumentsNewViewModel { get; set; }
-        public DocumentsSentViewModel DocumentsSentViewModel { get; set; }
-
         public QuotationsNewViewModel QuotationsNewViewModel { get; set; }
         public QuotationsSentViewModel QuotationsSentViewModel { get; set; }
 
@@ -31,11 +29,6 @@ namespace pocketseller.core.Services
         public FacturaDefectViewModel FacturaDefectViewModel { get; set; }
         public FacturaDayViewModel FacturaDayViewModel { get; set; }
         public FacturaWeekViewModel FacturaWeekViewModel { get; set; }
-
-        //public CreditAllViewModel CreditAllViewModel { get; set; }
-        //public CreditDefectViewModel CreditDefectViewModel { get; set; }
-        //public CreditDayViewModel CreditDayViewModel { get; set; }
-        //public CreditWeekViewModel CreditWeekViewModel { get; set; }
 
         public DocumentOutstandingViewModel DocumentOutstandingViewModel { get; set; }
         public DocumentOrderViewModel DocumentOrderViewModel { get; set; }

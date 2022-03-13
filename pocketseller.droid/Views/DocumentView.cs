@@ -283,9 +283,11 @@ namespace pocketseller.droid.Views
                             }
                             else
                             {
-                                if (document != null) document.Response = objTask.Result.Content;
-                                DocumentViewModel.SendDocumentCommand.Execute(document);
                                 CTools.ShowToast(Language.OrderSentSuccessfully);
+                                if (document != null)
+                                {
+                                    Document.DeleteDocument(document);
+                                }
                             }
 
                             DiscardDocument();

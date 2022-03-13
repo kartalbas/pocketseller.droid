@@ -156,7 +156,6 @@
     <Compile Include="Views\Fragments\ImportToDeliveryFragment.cs" />
     <Compile Include="Views\Fragments\StockToPrintFragment.cs" />
     <Compile Include="Views\Fragments\DocumentsFragment.cs" />
-    <Compile Include="Views\Fragments\DocumentsSentFragment.cs" />
     <Compile Include="Views\Fragments\StockFragment.cs" />
     <Compile Include="Views\Fragments\DataInterfaceFragment.cs" />
     <Compile Include="Views\Fragments\DocumentdetailFragment.cs" />

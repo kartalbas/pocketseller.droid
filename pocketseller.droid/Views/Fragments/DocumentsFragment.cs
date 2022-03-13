@@ -23,7 +23,6 @@ namespace pocketseller.droid.Views.Fragments
             _objFragmentTabHost.Setup(Activity, ChildFragmentManager, Android.Resource.Id.TabContent);
 
             CTools.CreateTab(_objFragmentTabHost, typeof(DocumentsNewFragment), DocumentsViewModel.LabelNewOrder, pocketseller.droid.Resource.Drawable.documentsfragment_tab_newdocument);
-            CTools.CreateTab(_objFragmentTabHost, typeof(DocumentsSentFragment), DocumentsViewModel.LabelSentOrder, pocketseller.droid.Resource.Drawable.documentsfragment_tab_sentdocument);
             CTools.SetTabHostTextSizes(_objFragmentTabHost, 8);
 
             _objIntentDocumentView = new Intent(Activity, typeof(DocumentView));

@@ -171,7 +171,7 @@ namespace pocketseller.droid.Views.Fragments
                     {
                         DocumentsNewViewModel.HideWorkingCommand.Execute(null);
                         if (document != null) document.Response = objTask.Result.Content;
-                        DocumentsNewViewModel.SendDocumentCommand.Execute(document);
+                        DocumentsNewViewModel.DeleteDocumentCommand.Execute(document);
                         CTools.ShowToast(Language.OrderSentSuccessfully);
                         CTools.EnableOrDisableView(_objListView, true);
                     }

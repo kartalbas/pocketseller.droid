@@ -179,8 +179,8 @@ namespace pocketseller.core.ViewModels
         private void DoDeleteDocumentCommand(Document objDoc)
         {
             DocumentService.DeleteDocument(objDoc);
+            Messenger.Publish(new DocumentsViewServiceMessage(this, EDocumentsViewAction.Added));
         }
-
-		#endregion
-	}
+        #endregion
+    }
 }
