@@ -319,12 +319,11 @@ namespace pocketseller.droid.Helper
                 {
                     var objRequest = CreateRequest( Method.POST, ESettingType.RestQuotationAddOrUpdate, string.Empty);
 
-                    objRequest.AddHeader("Content-Encoding", "gzip");
+                    objRequest.AddHeader("Content-Type", "application/json");
 
                     var objOrderProxy = QuoToProxyQuotation.CreateQuotation(objDocument);
                     var strDeserializedContent = objRequest.JsonSerializer.Serialize(objOrderProxy);
-                    objRequest.AddBody(GzipCompressor.CompressString(strDeserializedContent));
-
+                    objRequest.AddBody(strDeserializedContent);
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
                     if (result.ResponseStatus == ResponseStatus.Completed)
@@ -360,13 +359,13 @@ namespace pocketseller.droid.Helper
                     var objRequest = CreateRequest( Method.POST, targetType, string.Empty);
 
                     var source = Source.Instance.GetCurrentSource();
-                    objRequest.AddHeader("Content-Encoding", "gzip");
+                    objRequest.AddHeader("Content-Type", "application/json");
                     objRequest.AddHeader("externalUserId", source?.UserId.ToString());
 
                     var objOrderProxy = Converter.CreateOrder(source, objDocument);
                     var strDeserializedContent = objRequest.JsonSerializer.Serialize(objOrderProxy);
 
-                    objRequest.AddBody(GzipCompressor.CompressString(strDeserializedContent));
+                    objRequest.AddBody(strDeserializedContent);
 
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
