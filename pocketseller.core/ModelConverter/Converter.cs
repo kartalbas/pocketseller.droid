@@ -126,6 +126,8 @@ namespace pocketseller.core.ModelConverter
             foreach (var orderdetails in order.Orderdetails)
             {
                 var article = dataService.FindWithQuery<Article>($"SELECT * FROM Article WHERE Articlenumber = '{orderdetails.Articlenumber}'");
+                if(article == null)
+                    continue;
 
                 var documentdetail = new Documentdetail();
                 documentdetail.Article = article;
