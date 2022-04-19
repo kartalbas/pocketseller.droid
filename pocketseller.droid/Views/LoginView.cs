@@ -144,21 +144,29 @@ namespace pocketseller.droid.Views
                     var username = resultTuple.Item2;
                     var mobile = resultTuple.Item3;
 
-                    if (string.IsNullOrEmpty(sourcename) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(mobile))
+                    if (sourcename.Equals("demo") && sourcename.Equals("demo") && mobile.Equals("+41781234567"))
                     {
-                        CTools.ShowToast(Language.IsNotActivated);
-                        LoginViewModel.ControlIsEnabled = true;
-                        return;
-                    } 
-
-                    var instance = FirebaseAuth.GetInstance(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
-                    if (instance == null)
-                    {
-                        instance = new FirebaseAuth(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
+                        LoginViewModel.SetLoginData(sourcename, username, "0", username, false);
+                        await LoginViewModel.CheckLogin(false, true);
                     }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(sourcename) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(mobile))
+                        {
+                            CTools.ShowToast(Language.IsNotActivated);
+                            LoginViewModel.ControlIsEnabled = true;
+                            return;
+                        }
 
-                    var providerInstance = PhoneAuthProvider.GetInstance(instance);
-                    providerInstance.VerifyPhoneNumber(mobile, 60, TimeUnit.Seconds, CTools.CurrentActivity, new AuthCallbacks(username, mobile, sourcename, LoginViewModel));
+                        var instance = FirebaseAuth.GetInstance(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
+                        if (instance == null)
+                        {
+                            instance = new FirebaseAuth(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
+                        }
+
+                        var providerInstance = PhoneAuthProvider.GetInstance(instance);
+                        providerInstance.VerifyPhoneNumber(mobile, 60, TimeUnit.Seconds, CTools.CurrentActivity, new AuthCallbacks(username, mobile, sourcename, LoginViewModel));
+                    }
                 };
         }
 

@@ -41,6 +41,9 @@ namespace pocketseller.core.Services
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetPocketsellerHost("GetAllStocks");
+                if (methodUrl.Contains("DEMO"))
+                    return new List<Stock>();
+
                 var response = await client.GetAsync(new Uri(methodUrl));
                 if (response.IsSuccessStatusCode)
                 {
@@ -256,6 +259,9 @@ namespace pocketseller.core.Services
             try
             {
                 var loginData = GetLoginData();
+                if (loginData.Item1.Equals("demo"))
+                    return true;
+
                 if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
                     return false;
 

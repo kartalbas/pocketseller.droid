@@ -33,12 +33,13 @@ namespace pocketseller.core
             var sources = new List<Source>
             {
                 new Source { Id = 1, Name = "DOR", Host = "activator.yilmazfeinkost.de:5001", DbName = "DOR.db" },
-                new Source { Id = 2, Name = "DORT", Host = "activator.yilmazfeinkost.de:5031", DbName = "DORT.db" },
+                new Source { Id = 2, Name = "DORT", Host = "activator.yilmazfeinkost.de:5011", DbName = "DORT.db" },
                 new Source { Id = 3, Name = "KOL", Host = "activator.yilmazfeinkost.de:5021", DbName = "KOL.db" },
                 new Source { Id = 4, Name = "KOLT", Host = "activator.yilmazfeinkost.de:5031", DbName = "KOLT.db" },
                 new Source { Id = 5, Name = "NEU", Host = "activator.yilmazfeinkost.de:5041", DbName = "NEU.db" },
                 new Source { Id = 6, Name = "NEUT", Host = "activator.yilmazfeinkost.de:5051", DbName = "NEUT.db" },
-                new Source { Id = 7, Name = "DEV", Host = "activator.yilmazfeinkost.de:6001", DbName = "DEV.db" }
+                new Source { Id = 7, Name = "DEV", Host = "activator.yilmazfeinkost.de:6001", DbName = "DEV.db" },
+                new Source { Id = 8, Name = "DEMO", Host = "DEMO", DbName = "DEMO.db" }
             };
 
             Source.Instance.DeleteAll();

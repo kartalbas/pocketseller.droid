@@ -185,6 +185,9 @@ namespace pocketseller.core.ViewModels
                 var dialag = Mvx.IoCProvider.Resolve<IUserDialogs>();
                 var rest = Mvx.IoCProvider.Resolve<IRestService>();
 
+                if(Username.ToLower().Equals("demo") && Password.ToLower().Equals("demo"))
+                    return new Tuple<string, string, string>("demo", "demo", "+41781234567");
+
                 if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(Branch))
                 {
                     dialag.Toast($"Check {Language.Branch}/{Language.Mail}/{Language.Password}", TimeSpan.FromSeconds(3));

@@ -402,8 +402,12 @@ namespace pocketseller.droid.Helper
                 {
                     var strSubUrl = $@"/{(int) enmDocumentState}";
                     var objRequest = CreateRequest( Method.GET, ESettingType.RestGetDocumentsByState, strSubUrl);
+ 
+                    var client = CreateClient();
+                    if (client.BaseUrl.Contains("DEMO"))
+                        return new List<Order>();
 
-                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
 
                     if (result.ResponseStatus == ResponseStatus.Completed)
                     {
@@ -443,7 +447,11 @@ namespace pocketseller.droid.Helper
                     var strSubUrl = $@"/{(int)enmDocumentState}/{accountNumber}";
                     var objRequest = CreateRequest(Method.GET, ESettingType.RestGetOrdersByAccountNumber, strSubUrl);
 
-                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    var client = CreateClient();
+                    if (client.BaseUrl.Contains("DEMO"))
+                        return new List<Order>();
+
+                    var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
 
                     if (result.ResponseStatus == ResponseStatus.Completed)
                     {
@@ -485,7 +493,11 @@ namespace pocketseller.droid.Helper
                     var strSubUrl = $@"/{(int)enmDocumentState}/{sBegin}/{sEnd}";
                     var objRequest = CreateRequest(Method.GET, ESettingType.RestGetDocumentsByStateAndTimeframe, strSubUrl);
 
-                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    var client = CreateClient();
+                    if (client.BaseUrl.Contains("DEMO"))
+                        return new List<Order>();
+
+                    var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
 
                     if (result.ResponseStatus == ResponseStatus.Completed)
                     {
@@ -526,7 +538,11 @@ namespace pocketseller.droid.Helper
                     var strSubUrl = $@"/{(int) enmDocumentState}";
                     var objRequest = CreateRequest( Method.GET, ESettingType.RestGetQuotationsByState, strSubUrl);
 
-                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    var client = CreateClient();
+                    if (client.BaseUrl.Contains("DEMO"))
+                        return new List<Quotation>();
+
+                    var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
 
                     if (result.ResponseStatus == ResponseStatus.Completed)
                     {
@@ -564,8 +580,11 @@ namespace pocketseller.droid.Helper
                 if (CTools.Connected())
                 {
                     var objRequest = CreateRequest(Method.GET, enmResource, string.Empty);
+                    var client = CreateClient();
+                    if (client.BaseUrl.Contains("DEMO"))
+                        return null;
 
-                    var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
+                    var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
 
                     objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Downloading, EventArgs.Empty);
 
