@@ -39,7 +39,7 @@
             android:gravity="center"
             android:layout_weight="0.25"
             android:text="Stock"
-            local:MvxBind="Text LabelStockAmount" />
+            local:MvxBind="Text LabelStockPlace" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -79,6 +79,6 @@
             android:gravity="center"
             android:layout_weight="0.25"
             android:text="999"
-            local:MvxBind="Text TextStockAmount" />
+            local:MvxBind="Text TextStockPlace" />
     </LinearLayout>
 </LinearLayout>

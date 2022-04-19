@@ -121,6 +121,7 @@ namespace pocketseller.core.ViewModels
             
             LabelStockCount = Language.CurrentStockCount;
             LabelStockAmount = Language.CurrentStockAmount;
+            LabelStockPlace = Language.StockPlace;
             LabelContent = Language.Content;
             LabelCount = Language.Count;
             LabelAmount = Language.Amount;
@@ -176,6 +177,13 @@ namespace pocketseller.core.ViewModels
         private string _labelStockAmount;
         public string LabelStockAmount { get => _labelStockAmount;
             set { _labelStockAmount = value; RaisePropertyChanged(() => LabelStockAmount); } }
+
+        private string _labelStockPlace;
+        public string LabelStockPlace
+        {
+            get => _labelStockPlace;
+            set { _labelStockPlace = value; RaisePropertyChanged(() => LabelStockPlace); }
+        }
 
         private string _labelContent;
         public string LabelContent { get => _labelContent;
@@ -406,6 +414,8 @@ namespace pocketseller.core.ViewModels
         public DateTime TextLastDate => DocumentService.Lastprice.Salesdate;
 
         public decimal TextLastCount => DocumentService.Lastprice.Count;
+
+        public string TextStockPlace => Article.StockPlace;
 
         public decimal TextLastContent => DocumentService.Lastprice.Content;
 

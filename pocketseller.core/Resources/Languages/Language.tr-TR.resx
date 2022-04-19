@@ -987,4 +987,7 @@
   <data name="Branch" xml:space="preserve">
     <value>Şube</value>
   </data>
+  <data name="StockPlace" xml:space="preserve">
+    <value>Regal</value>
+  </data>
 </root>

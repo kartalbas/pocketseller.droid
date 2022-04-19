@@ -990,4 +990,7 @@
   <data name="Branch" xml:space="preserve">
     <value>Branch</value>
   </data>
+  <data name="StockPlace" xml:space="preserve">
+    <value>Regal</value>
+  </data>
 </root>
