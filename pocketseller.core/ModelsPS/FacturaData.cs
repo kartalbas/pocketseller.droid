@@ -42,6 +42,9 @@ namespace pocketseller.core.ModelsPS
 
         public static IList<OpenPayment> FormatOpenPayments(IList<OpenPayment> openPayment)
         {
+            if(openPayment == null)
+                openPayment = new List<OpenPayment>();
+
             if (openPayment.Count() == 0)
             {
                 openPayment.Add(new OpenPayment
