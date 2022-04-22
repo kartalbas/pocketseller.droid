@@ -47,7 +47,7 @@ namespace pocketseller.droid.Views.Fragments
             objMenu.Add(StockToPrintViewModel.LabelPrintDeliveryNoteWithoutPrice);
             objMenu.Add(StockToPrintViewModel.LabelReady);
             objMenu.Add(StockToPrintViewModel.LabelShow);
-            objMenu.Add(StockToPrintViewModel.LabelCancel);
+            //objMenu.Add(StockToPrintViewModel.LabelCancel);
         }
 
         protected override bool OnDaysClicked(IMenuItem objMenuItem)
