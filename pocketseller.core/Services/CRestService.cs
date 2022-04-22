@@ -327,6 +327,10 @@ namespace pocketseller.core.Services
             {
                 var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
 
+#if DEBUG
+                mobile = RsaCrypter.Encrypt(mobile);
+#endif
+
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
                 client.DefaultRequestHeaders.Add("mobile", Base64Tools.Base64Encode(mobile));

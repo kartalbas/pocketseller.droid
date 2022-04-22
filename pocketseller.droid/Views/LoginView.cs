@@ -12,7 +12,6 @@ using MvvmCross.Droid.Support.V4;
 using MvvmCross.Plugin.Messenger;
 using pocketseller.core.Messages;
 using pocketseller.core.Models;
-using pocketseller.core.Services.Interfaces;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using System;
@@ -22,6 +21,7 @@ using Java.Util.Concurrent;
 using pocketseller.core.Resources.Languages;
 using System.Threading.Tasks;
 using pocketseller.core;
+using pocketseller.core.Services.Interfaces;
 
 namespace pocketseller.droid.Views
 {
@@ -163,6 +163,16 @@ namespace pocketseller.droid.Views
                         {
                             instance = new FirebaseAuth(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
                         }
+
+#if DEBUG
+                        var restService = Mvx.IoCProvider.Resolve<IRestService>();
+                        var tuple = await restService.GetMobileToken(username, LoginViewModel.Password, "token", sourcename);
+                        LoginViewModel.SetLoginData(sourcename, tuple.Item2, tuple.Item1, username, tuple.Item3);
+                        CTools.ShowToast(Language.LoginSuccessFull);
+                        await LoginViewModel.CheckLogin(false, true);
+                        this.Finish();
+                        return;
+#endif
 
                         var providerInstance = PhoneAuthProvider.GetInstance(instance);
                         providerInstance.VerifyPhoneNumber(mobile, 60, TimeUnit.Seconds, CTools.CurrentActivity, new AuthCallbacks(username, mobile, sourcename, LoginViewModel));
