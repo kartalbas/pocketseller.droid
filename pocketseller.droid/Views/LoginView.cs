@@ -99,15 +99,20 @@ namespace pocketseller.droid.Views
 
         private async Task CheckLogin()
         {
-            if (!await LoginViewModel.CheckLogin(false, true))
+            if (CTools.Connected())
             {
-                CTools.ShowToast(Language.LoginFailed);
-                return;
+                if (!await LoginViewModel.CheckLogin(false, true))
+                {
+                    CTools.ShowToast(Language.LoginFailed);
+                    return;
+                }
+                CTools.ShowToast(Language.LoginSuccessFull);
+                Finish();
             }
-
-            CTools.ShowToast(Language.LoginSuccessFull);
-
-            Finish();
+            else
+            {
+                CTools.ShowToast(Language.NoInternet);
+            }
         }
 
         public override void OnBackPressed()

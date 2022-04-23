@@ -77,6 +77,10 @@ namespace pocketseller.droid.Views
 
                 CTools.ShowToast(Language.LoginSuccessFull);
             }
+            else
+            {
+                CTools.ShowToast(Language.NoInternet);
+            }
         }
 
         protected override void OnResume()
