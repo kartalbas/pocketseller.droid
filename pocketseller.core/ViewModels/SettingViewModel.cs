@@ -27,6 +27,7 @@ namespace pocketseller.core.ViewModels
             SubscriptionToken1 = objMessenger.SubscribeOnMainThread<LanguageServiceMessage>(OnLanguageChanged);
             OrderSettings.Instance.CheckStock = true;
             OrderSettings.Instance.CheckVKMustHigher = true;
+            OrderSettings.Instance.PictureUrl = "https://pic.yilmazfeinkost.de";
         }
 
         #endregion
@@ -519,7 +520,7 @@ namespace pocketseller.core.ViewModels
         {
             get =>
                 string.IsNullOrEmpty(OrderSettings.Instance.PictureUrl) 
-                    ? "http://" 
+                    ? "https://" 
                     : OrderSettings.Instance.PictureUrl;
             set
             {

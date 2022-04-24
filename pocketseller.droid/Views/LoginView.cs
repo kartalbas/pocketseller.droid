@@ -61,6 +61,7 @@ namespace pocketseller.droid.Views
 
             OrderSettings.Instance.CheckVKMustHigher = true; // setting disabled and fixed to true
             OrderSettings.Instance.CheckStock = true; // setting disabled and fixed to true
+            OrderSettings.Instance.PictureUrl = "https://pic.yilmazfeinkost.de";
 
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             var buildDate = new DateTime(2000, 1, 1).AddDays(version.Build).AddSeconds(version.Revision * 2);
