@@ -9,7 +9,6 @@ using pocketseller.core.Resources.Languages;
 using pocketseller.core.Tools;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
-using pocketseller.droid;
 
 namespace pocketseller.droid.Views.Fragments
 {

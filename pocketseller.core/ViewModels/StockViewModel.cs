@@ -29,10 +29,11 @@ namespace pocketseller.core.ViewModels
         public override void Init()
         {
             LabelTitle = Language.Stock;
-            LabelToPrint = Language.Comission;
+            LabelComission = Language.Comission;
+            LabelReady = Language.Ready;
+            LabelDelivery = Language.ToDelivery;
+            LabelFactura = Language.ToFactura;
             LabelToDelete = Language.ToPrint;
-            LabelToDelivery = Language.ToDelivery;
-            LabelToFactura = Language.ToFactura;
             LabelToCanceled = Language.ToCanceled;
         }
 
@@ -45,17 +46,20 @@ namespace pocketseller.core.ViewModels
         private string _labelToDeficit;
         public string LabelToDeficit { get => _labelToDeficit; set { _labelToDeficit = value; RaisePropertyChanged(() => LabelToDeficit); } }
 
-        private string _labelToPrint;
-        public string LabelToPrint { get => _labelToPrint; set { _labelToPrint = value; RaisePropertyChanged(() => LabelToPrint); } }
+        private string _labelComission;
+        public string LabelComission { get => _labelComission; set { _labelComission = value; RaisePropertyChanged(() => LabelComission); } }
+
+        private string _labelReady;
+        public string LabelReady { get => _labelReady; set { _labelReady = value; RaisePropertyChanged(() => LabelReady); } }
+
+        private string _labelFactura;
+        public string LabelFactura { get => _labelFactura; set { _labelFactura = value; RaisePropertyChanged(() => LabelFactura); } }
 
         private string _labelToDelete;
         public string LabelToDelete { get => _labelToDelete; set { _labelToDelete = value; RaisePropertyChanged(() => LabelToDelete); } }
 
-        private string _labelToDelivery;
-        public string LabelToDelivery { get => _labelToDelivery; set { _labelToDelivery = value; RaisePropertyChanged(() => LabelToDelivery); } }
-
-        private string _labelToFactura;
-        public string LabelToFactura { get => _labelToFactura; set { _labelToFactura = value; RaisePropertyChanged(() => LabelToFactura); } }
+        private string _labelDelivery;
+        public string LabelDelivery { get => _labelDelivery; set { _labelDelivery = value; RaisePropertyChanged(() => LabelDelivery); } }
 
         private string _labelToCanceled;
         public string LabelToCanceled { get => _labelToCanceled; set { _labelToCanceled = value; RaisePropertyChanged(() => LabelToCanceled); } }

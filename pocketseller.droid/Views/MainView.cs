@@ -17,6 +17,8 @@ using pocketseller.droid.Helper;
 using pocketseller.droid.Views.Fragments;
 using pocketseller.core.Services.Interfaces;
 using pocketseller.core.Services;
+using FFImageLoading;
+using System.Net.Http;
 
 namespace pocketseller.droid.Views
 {
@@ -54,8 +56,14 @@ namespace pocketseller.droid.Views
             InitFragments();
             InitDrawer();
 
-            _restService = Mvx.IoCProvider.Resolve<IRestService>();
+            var handler = new HttpClientHandler
+            {
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
+            };
+            ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration { HttpClient = new HttpClient(handler) });
 
+            _restService = Mvx.IoCProvider.Resolve<IRestService>();
             var mails = await _restService.GetOpMails();
 
             new EMails().Save(mails);

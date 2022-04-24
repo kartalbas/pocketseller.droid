@@ -92,6 +92,8 @@ namespace pocketseller.core.ViewModels
             LabelBackupDatabase = Language.BackupDatabase;
             LabelRestoreDatabase = Language.RestoreDatabase;
 
+            LabelCashAndCarry = Language.CashAndCarry;
+
             IsEnabledOrderNumberBegin = true;
             IsEnabledOrderNumberCurrent = true;
             IsEnabledOrderSearchMaxChar = true;
@@ -136,6 +138,13 @@ namespace pocketseller.core.ViewModels
         }
 
 
+        private string _labelCashAndCarry;
+        public string LabelCashAndCarry
+        {
+            get => _labelCashAndCarry;
+            set { _labelCashAndCarry = value; RaisePropertyChanged(() => LabelCashAndCarry); }
+        }
+
         private string _labelRestoreDatabase;
         public string LabelRestoreDatabase { get => _labelRestoreDatabase;
             set { _labelRestoreDatabase = value; RaisePropertyChanged(() => LabelRestoreDatabase); } }
@@ -151,10 +160,6 @@ namespace pocketseller.core.ViewModels
         private string _labelYes;
         public string LabelYes { get => _labelYes;
             set { _labelYes = value; RaisePropertyChanged(() => LabelYes); } }
-
-        private string _labelNo;
-        public string LabelNo { get => _labelNo;
-            set { _labelNo = value; RaisePropertyChanged(() => LabelNo); } }
 
         private string _labelSearchTypeNormal;
         public string LabelSearchTypeNormal { get => _labelSearchTypeNormal;
@@ -221,6 +226,13 @@ namespace pocketseller.core.ViewModels
             set { _labelEnglish = value; RaisePropertyChanged(() => LabelEnglish); }
         }
 
+        private string _labelNo = "";
+        public string LabelNo
+        {
+            get => _labelNo;
+            set { _labelNo = value; RaisePropertyChanged(() => LabelNo); }
+        }
+
         public List<string> Languages => new List<string> { LabelTurkish, LabelEnglish, LabelGerman };
 
         public int SelectedIndexArticleSearchType
@@ -285,6 +297,16 @@ namespace pocketseller.core.ViewModels
             {
                 SettingService.Set(ESettingType.KeyboardTypeOnSearch, value);
                 RaisePropertyChanged(() => SelectedIndexKeyboardOnSearch);
+            }
+        }
+
+        public int SelectedIndexCashAndCarry
+        {
+            get => SettingService.Get<int>(ESettingType.CashAndCarry);
+            set
+            {
+                SettingService.Set(ESettingType.CashAndCarry, value);
+                RaisePropertyChanged(() => SelectedIndexCashAndCarry);
             }
         }
 
@@ -522,10 +544,9 @@ namespace pocketseller.core.ViewModels
                     DataService.PocketsellerConnection.Close();
 
                 if (DataService.SettingsConnection != null)
-                    DataService.SettingsConnection.Close();                
+                    DataService.SettingsConnection.Close();
             }
         }
-
 
         #endregion
     }

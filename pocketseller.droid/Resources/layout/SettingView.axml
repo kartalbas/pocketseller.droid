@@ -21,8 +21,24 @@
                     local:MvxItemTemplate="@layout/MySpinnerItem"
                     local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
                     local:MvxBind="ItemsSource Languages; SelectedItemPosition SelectedIndexLanguage"/>
-        </LinearLayout>
-        <LinearLayout
+      </LinearLayout>
+      <LinearLayout
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+        <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:text="Cash and Carry"
+                local:MvxBind="Text LabelCashAndCarry"/>
+        <MvxSpinner
+                android:layout_width="0dp"
+                android:layout_weight=".50"
+                android:layout_height="wrap_content"
+                local:MvxItemTemplate="@layout/MySpinnerItem"
+                local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                local:MvxBind="ItemsSource ListYesNo; SelectedItemPosition SelectedIndexCashAndCarry"/>
+      </LinearLayout>
+      <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">

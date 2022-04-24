@@ -349,6 +349,15 @@ namespace pocketseller.core.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cash &amp; Carry.
+        /// </summary>
+        public static string CashAndCarry {
+            get {
+                return ResourceManager.GetString("CashAndCarry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Changed.
         /// </summary>
         public static string Changed {
@@ -2509,7 +2518,7 @@ namespace pocketseller.core.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creditnote.
+        ///   Looks up a localized string similar to CREDITNOTE.
         /// </summary>
         public static string ToCreditNote {
             get {
@@ -2545,7 +2554,7 @@ namespace pocketseller.core.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delivery.
+        ///   Looks up a localized string similar to DELIVERYNOTE.
         /// </summary>
         public static string ToDelivery {
             get {
@@ -2554,7 +2563,7 @@ namespace pocketseller.core.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Factura.
+        ///   Looks up a localized string similar to FACTURA.
         /// </summary>
         public static string ToFactura {
             get {
@@ -2563,7 +2572,7 @@ namespace pocketseller.core.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Print.
+        ///   Looks up a localized string similar to FACTURA.
         /// </summary>
         public static string ToPrint {
             get {
@@ -2572,7 +2581,7 @@ namespace pocketseller.core.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Printed.
+        ///   Looks up a localized string similar to PRINTED.
         /// </summary>
         public static string ToPrinted {
             get {

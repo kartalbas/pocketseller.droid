@@ -643,10 +643,10 @@
     <value>Zeigen</value>
   </data>
   <data name="ToDelivery" xml:space="preserve">
-    <value>Lieferschein</value>
+    <value>LIEFERSCHEIN</value>
   </data>
   <data name="ToPrint" xml:space="preserve">
-    <value>Drucken</value>
+    <value>DRUCKEN</value>
   </data>
   <data name="StatusNotChanged" xml:space="preserve">
     <value>Status der Bestellung konnte nicht geändert werden</value>
@@ -934,7 +934,7 @@
     <value>Gerät ist nicht registriert</value>
   </data>
   <data name="ToFactura" xml:space="preserve">
-    <value>Rechnung</value>
+    <value>RECHNUNG</value>
   </data>
   <data name="ToDelete" xml:space="preserve">
     <value>Löschen</value>
@@ -967,7 +967,7 @@
     <value>Senden als Gutschrift</value>
   </data>
   <data name="ToCreditNote" xml:space="preserve">
-    <value>Gutschrift</value>
+    <value>GUTSCHRIFT</value>
   </data>
   <data name="FacturaAll" xml:space="preserve">
     <value>Alle</value>
@@ -995,5 +995,8 @@
   </data>
   <data name="StockPlace" xml:space="preserve">
     <value>Regal</value>
+  </data>
+  <data name="CashAndCarry" xml:space="preserve">
+    <value>Cash &amp; Carry</value>
   </data>
 </root>

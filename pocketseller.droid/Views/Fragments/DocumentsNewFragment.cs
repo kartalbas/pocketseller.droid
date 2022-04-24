@@ -52,9 +52,14 @@ namespace pocketseller.droid.Views.Fragments
             base.OnCreateContextMenu(objMenu, v, menuInfo);
             objMenu.Add(DocumentsNewViewModel.LabelEdit);
             objMenu.Add(DocumentsNewViewModel.LabelSendAsOrder);
-            objMenu.Add(DocumentsNewViewModel.LabelSendAsDelivery);
-            objMenu.Add(DocumentsNewViewModel.LabelSendAsFactura);
-            objMenu.Add(DocumentsNewViewModel.LabelSendAsCreditNote);
+
+            if(DocumentsNewViewModel.SettingService.Get<int>(ESettingType.CashAndCarry) == 1)
+            {
+                objMenu.Add(DocumentsNewViewModel.LabelSendAsDelivery);
+                objMenu.Add(DocumentsNewViewModel.LabelSendAsFactura);
+                objMenu.Add(DocumentsNewViewModel.LabelSendAsCreditNote);
+            }
+
             objMenu.Add(DocumentsNewViewModel.LabelDelete);
             objMenu.Add($"BESTELLSCHEIN {DocumentsNewViewModel.LabelMail}");
             objMenu.Add($"BESTELLSCHEIN {DocumentsNewViewModel.LabelPrint}");

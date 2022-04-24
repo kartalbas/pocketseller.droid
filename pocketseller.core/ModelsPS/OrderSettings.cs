@@ -17,7 +17,7 @@ namespace pocketseller.core.Models
             MaxDocumentdetails = 0;
             CheckStock = true;
             CheckVKMustHigher = true;
-            PictureUrl = string.Empty;
+            _pictureUrl = "https://pic.yilmazfeinkost.de";
         }
 
         private int _autoPrice;

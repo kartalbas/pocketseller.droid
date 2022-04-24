@@ -11,5 +11,5 @@
         android:layout_margin="0dp"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
-        local:MvxBind="ImageUrl ImageUrl; ErrorImagePath 'res:ic_action_picture'; DefaultImagePath 'res:ic_action_picture'" />
+        local:MvxBind="ImagePath ImageUrl; ErrorPlaceholderImagePath 'res:ic_action_picture'; LoadingPlaceholderImagePath 'res:ic_action_picture'" />
 </LinearLayout>

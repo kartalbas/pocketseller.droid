@@ -637,10 +637,10 @@
     <value>Göster</value>
   </data>
   <data name="ToDelivery" xml:space="preserve">
-    <value>Irsaliye</value>
+    <value>IRSALIYE</value>
   </data>
   <data name="ToPrint" xml:space="preserve">
-    <value>Yaz</value>
+    <value>PRINT</value>
   </data>
   <data name="StatusNotChanged" xml:space="preserve">
     <value>Siparişin status değiştirilemedi</value>
@@ -928,7 +928,7 @@
     <value>Cihaz kayıtlı degil</value>
   </data>
   <data name="ToFactura" xml:space="preserve">
-    <value>Fatura</value>
+    <value>FATURA</value>
   </data>
   <data name="ToDelete" xml:space="preserve">
     <value>Sil</value>
@@ -961,7 +961,7 @@
     <value>Dekonto olarak gönder</value>
   </data>
   <data name="ToCreditNote" xml:space="preserve">
-    <value>Dekonto</value>
+    <value>DEKONTO</value>
   </data>
   <data name="FacturaAll" xml:space="preserve">
     <value>Tümü</value>
@@ -989,5 +989,8 @@
   </data>
   <data name="StockPlace" xml:space="preserve">
     <value>Regal</value>
+  </data>
+  <data name="CashAndCarry" xml:space="preserve">
+    <value>Cash &amp; Carry</value>
   </data>
 </root>

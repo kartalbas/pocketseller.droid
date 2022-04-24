@@ -87,7 +87,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="3dp"
-                local:MvxBind="ImageUrl Article.ThumbnailUrl; ErrorImagePath 'res:ic_action_picture'; DefaultImagePath 'res:ic_action_picture'" />
+                local:MvxBind="ImagePath Article.ThumbnailUrl; ErrorPlaceholderImagePath 'res:ic_action_picture'; LoadingPlaceholderImagePath 'res:ic_action_picture'" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

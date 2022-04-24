@@ -640,10 +640,10 @@
     <value>Show</value>
   </data>
   <data name="ToDelivery" xml:space="preserve">
-    <value>Delivery</value>
+    <value>DELIVERYNOTE</value>
   </data>
   <data name="ToPrint" xml:space="preserve">
-    <value>Print</value>
+    <value>FACTURA</value>
   </data>
   <data name="StatusNotChanged" xml:space="preserve">
     <value>Status of order could not be changed</value>
@@ -703,7 +703,7 @@
     <value>Keybard on search</value>
   </data>
   <data name="ToPrinted" xml:space="preserve">
-    <value>Printed</value>
+    <value>PRINTED</value>
   </data>
   <data name="DeficitOptionMenu" xml:space="preserve">
     <value>Option Menu</value>
@@ -931,7 +931,7 @@
     <value>Device is not registered</value>
   </data>
   <data name="ToFactura" xml:space="preserve">
-    <value>Factura</value>
+    <value>FACTURA</value>
   </data>
   <data name="ToDelete" xml:space="preserve">
     <value>Delete</value>
@@ -964,7 +964,7 @@
     <value>Send as Creditnote</value>
   </data>
   <data name="ToCreditNote" xml:space="preserve">
-    <value>Creditnote</value>
+    <value>CREDITNOTE</value>
   </data>
   <data name="FacturaAll" xml:space="preserve">
     <value>All</value>
@@ -992,5 +992,8 @@
   </data>
   <data name="StockPlace" xml:space="preserve">
     <value>Regal</value>
+  </data>
+  <data name="CashAndCarry" xml:space="preserve">
+    <value>Cash &amp; Carry</value>
   </data>
 </root>

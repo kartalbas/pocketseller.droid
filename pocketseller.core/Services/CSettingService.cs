@@ -72,7 +72,8 @@ namespace pocketseller.core.Services
         ExternalId,
         OiginalExternalId,
         Username,
-        ChangePassword
+        ChangePassword,
+        CashAndCarry
     }
 
     public class CSettingService : CBaseService, ISettingService, IBaseService
@@ -208,6 +209,7 @@ namespace pocketseller.core.Services
                 Set(ESettingType.Language, ELanguage.de_DE);
 
                 Set(ESettingType.KeyboardTypeOnSearch, 0);
+                Set(ESettingType.CashAndCarry, 0);
                 Set(ESettingType.KeyboardTypeInDocumentdetail, 2);
                 Set(ESettingType.SearchType, 0);
                 Set(ESettingType.SearchTypeAddress, 0);

@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+using FFImageLoading.Cross;
 using MvvmCross;
 using MvvmCross.Droid.Support.V4;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -195,6 +196,13 @@ namespace pocketseller.droid.Views.Fragments
 
             _objPreviousButton = objView.FindViewById<ImageButton>(pocketseller.droid.Resource.Id.documentdetail_imagebutton_previous);
             _objPreviousButton.Click += PreviousOnClick;
+
+            var objImageView = objView.FindViewById<MvxCachedImageView>(Resource.Id.documentdetail_image);
+            objImageView.Click += (sender, args) =>
+            {
+                var objIntent = new Intent(this.Activity, typeof(PictureView));
+                StartActivity(objIntent);
+            };
         }
 
         private void OnEditorAction(object objSender, TextView.EditorActionEventArgs objArgs)
