@@ -22,6 +22,9 @@ using pocketseller.core.Resources.Languages;
 using System.Threading.Tasks;
 using pocketseller.core;
 using pocketseller.core.Services.Interfaces;
+using MvvmCross.Platforms.Android;
+using Acr.UserDialogs;
+using pocketseller.core.Services;
 
 namespace pocketseller.droid.Views
 {
@@ -73,7 +76,7 @@ namespace pocketseller.droid.Views
         private void InitFirebaseAuth()
         {
             var options = new FirebaseOptions.Builder()
-               .SetApplicationId("1:569119279247:android:d3a019cbe06c8ab8ba88fa")
+               .SetApplicationId("1:569119279247:android:384be88400e67ea9ba88fa")
                .SetApiKey("AIzaSyDQ7btXxB2wNX97HWAiTEGfvpR4mZgV820")
                .Build();
 
@@ -164,26 +167,78 @@ namespace pocketseller.droid.Views
                             return;
                         }
 
-                        var instance = FirebaseAuth.GetInstance(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
-                        if (instance == null)
-                        {
-                            instance = new FirebaseAuth(FirebaseApp.GetInstance(FirebaseApp.DefaultAppName));
-                        }
-
-#if DEBUG
+                        var activity = Mvx.IoCProvider.Resolve<IMvxAndroidCurrentTopActivity>();
                         var restService = Mvx.IoCProvider.Resolve<IRestService>();
                         var tuple = await restService.GetMobileToken(username, LoginViewModel.Password, "token", sourcename);
-                        LoginViewModel.SetLoginData(sourcename, tuple.Item2, tuple.Item1, username, tuple.Item3);
-                        CTools.ShowToast(Language.LoginSuccessFull);
-                        await LoginViewModel.CheckLogin(false, true);
-                        this.Finish();
-                        return;
-#endif
 
-                        var providerInstance = PhoneAuthProvider.GetInstance(instance);
-                        providerInstance.VerifyPhoneNumber(mobile, 60, TimeUnit.Seconds, CTools.CurrentActivity, new AuthCallbacks(username, mobile, sourcename, LoginViewModel));
+                        if ((string.IsNullOrEmpty(tuple.Item1) || string.IsNullOrEmpty(tuple.Item2)) && !tuple.Item3)
+                        {
+                            CTools.ShowToast(Language.NotRegistered);
+                            return;
+                        }
+
+                        LoginViewModel.SetLoginData(sourcename, tuple.Item2, tuple.Item1, username, tuple.Item3);
+
+                        if (tuple.Item3)
+                        {
+                            var changed = await ChangePassword();
+                            if (changed)
+                                CTools.ShowToast(Language.Changed);
+                            else
+                                CTools.ShowToast(Language.NotRegistered);
+
+                            LoginViewModel.SetLoginData(string.Empty, string.Empty, string.Empty, string.Empty, false);
+                            LoginViewModel.ControlIsEnabled = true;
+                            return;
+                        }
+
+                        await LoginViewModel.CheckLogin(false, true);
+
+                        CTools.ShowToast(Language.LoginSuccessFull);
+                        LoginViewModel.ControlIsEnabled = true;
+                        activity?.Activity?.Finish();
                     }
                 };
+        }
+
+        private async Task<bool> ChangePassword()
+        {
+            try
+            {
+                var restService = Mvx.IoCProvider.Resolve<IRestService>();
+                var dialogService = Mvx.IoCProvider.Resolve<IUserDialogs>();
+
+                var changePassword = LoginViewModel.SettingService.Get<bool>(ESettingType.ChangePassword);
+                if (changePassword)
+                {
+                    var result = await dialogService.PasswordChangeAsync(new PasswordChangeConfig
+                    {
+                        Message = Language.Password,
+                        OkText = Language.Ok,
+                        CancelText = Language.Cancel,
+                        OldPasswordPlaceholder = Language.OldPassword,
+                        NewPasswordPlaceholder = Language.NewPassword1,
+                        NewPasswordConfirmPlaceholder = Language.NewPassword2
+                    });
+
+                    if (result.Ok)
+                    {
+                        if (result.NewPassword.Equals(result.NewPasswordConfirm))
+                        {
+                            var changed = await restService.ChangePassword(result.LoginText, result.OldPassword, result.NewPassword, result.NewPasswordConfirm);
+                            return changed;
+                        }
+                    }
+                }
+
+                return false;
+
+            }
+            catch (Exception exception)
+            {
+                CTools.ShowToast(exception.Message);
+                return false;
+            }
         }
 
         private void OnWorking(WorkingMessage objWorkingMessage)

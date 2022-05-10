@@ -19,7 +19,7 @@ namespace pocketseller.droid.Views.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
-            var objView = this.BindingInflate(pocketseller.droid.Resource.Layout.StockToPrintFragment, null);
+            var objView = this.BindingInflate(pocketseller.droid.Resource.Layout.StockToPrintedFragment, null);
 
             if (SingletonService.StockToCancelViewModel == null)
                 SingletonService.StockToCancelViewModel = CMvvmCrossTools.LoadViewModel<StockToCancelViewModel>();

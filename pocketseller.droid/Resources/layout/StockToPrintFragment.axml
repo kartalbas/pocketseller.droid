@@ -18,7 +18,7 @@
             android:textFilterEnabled="true"
             android:choiceMode="singleChoice"
             local:MvxBind="ItemsSource Orders"
-            local:MvxItemTemplate="@layout/stockdocumentitem"
+            local:MvxItemTemplate="@layout/stockdocumentprintitem"
             android:clickable="true"
             android:longClickable="true" />
     </LinearLayout>
