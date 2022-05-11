@@ -389,7 +389,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
     <Content Include="google-services.json" />
-    <AndroidResource Include="Resources\layout\StockDocumentPrintItem.axml" />
     <None Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>

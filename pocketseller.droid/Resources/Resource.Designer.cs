@@ -14,7 +14,7 @@ namespace pocketseller.droid
 {
 	
 	
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.2.4.160")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "12.3.0.26")]
 	public partial class Resource
 	{
 		
@@ -8254,25 +8254,22 @@ namespace pocketseller.droid
 			public const int StockDocumentItem = 2131427466;
 			
 			// aapt resource value: 0x7F0B008B
-			public const int StockDocumentPrintItem = 2131427467;
+			public const int StockDocumentSummaries = 2131427467;
 			
 			// aapt resource value: 0x7F0B008C
-			public const int StockDocumentSummaries = 2131427468;
+			public const int StockDocumentView = 2131427468;
 			
 			// aapt resource value: 0x7F0B008D
-			public const int StockDocumentView = 2131427469;
+			public const int StockFragment = 2131427469;
 			
 			// aapt resource value: 0x7F0B008E
-			public const int StockFragment = 2131427470;
+			public const int StockToPrintedFragment = 2131427470;
 			
 			// aapt resource value: 0x7F0B008F
-			public const int StockToPrintedFragment = 2131427471;
+			public const int StockToPrintFragment = 2131427471;
 			
 			// aapt resource value: 0x7F0B0090
-			public const int StockToPrintFragment = 2131427472;
-			
-			// aapt resource value: 0x7F0B0091
-			public const int support_simple_spinner_dropdown_item = 2131427473;
+			public const int support_simple_spinner_dropdown_item = 2131427472;
 			
 			static Layout()
 			{
