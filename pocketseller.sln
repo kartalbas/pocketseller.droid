@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pocketseller.droid", "pocke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs", "Acr.UserDialogs\Acr.UserDialogs.csproj", "{8DE820E5-AD43-419E-B36F-1E88F5C79B16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharp", "RestSharp-108.0.0\src\RestSharp\RestSharp.csproj", "{004DE8F3-4FF4-4E93-B77A-2E45F276062E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{8DE820E5-AD43-419E-B36F-1E88F5C79B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DE820E5-AD43-419E-B36F-1E88F5C79B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DE820E5-AD43-419E-B36F-1E88F5C79B16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

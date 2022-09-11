@@ -14,9 +14,11 @@ using pocketseller.core.Services;
 using pocketseller.core.Services.Interfaces;
 using pocketseller.core.ViewModels;
 using RestSharp;
-using RestSharp.Deserializers;
 using Quotation = pocketseller.core.ModelsAPI.Quotation;
 using pocketseller.core.Tools;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace pocketseller.droid.Helper
 {
@@ -24,6 +26,20 @@ namespace pocketseller.droid.Helper
     {
         private static CGmWebServices _objInstance;
         private static readonly object _objLock = new object();
+        private HttpClientHandler _handler;
+        private JsonSerializerOptions _jsonOptions;
+
+        public CGmWebServices()
+        {
+            _jsonOptions = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            };
+
+            _handler = Mvx.IoCProvider.Resolve<ICertificationService>().GetAuthAndroidClientHander();
+        }
 
         public static CGmWebServices Instance
         {
@@ -120,51 +136,13 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> DownloadFile(ESettingType enmResource, string strContentType)
+        public async Task<RestResponse> GetLatestOrdernumber()
         {
             try
             {
                 if (CTools.Connected())
                 {
-                    var objSettings = (CSettingService)Mvx.IoCProvider.Resolve<ISettingService>();
-                    var strResource = objSettings.Get<string>(enmResource);
-                    var objRequest = new RestRequest(strResource, Method.GET);
-                    objRequest.AddHeader("Accept", strContentType);
-
-                    var objSource = Source.Instance.GetCurrentSource();
-                    var strHost = Source.Instance.GetResourceUrl(objSource.Host);
-                    var objClient = new RestClient(strHost);
-
-                    var result = await RestClientWrapper.GetResponseAsync(new RestClient(strHost), objRequest);
-
-                    if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
-                    {
-                        var message = Mvx.IoCProvider.Resolve<IBaseService>().GetErrorMessage(result.Content);
-                        CTools.ShowMessage("Server", message);
-                        throw new Exception(message);
-                    };
-
-                    return result;
-                }
-                else
-                {
-                    throw new Exception(Language.NoInternet);
-                }
-            }
-            catch (Exception objException)
-            {
-                CErrorHandling.Log(objException);
-                throw new Exception(objException.Message);
-            }
-        }
-
-        public async Task<IRestResponse> GetLatestOrdernumber()
-        {
-            try
-            {
-                if (CTools.Connected())
-                {
-                    var objRequest = CreateRequest(Method.GET, ESettingType.RestGetLatestOrdernumber, string.Empty);
+                    var objRequest = CreateRequest(Method.Get, ESettingType.RestGetLatestOrdernumber, string.Empty);
 
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
                     if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
@@ -188,13 +166,13 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> ExportToErp(Order objDocument)
+        public async Task<RestResponse> ExportToErp(Order objDocument)
         {
             try
             {
                 if (CTools.Connected())
                 {
-                    var objRequest = CreateRequest(Method.POST, ESettingType.RestExportToErp, $"?orderNumber={objDocument.Docnumber}");
+                    var objRequest = CreateRequest(Method.Post, ESettingType.RestExportToErp, $"?orderNumber={objDocument.Docnumber}");
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
                     if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
                     {
@@ -217,14 +195,14 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> ImportToErp(Order objDocument, ETargetDocumentType type)
+        public async Task<RestResponse> ImportToErp(Order objDocument, ETargetDocumentType type)
         {
             try
             {
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{objDocument.Docnumber}/{(int)type}";
-                    var objRequest = CreateRequest(Method.POST, ESettingType.RestImportToErpAsDelivery, strSubUrl);
+                    var objRequest = CreateRequest(Method.Post, ESettingType.RestImportToErpAsDelivery, strSubUrl);
 
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
                     if (result.StatusCode != HttpStatusCode.Accepted && result.StatusCode != HttpStatusCode.OK)
@@ -247,14 +225,14 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> ChangeDocumentState(EOrderState enmNewState, Order objDocument)
+        public async Task<RestResponse> ChangeDocumentState(EOrderState enmNewState, Order objDocument)
         {
             try
             {
                 if (CTools.Connected())
                 {
                     var strSubUrl = $"/{objDocument.Docnumber}/{(int) enmNewState}";
-                    var objRequest = CreateRequest(Method.POST, ESettingType.RestChangeDocumentState, strSubUrl);
+                    var objRequest = CreateRequest(Method.Post, ESettingType.RestChangeDocumentState, strSubUrl);
 
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
@@ -279,14 +257,14 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> ChangeQuotationState(EOrderState enmNewState, Quotation objDocument)
+        public async Task<RestResponse> ChangeQuotationState(EOrderState enmNewState, Quotation objDocument)
         {
             try
             {
                 if (CTools.Connected())
                 {
                     var strSubUrl = $"/{objDocument.QuotationNr}/{(int)enmNewState}";
-                    var objRequest = CreateRequest(Method.POST, ESettingType.RestChangeQuotationState, strSubUrl);
+                    var objRequest = CreateRequest(Method.Post, ESettingType.RestChangeQuotationState, strSubUrl);
 
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
@@ -311,18 +289,18 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> SendQuotation(core.Models.Quotation objDocument)
+        public async Task<RestResponse> SendQuotation(core.Models.Quotation objDocument)
         {
             try
             {
                 if (CTools.Connected())
                 {
-                    var objRequest = CreateRequest( Method.POST, ESettingType.RestQuotationAddOrUpdate, string.Empty);
+                    var objRequest = CreateRequest( Method.Post, ESettingType.RestQuotationAddOrUpdate, string.Empty);
 
                     objRequest.AddHeader("Content-Type", "application/json");
 
                     var objOrderProxy = QuoToProxyQuotation.CreateQuotation(objDocument);
-                    var strDeserializedContent = objRequest.JsonSerializer.Serialize(objOrderProxy);
+                    var strDeserializedContent = JsonSerializer.Serialize(objOrderProxy, _jsonOptions);
                     objRequest.AddBody(strDeserializedContent);
                     var result = await RestClientWrapper.GetResponseAsync(CreateClient(), objRequest);
 
@@ -350,20 +328,20 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> SendDocument(Document objDocument, ESettingType targetType)
+        public async Task<RestResponse> SendDocument(Document objDocument, ESettingType targetType)
         {
             try
             {
                 if (CTools.Connected())
                 {
-                    var objRequest = CreateRequest( Method.POST, targetType, string.Empty);
+                    var objRequest = CreateRequest(Method.Post, targetType, string.Empty);
 
                     var source = Source.Instance.GetCurrentSource();
                     objRequest.AddHeader("Content-Type", "application/json");
                     objRequest.AddHeader("externalUserId", source?.UserId.ToString());
 
                     var objOrderProxy = Converter.CreateOrder(source, objDocument);
-                    var strDeserializedContent = objRequest.JsonSerializer.Serialize(objOrderProxy);
+                    var strDeserializedContent = JsonSerializer.Serialize(objOrderProxy, _jsonOptions);
 
                     objRequest.AddBody(strDeserializedContent);
 
@@ -401,10 +379,10 @@ namespace pocketseller.droid.Helper
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{(int) enmDocumentState}";
-                    var objRequest = CreateRequest( Method.GET, ESettingType.RestGetDocumentsByState, strSubUrl);
+                    var objRequest = CreateRequest( Method.Get, ESettingType.RestGetDocumentsByState, strSubUrl);
  
                     var client = CreateClient();
-                    if (client.BaseUrl.Contains("DEMO"))
+                    if (client.BuildUri(objRequest).ToString().Contains("DEMO"))
                         return new List<Order>();
 
                     var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
@@ -418,7 +396,7 @@ namespace pocketseller.droid.Helper
                             throw new Exception(message);
                         }
 
-                        var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(result);
+                        var objDeserialized = JsonSerializer.Deserialize<List<Order>>(result.Content, _jsonOptions);
                         return objDeserialized;
                     }
                     else
@@ -445,10 +423,10 @@ namespace pocketseller.droid.Helper
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{(int)enmDocumentState}/{accountNumber}";
-                    var objRequest = CreateRequest(Method.GET, ESettingType.RestGetOrdersByAccountNumber, strSubUrl);
+                    var objRequest = CreateRequest(Method.Get, ESettingType.RestGetOrdersByAccountNumber, strSubUrl);
 
                     var client = CreateClient();
-                    if (client.BaseUrl.Contains("DEMO"))
+                    if (client.BuildUri(objRequest).ToString().Contains("DEMO"))
                         return new List<Order>();
 
                     var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
@@ -462,7 +440,7 @@ namespace pocketseller.droid.Helper
                             throw new Exception(message);
                         }
 
-                        var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(result);
+                        var objDeserialized = JsonSerializer.Deserialize<List<Order>>(result.Content, _jsonOptions);
                         return objDeserialized;
                     }
                     else
@@ -491,10 +469,10 @@ namespace pocketseller.droid.Helper
                     var sBegin = $"{begin.Year}-{begin.Month}-{begin.Day}";
                     var sEnd = $"{end.Year}-{end.Month}-{end.Day}";
                     var strSubUrl = $@"/{(int)enmDocumentState}/{sBegin}/{sEnd}";
-                    var objRequest = CreateRequest(Method.GET, ESettingType.RestGetDocumentsByStateAndTimeframe, strSubUrl);
+                    var objRequest = CreateRequest(Method.Get, ESettingType.RestGetDocumentsByStateAndTimeframe, strSubUrl);
 
                     var client = CreateClient();
-                    if (client.BaseUrl.Contains("DEMO"))
+                    if (client.BuildUri(objRequest).ToString().Contains("DEMO"))
                         return new List<Order>();
 
                     var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
@@ -508,7 +486,7 @@ namespace pocketseller.droid.Helper
                             throw new Exception(message);
                         }
 
-                        var objDeserialized = new JsonDeserializer().Deserialize<List<Order>>(result);
+                        var objDeserialized = JsonSerializer.Deserialize<List<Order>>(result.Content, _jsonOptions);
                         return objDeserialized;
                     }
                     else
@@ -536,10 +514,10 @@ namespace pocketseller.droid.Helper
                 if (CTools.Connected())
                 {
                     var strSubUrl = $@"/{(int) enmDocumentState}";
-                    var objRequest = CreateRequest( Method.GET, ESettingType.RestGetQuotationsByState, strSubUrl);
+                    var objRequest = CreateRequest( Method.Get, ESettingType.RestGetQuotationsByState, strSubUrl);
 
                     var client = CreateClient();
-                    if (client.BaseUrl.Contains("DEMO"))
+                    if (client.BuildUri(objRequest).ToString().Contains("DEMO"))
                         return new List<Quotation>();
 
                     var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
@@ -553,7 +531,7 @@ namespace pocketseller.droid.Helper
                             throw new Exception(message);
                         }
 
-                        var objDeserialized = new JsonDeserializer().Deserialize<List<Quotation>>(result);
+                        var objDeserialized = JsonSerializer.Deserialize<List<Quotation>>(result.Content, _jsonOptions);
                         return objDeserialized;
                     }
                     else
@@ -573,15 +551,15 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        public async Task<IRestResponse> DownloadAndImport<TInput, TResult, T>(ESettingType enmResource, Func<TInput, TResult> delConverter, DataInterfaceViewModel objDataInterfaceViewModel)
+        public async Task<RestResponse> DownloadAndImport<TInput, TResult, T>(ESettingType enmResource, Func<TInput, TResult> delConverter, DataInterfaceViewModel objDataInterfaceViewModel)
         {
             try
             {
                 if (CTools.Connected())
                 {
-                    var objRequest = CreateRequest(Method.GET, enmResource, string.Empty);
+                    var objRequest = CreateRequest(Method.Get, enmResource, string.Empty);
                     var client = CreateClient();
-                    if (client.BaseUrl.Contains("DEMO"))
+                    if (client.BuildUri(objRequest).ToString().Contains("DEMO"))
                         return null;
 
                     var result = await RestClientWrapper.GetResponseAsync(client, objRequest);
@@ -597,7 +575,7 @@ namespace pocketseller.droid.Helper
 
                             objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Deserializing, EventArgs.Empty);
 
-                            var objDeserialized = new JsonDeserializer().Deserialize<TInput>(result);
+                            var objDeserialized = JsonSerializer.Deserialize<TInput>(result.Content, _jsonOptions);
 
                             objDataInterfaceViewModel.OnStatusUpdate(typeof(T).Name + " " + DataInterfaceViewModel.EState.Converting, EventArgs.Empty);
 
@@ -658,7 +636,13 @@ namespace pocketseller.droid.Helper
                         throw new Exception("No source found, do you need to activate your pocketseller?");
 
                     var strHost = Source.Instance.GetApiUrl(objSource.Host);
-                    var objClient = new RestClient(strHost);
+
+                    var options = new RestClientOptions(strHost)
+                    {
+                        ThrowOnAnyError = true,
+                        MaxTimeout = 60000,
+                    };
+                    var objClient = new RestClient(new HttpClient(_handler), options);
                     return objClient;
                 }
                 catch (Exception objException)
@@ -669,7 +653,7 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        private IRestRequest CreateRequest(Method enmMethod, ESettingType enmResource, string strSubUrl)
+        private RestRequest CreateRequest(Method enmMethod, ESettingType enmResource, string strSubUrl)
         {
             lock (_objLock)
             {

@@ -1,4 +1,3 @@
-using System.Net;
 using Android;
 using Android.App;
 using Android.Content.PM;
@@ -17,7 +16,6 @@ using pocketseller.droid.Helper;
 using System;
 using Firebase;
 using Firebase.Auth;
-using Java.Util.Concurrent;
 using pocketseller.core.Resources.Languages;
 using System.Threading.Tasks;
 using pocketseller.core;
@@ -25,6 +23,8 @@ using pocketseller.core.Services.Interfaces;
 using MvvmCross.Platforms.Android;
 using Acr.UserDialogs;
 using pocketseller.core.Services;
+using pocketseller.droid.Services;
+using static Android.Bluetooth.BluetoothClass;
 
 namespace pocketseller.droid.Views
 {
@@ -47,18 +47,24 @@ namespace pocketseller.droid.Views
 
         internal static FirebaseApp FireApp;
         internal static FirebaseAuth FireAuth;
-        
+
         protected override async void OnCreate(Bundle objInState)
         {
             base.OnCreate(objInState);
+
             RequestWindowFeature(WindowFeatures.IndeterminateProgress);
             SetContentView(pocketseller.droid.Resource.Layout.LoginView);
-            ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
-            InitFirebaseAuth();
             RegisterEvents();
             CheckPermissions();
+
+            await Task.Run(() => RegisterCertificationService());
+
             await CheckLogin();
+
+            LoginViewModel.Username = "kiphone12@gmail.com";
+            LoginViewModel.Password = "969700";
+            LoginViewModel.Branch = "dev";
 
             CTools.InitActionBar(ActionBar, LoginViewModel.LabelTitle);
 
@@ -71,21 +77,6 @@ namespace pocketseller.droid.Views
             var objIdentification = FindViewById<TextView>(pocketseller.droid.Resource.Id.loginview_identification);
             App.Version = $"{version}\r\n{buildDate.Day}.{buildDate.Month}.{buildDate.Year}".Replace("/", ".");
             objIdentification.Text = App.Version;
-        }
-
-        private void InitFirebaseAuth()
-        {
-            var options = new FirebaseOptions.Builder()
-               .SetApplicationId("1:569119279247:android:384be88400e67ea9ba88fa")
-               .SetApiKey("AIzaSyDQ7btXxB2wNX97HWAiTEGfvpR4mZgV820")
-               .Build();
-
-            if (FireApp == null)
-                FireApp = FirebaseApp.InitializeApp(this, options);
-
-            FireAuth = FirebaseAuth.GetInstance(FireApp);
-
-            FireAuth.UseAppLanguage();
         }
 
         private void CheckPermissions()
@@ -133,6 +124,14 @@ namespace pocketseller.droid.Views
         #endregion
 
         #region private methods
+
+        private void RegisterCertificationService()
+        {
+            var certificationService = new CertificationService();
+            certificationService.SetPrivateKeyFromUser(this);
+            certificationService.SetCertificateChain();
+            Mvx.IoCProvider.RegisterSingleton<ICertificationService>(certificationService);
+        }
 
         private void RegisterEvents()
         {

@@ -19,6 +19,7 @@ namespace pocketseller.droid
     {
         protected override IMvxApplication CreateApp()
         {
+            App.CertName = "yf";
             UserDialogs.Init(() => Mvx.IoCProvider.Resolve<IMvxAndroidCurrentTopActivity>().Activity);
             Mvx.IoCProvider.RegisterSingleton<IBasicPlatformService>(new BasicPlatformService());
             Mvx.IoCProvider.RegisterSingleton<IMailService>(new EmailService());

@@ -10,31 +10,7 @@ namespace pocketseller.droid.Helper
 {
     public class RestClientWrapper
     {
-        private static async Task<IRestResponse> GetResponse(RestClient objClient, IRestRequest objRequest)
-        {
-            var result = await Task.Run(() =>
-            {
-                var objTaskDone = new TaskCompletionSource<IRestResponse>();
-
-                objClient.ExecuteAsync(objRequest, objResponse =>
-                {
-                    if (objResponse.ErrorException == null)
-                    {
-                        objTaskDone.SetResult(objResponse);
-                    }
-                    else
-                    {
-                        objTaskDone.SetException(objResponse.ErrorException);
-                    }
-                });
-
-                return objTaskDone.Task;
-                });
-
-            return result;
-        }
-
-        public static async Task<IRestResponse> GetResponseAsync(RestClient objClient, IRestRequest objRequest)
+        public static async Task<RestResponse> GetResponseAsync(RestClient objClient, RestRequest objRequest)
         {
             try
             {
@@ -48,12 +24,10 @@ namespace pocketseller.droid.Helper
 
                 ReplaceAuthParameter(objRequest, backendToken);
 
-                var result = await GetResponse(objClient, objRequest);
+                var result = await objClient.ExecuteAsync(objRequest);
 
                 if(result.StatusDescription.Equals("Unauthorized"))
-                {
                     throw new UnauthorizedAccessException();
-                }
 
                 return result;
             }
@@ -64,10 +38,10 @@ namespace pocketseller.droid.Helper
             }
         }
 
-        private static void ReplaceAuthParameter(IRestRequest objRequest, string backendToken)
+        private static void ReplaceAuthParameter(RestRequest objRequest, string backendToken)
         {
-            var authParam = objRequest.Parameters.Find(p => p.Name.Equals("Authorization"));
-            objRequest.Parameters.Remove(authParam);
+            var authParam = objRequest.Parameters.TryFind("Authorization");
+            objRequest.Parameters.RemoveParameter(authParam);
             objRequest.AddHeader("Authorization", "Bearer " + backendToken);
         }
     }

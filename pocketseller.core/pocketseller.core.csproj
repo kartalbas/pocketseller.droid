@@ -3,6 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UserSecretsId>548a0caa-7d4d-422b-ba4c-7512db1bf964</UserSecretsId>
+    <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <ErrorReport>prompt</ErrorReport>
@@ -18,7 +19,6 @@
     <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
-    <PackageReference Include="TMS.FlexCel" Version="7.10.0" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
   </ItemGroup>
   <ItemGroup>
@@ -45,5 +45,17 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Language.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="FlexCel" />
+    <None Remove="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FlexCel">
+      <HintPath>..\..\nugets\TMS.FlexCel.7.15.0\lib\netstandard2.0\FlexCel.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\13.0.0.0\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

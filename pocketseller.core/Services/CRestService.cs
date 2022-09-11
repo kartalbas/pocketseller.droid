@@ -23,6 +23,7 @@ namespace pocketseller.core.Services
         private string _activatorServerUri;
         private ISettingService _settingService;
         IBasicPlatformService _platformService;
+        private HttpClientHandler _handler;
 
         public CRestService(IMvxMessenger messenger, ISettingService settingService, IBasicPlatformService platformService) : base(messenger)
         {
@@ -32,13 +33,15 @@ namespace pocketseller.core.Services
             _deviceId = "Pocketseller" + "_" + _platformService.GetDeviceIdentification();
             _id = "771e28e5-1da7-4af6-bc65-34fd74231d76";
             _key = "8c7920a1-a599-4981-af40-6448222aa4a3";
+            var certificationService = Mvx.IoCProvider.Resolve<ICertificationService>();
+            _handler = certificationService.GetAuthAndroidClientHander();
         }
 
         public async Task<IList<Stock>> GetAllStocks()
         {
             try
             {
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetPocketsellerHost("GetAllStocks");
                 if (methodUrl.Contains("DEMO"))
@@ -64,7 +67,7 @@ namespace pocketseller.core.Services
         {
             try
             {
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetPocketsellerHost("GetFacturaData");
                 var serverUri = new Uri($"{methodUrl}/{orderNumber}");
@@ -91,7 +94,7 @@ namespace pocketseller.core.Services
         {
             try
             {
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetMailHost("SendMail");
                 var serverUri = new Uri($"{methodUrl}");
@@ -131,7 +134,7 @@ namespace pocketseller.core.Services
         {
             try
             {
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetMailHost("GetMails");
                 var serverUri = new Uri($"{methodUrl}");
@@ -155,7 +158,7 @@ namespace pocketseller.core.Services
         {
             try
             {
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetPocketsellerHost("InsertDeletedOpenPayment");
                 var serverUri = new Uri($"{methodUrl}?accountNumber={accountNumber}&documentNumber={documentNumber}");
@@ -187,7 +190,7 @@ namespace pocketseller.core.Services
         {
             try
             {
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetLoginData().Item2);
                 var methodUrl = GetMailHost("DeleteMail");
                 var serverUri = new Uri($"{methodUrl}?messageId={messageId}");
@@ -223,7 +226,7 @@ namespace pocketseller.core.Services
                 if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
                     return new ObservableCollection<EMails>();
 
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + loginData.Item2);
                 var methodUrl = GetPocketsellerHost("GetOpMails");
                 var response = await client.GetAsync(new Uri(methodUrl));
@@ -265,7 +268,7 @@ namespace pocketseller.core.Services
                 if (string.IsNullOrEmpty(loginData.Item1) || string.IsNullOrEmpty(loginData.Item2))
                     return false;
 
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + loginData.Item2);
                 client.DefaultRequestHeaders.Add("version", Base64Tools.Base64Encode(App.Version));
                 var methodUrl = GetLoginHost("LoginTest", loginData.Item1);
@@ -289,7 +292,7 @@ namespace pocketseller.core.Services
         {
             try
             {
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
                 client.DefaultRequestHeaders.Add("oldPassword", RsaCrypter.Encrypt(oldPassword));
                 client.DefaultRequestHeaders.Add("newPassword", RsaCrypter.Encrypt(newPassword));
@@ -326,7 +329,7 @@ namespace pocketseller.core.Services
             try
             {
                 var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
                 client.DefaultRequestHeaders.Add("mobile", Base64Tools.Base64Encode(mobile));
                 client.DefaultRequestHeaders.Add("token", token);
@@ -343,7 +346,7 @@ namespace pocketseller.core.Services
 
                 return new Tuple<string, string, bool>(string.Empty, string.Empty, false);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return new Tuple<string, string, bool>(string.Empty, string.Empty, false);
             }
@@ -355,7 +358,7 @@ namespace pocketseller.core.Services
             {
                 var deviceId = Mvx.IoCProvider.Resolve<IBasicPlatformService>()?.GetDeviceIdentification();
 
-                var client = new HttpClient();
+                var client = new HttpClient(_handler);
                 client.DefaultRequestHeaders.Add("username", Base64Tools.Base64Encode(username));
                 client.DefaultRequestHeaders.Add("password", RsaCrypter.Encrypt(password));
                 var methodUrl = GetLoginHost("GetMobile", sourcename);
@@ -368,8 +371,12 @@ namespace pocketseller.core.Services
 
                 return string.Empty;
             }
-            catch (Exception exception)
+            catch (Exception e)
             {
+                var message = e.Message;
+                if (e.InnerException != null)
+                    message = e.InnerException.Message;
+                Console.WriteLine(message);
                 return string.Empty;
             }
         }

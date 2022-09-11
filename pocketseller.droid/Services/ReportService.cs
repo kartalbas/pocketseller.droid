@@ -27,7 +27,7 @@ namespace pocketseller.droid.Services
                     report.AddTable<Orderdetail>("Orderdetails", order.Orderdetails);
                     report.AddTable<OpenPayment>("OpenPayments", order?.FacturaData?.OpenPayments);
                     report.AddTable<PaymentSheet>("PaymentSheets", order?.FacturaData?.PaymentSheets);
-                    report.AddRelationship("Order", "Orderdetails", "Docnumber", "Docnumber");
+                    report.AddRelationship("Order", "Orderdetails", "Id", "OrderId");
                     report.AddRelationship("Order", "OpenPayments", "Adressnumber", "Adressnumber");
                     report.AddRelationship("Order", "PaymentSheets", "Adressnumber", "AccountNumber");
                     report.Run(excelReport);
@@ -52,7 +52,7 @@ namespace pocketseller.droid.Services
                 {
                     report.AddTable<Order>("Order", new List<Order> { order });
                     report.AddTable<Orderdetail>("Orderdetails", order.Orderdetails);
-                    report.AddRelationship("Order", "Orderdetails", "Docnumber", "Docnumber");
+                    report.AddRelationship("Order", "Orderdetails", "Id", "OrderId");
                     report.Run(excelReport);
                 }
 
@@ -76,7 +76,7 @@ namespace pocketseller.droid.Services
                     report.AddTable<Orderdetail>("Orderdetails", order.Orderdetails);
                     report.AddTable<OpenPayment>("OpenPayments", order?.FacturaData?.OpenPayments);
                     report.AddTable<PaymentSheet>("PaymentSheets", order?.FacturaData?.PaymentSheets);
-                    report.AddRelationship("Order", "Orderdetails", "Docnumber", "Docnumber");
+                    report.AddRelationship("Order", "Orderdetails", "Id", "OrderId");
                     report.AddRelationship("Order", "OpenPayments", "Adressnumber", "Adressnumber");
                     report.AddRelationship("Order", "PaymentSheets", "Adressnumber", "AccountNumber");
                     report.Run(result);

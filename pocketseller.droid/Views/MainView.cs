@@ -58,8 +58,8 @@ namespace pocketseller.droid.Views
 
             var handler = new HttpClientHandler
             {
-                ClientCertificateOptions = ClientCertificateOption.Manual,
-                ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
+                ClientCertificateOptions = ClientCertificateOption.Automatic,
+                //ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
             };
             ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration { HttpClient = new HttpClient(handler) });
 

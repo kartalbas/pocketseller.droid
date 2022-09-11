@@ -178,7 +178,7 @@ namespace pocketseller.core.ViewModels
                     var targetPdfFileName = $"{order.Adressnumber}_{date}.pdf";
 
                     order.FacturaData = await restService.GetFacturaData(order.Docnumber);
-                    order.Orderdetails = order.FacturaData.Order.Orderdetails.OrderBy(o => o.Pos).ToList();
+                    order.Orderdetails = order.FacturaData.Order.Orderdetails.OrderBy(o => o.Pos).ThenBy(o => o.usr1).ToList();
 
                     fileName = reportService.CreateReport(order, reportTemplateFileName, targetPdfFileName);
 

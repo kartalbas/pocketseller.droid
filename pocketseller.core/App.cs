@@ -12,6 +12,7 @@ namespace pocketseller.core
     public class App : MvxApplication
     {
         public static string Version { get; set; }
+        public static string CertName { get; set; }
 
         public override void Initialize()
         {
