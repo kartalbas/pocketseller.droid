@@ -19,6 +19,7 @@
     <PackageReference Include="MvvmCross.Plugin.Json" Version="6.4.2" />
     <PackageReference Include="MvvmCross.Plugin.Messenger" Version="6.4.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
+    <PackageReference Include="TMS.FlexCel" Version="7.15.0" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
   </ItemGroup>
   <ItemGroup>
@@ -51,11 +52,8 @@
     <None Remove="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FlexCel">
-      <HintPath>..\..\nugets\TMS.FlexCel.7.15.0\lib\netstandard2.0\FlexCel.dll</HintPath>
-    </Reference>
     <Reference Include="Mono.Android">
-      <HintPath>..\..\..\..\..\..\Library\Frameworks\Xamarin.Android.framework\Versions\13.0.0.0\lib\xamarin.android\xbuild-frameworks\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
+      <HintPath>C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

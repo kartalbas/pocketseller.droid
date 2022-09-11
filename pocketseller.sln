@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "pocketseller.core", "pocketseller.core\pocketseller.core.csproj", "{45D77EC9-F4EF-41F7-8BA7-6B5A214DBB34}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pocketseller.droid", "pocke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acr.UserDialogs", "Acr.UserDialogs\Acr.UserDialogs.csproj", "{8DE820E5-AD43-419E-B36F-1E88F5C79B16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharp", "RestSharp-108.0.0\src\RestSharp\RestSharp.csproj", "{004DE8F3-4FF4-4E93-B77A-2E45F276062E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestSharp", "..\..\github\RestSharp\src\RestSharp\RestSharp.csproj", "{ECE27C07-C9BE-4DA3-8F12-1FF226086784}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{8DE820E5-AD43-419E-B36F-1E88F5C79B16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DE820E5-AD43-419E-B36F-1E88F5C79B16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DE820E5-AD43-419E-B36F-1E88F5C79B16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{004DE8F3-4FF4-4E93-B77A-2E45F276062E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE27C07-C9BE-4DA3-8F12-1FF226086784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE27C07-C9BE-4DA3-8F12-1FF226086784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE27C07-C9BE-4DA3-8F12-1FF226086784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE27C07-C9BE-4DA3-8F12-1FF226086784}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
