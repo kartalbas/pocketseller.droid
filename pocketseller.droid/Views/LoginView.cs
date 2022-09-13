@@ -14,8 +14,6 @@ using pocketseller.core.Models;
 using pocketseller.core.ViewModels;
 using pocketseller.droid.Helper;
 using System;
-using Firebase;
-using Firebase.Auth;
 using pocketseller.core.Resources.Languages;
 using System.Threading.Tasks;
 using pocketseller.core;
@@ -24,7 +22,6 @@ using MvvmCross.Platforms.Android;
 using Acr.UserDialogs;
 using pocketseller.core.Services;
 using pocketseller.droid.Services;
-using static Android.Bluetooth.BluetoothClass;
 
 namespace pocketseller.droid.Views
 {
@@ -44,9 +41,6 @@ namespace pocketseller.droid.Views
         #endregion
 
         #region Public and Protected methods
-
-        internal static FirebaseApp FireApp;
-        internal static FirebaseAuth FireAuth;
 
         protected override async void OnCreate(Bundle objInState)
         {

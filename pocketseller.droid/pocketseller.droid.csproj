@@ -128,7 +128,6 @@
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
-    <Compile Include="Views\AuthCallbacks.cs" />
     <Compile Include="Views\Fragments\BaseTabHostFragment.cs" />
     <Compile Include="Views\Fragments\BaseTabWidgetFragment.cs" />
     <Compile Include="Views\Fragments\FacturaDefect.cs" />
@@ -387,7 +386,6 @@
     <AndroidAsset Include="Assets\cash.template.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AndroidAsset>
-    <Content Include="google-services.json" />
     <None Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
@@ -789,10 +787,6 @@
     <AndroidResource Include="Resources\xml\file_provider_paths.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\github\RestSharp\src\RestSharp\RestSharp.csproj">
-      <Project>{ece27c07-c9be-4da3-8f12-1ff226086784}</Project>
-      <Name>RestSharp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Acr.UserDialogs\Acr.UserDialogs.csproj">
       <Project>{8de820e5-ad43-419e-b36f-1e88f5c79b16}</Project>
       <Name>Acr.UserDialogs</Name>
@@ -816,6 +810,9 @@
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Messenger">
       <Version>6.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>108.0.1</Version>
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.6.292</Version>
@@ -951,9 +948,6 @@
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading">
       <Version>2.4.11.982</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Firebase.Auth">
-      <Version>71.1605.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0" />
   </ItemGroup>

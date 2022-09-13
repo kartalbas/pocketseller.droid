@@ -297,7 +297,7 @@ namespace pocketseller.droid.Helper
                 {
                     var objRequest = CreateRequest( Method.Post, ESettingType.RestQuotationAddOrUpdate, string.Empty);
 
-                    objRequest.AddHeader("Content-Type", "application/json");
+                    objRequest.AddHeader("Content-Type", "text/plain");
 
                     var objOrderProxy = QuoToProxyQuotation.CreateQuotation(objDocument);
                     var strDeserializedContent = JsonSerializer.Serialize(objOrderProxy, _jsonOptions);
@@ -337,7 +337,7 @@ namespace pocketseller.droid.Helper
                     var objRequest = CreateRequest(Method.Post, targetType, string.Empty);
 
                     var source = Source.Instance.GetCurrentSource();
-                    objRequest.AddHeader("Content-Type", "application/json");
+                    objRequest.AddHeader("Content-Type", "text/plain");
                     objRequest.AddHeader("externalUserId", source?.UserId.ToString());
 
                     var objOrderProxy = Converter.CreateOrder(source, objDocument);
