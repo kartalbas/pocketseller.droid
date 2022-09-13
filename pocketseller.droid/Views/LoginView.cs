@@ -56,9 +56,9 @@ namespace pocketseller.droid.Views
 
             await CheckLogin();
 
-            LoginViewModel.Username = "kiphone12@gmail.com";
-            LoginViewModel.Password = "969700";
-            LoginViewModel.Branch = "dev";
+            //LoginViewModel.Username = "kiphone12@gmail.com";
+            //LoginViewModel.Password = "969700";
+            //LoginViewModel.Branch = "dev";
 
             CTools.InitActionBar(ActionBar, LoginViewModel.LabelTitle);
 
