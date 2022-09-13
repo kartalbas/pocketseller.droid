@@ -62,7 +62,7 @@ namespace pocketseller.droid.Services
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
+                return null;
             }
         }
 
@@ -73,9 +73,6 @@ namespace pocketseller.droid.Services
 
             if (ClientCertificate?.PrivateKey == null)
                 return $"PrivateKeyIsNull";
-
-//            if (string.IsNullOrEmpty(ClientCertificate?.CN))
-//                return $"DeviceCnIsNull";
 
             return null;
         }
