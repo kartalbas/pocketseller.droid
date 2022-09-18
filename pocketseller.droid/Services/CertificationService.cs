@@ -48,7 +48,6 @@ namespace pocketseller.droid.Services
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                throw;
             }
         }
 
