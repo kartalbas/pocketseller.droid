@@ -55,7 +55,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -73,11 +73,12 @@
     <AndroidSigningKeyAlias>simetrix</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Tikmonca13</AndroidSigningKeyPass>
     <DebugSymbols>false</DebugSymbols>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <AndroidPackageFormat>aab</AndroidPackageFormat>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <MandroidI18n>West</MandroidI18n>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidDexTool>d8</AndroidDexTool>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
