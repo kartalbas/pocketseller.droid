@@ -67,7 +67,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidSupportedAbis>arm64-v8a</AndroidSupportedAbis>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>D:\repos\orderline24\src\orderline.droid\orderline.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>D:\repos\orderline\pocketseller.droid\pocketseller.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Tikmonca13</AndroidSigningStorePass>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidSigningKeyAlias>simetrix</AndroidSigningKeyAlias>
