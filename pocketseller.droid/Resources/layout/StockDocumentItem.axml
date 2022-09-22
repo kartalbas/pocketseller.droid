@@ -11,12 +11,15 @@
         <TextView
             style="@style/TextViewStyleDocumentdetailItem"
             android:layout_weight=".15"
+            android:paddingLeft="5dp"
             android:gravity="left"
-            android:text="2289"
+            android:text="22899"
             local:MvxBind="Text Adressnumber" />
         <TextView
             style="@style/TextViewStyleDocumentdetailItem"
-            android:layout_weight=".55"
+            android:layout_weight=".58"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:gravity="left"
             android:text="Yilmaz Feinkost Logistik GmbH"
             local:MvxBind="Text Name1" />
@@ -34,33 +37,37 @@
         android:layout_height="wrap_content">
         <TextView
             style="@style/TextViewStyleDocumentdetailSubItem"
-            android:layout_weight=".16"
-            android:gravity="left" />
-        <TextView
-            style="@style/TextViewStyleDocumentdetailSubItem"
-            android:layout_weight=".1"
+            android:layout_weight=".15"
+            android:paddingLeft="5dp"
             android:gravity="left"
             android:text="44890"
             local:MvxBind="Text Zip" />
         <TextView
             style="@style/TextViewStyleDocumentdetailSubItem"
-            android:layout_weight=".54"
+            android:layout_weight=".25"
+            android:paddingLeft="0dp"
             android:gravity="left"
             android:text="DÜSSELDORF IM MARKT"
             local:MvxBind="Text City" />
         <TextView
             style="@style/TextViewStyleDocumentdetailSubItem"
-            android:layout_weight=".1"
+            android:layout_weight=".35"
+            android:gravity="left"
+            android:text="kiphone12@gmail.com"
+            local:MvxBind="Text User" />
+        <TextView
+            style="@style/TextViewStyleDocumentdetailSubItem"
+            android:layout_weight=".15"
             android:gravity="right"
             android:paddingRight="5dp"
             android:text="99999"
             local:MvxBind="Text Docnumber" />
         <TextView
             style="@style/TextViewStyleDocumentdetailSubItem"
-            android:layout_weight=".1"
+            android:layout_weight=".15"
             android:gravity="right"
             android:paddingRight="5dp"
             android:text="9999"
-            local:MvxBind="Text TotalParcels" />
+            local:MvxBind="Text TotalParcels, Converter=DecimalString" />
     </LinearLayout>
 </LinearLayout>
