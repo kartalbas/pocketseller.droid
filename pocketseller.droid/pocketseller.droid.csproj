@@ -74,7 +74,7 @@
     <AndroidSigningKeyPass>Tikmonca13</AndroidSigningKeyPass>
     <DebugSymbols>false</DebugSymbols>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidPackageFormat>aab</AndroidPackageFormat>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <MandroidI18n>West</MandroidI18n>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
