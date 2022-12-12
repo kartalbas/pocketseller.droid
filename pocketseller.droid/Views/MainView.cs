@@ -58,10 +58,14 @@ namespace pocketseller.droid.Views
 
             var handler = new HttpClientHandler
             {
-                ClientCertificateOptions = ClientCertificateOption.Automatic,
-                //ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
+                ClientCertificateOptions = ClientCertificateOption.Manual,
+                ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
             };
-            ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration { HttpClient = new HttpClient(handler) });
+
+            ImageService.Instance.Initialize(new FFImageLoading.Config.Configuration
+            {
+                HttpClient = new HttpClient(handler)
+            });
 
             _restService = Mvx.IoCProvider.Resolve<IRestService>();
             var mails = await _restService.GetOpMails();
