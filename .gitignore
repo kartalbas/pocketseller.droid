@@ -219,5 +219,5 @@ src/Presentation/Nop.Web/wwwroot/lib/cldr-data/main*
 !src/Presentation/Nop.Web/wwwroot/lib/cldr-data/main/main.zip
 src/packages/*
 .vs/
-/src/orderline.droid/.idea/
-/.idea/.idea.orderline.droid/.idea/
+/src/pocketseller.droid/.idea/
+/.idea/.idea.pocketseller.droid/.idea/

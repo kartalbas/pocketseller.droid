@@ -44,7 +44,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <MandroidI18n>West</MandroidI18n>
-    <AndroidSigningKeyStore>D:\repos\orderline\pocketseller.droid\pocketseller.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>D:\repos\pocketseller\pocketseller.droid\pocketseller.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Tikmonca13</AndroidSigningStorePass>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidSigningKeyAlias>simetrix</AndroidSigningKeyAlias>
@@ -67,7 +67,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AndroidSupportedAbis>arm64-v8a</AndroidSupportedAbis>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>D:\repos\orderline\pocketseller.droid\pocketseller.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>D:\repos\pocketseller\pocketseller.droid\pocketseller.droid\Published\simetrix.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Tikmonca13</AndroidSigningStorePass>
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidSigningKeyAlias>simetrix</AndroidSigningKeyAlias>
