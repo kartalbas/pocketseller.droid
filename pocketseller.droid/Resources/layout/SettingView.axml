@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:local="http://schemas.android.com/apk/res-auto"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:padding="5dp">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Sprache"
+                    local:MvxBind="Text LabelLanguage"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource Languages; SelectedItemPosition SelectedIndexLanguage"/>
+      </LinearLayout>
+      <LinearLayout
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+        <TextView
+                style="@style/TextViewStyleLeft50Percent"
+                android:text="Cash and Carry"
+                local:MvxBind="Text LabelCashAndCarry"/>
+        <MvxSpinner
+                android:layout_width="0dp"
+                android:layout_weight=".50"
+                android:layout_height="wrap_content"
+                local:MvxItemTemplate="@layout/MySpinnerItem"
+                local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                local:MvxBind="ItemsSource ListYesNo; SelectedItemPosition SelectedIndexCashAndCarry"/>
+      </LinearLayout>
+      <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Sprache"
+                    local:MvxBind="Text LabelOpManager"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource OpManagers; SelectedItem SelectedItemOpManager"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Tastatur bei Artikelauswahl"
+                    local:MvxBind="Text LabelKeyboardTypeInDocumentdetail"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource ListKeyboardType; SelectedItemPosition SelectedIndexKeyboardTypeInDocumentdetail"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Tastatur bei Suchen"
+                    local:MvxBind="Text LabelKeyboardTypeOnSearch"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource ListKeyboardType; SelectedItemPosition SelectedIndexKeyboardOnSearch"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Allgemeine Suchart"
+                    local:MvxBind="Text LabelSearchType"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource SearchingTypes; SelectedItemPosition SelectedIndexSearchType"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Suchart für Adresssen"
+                    local:MvxBind="Text LabelAddressSearchType"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource SearchTypes; SelectedItemPosition SelectedIndexAddressSearchType"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Suchart für Artikel"
+                    local:MvxBind="Text LabelArticleSearchType"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource SearchTypes; SelectedItemPosition SelectedIndexArticleSearchType"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="10dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Suchen ab Buchstabe x"
+                    local:MvxBind="Text LabelOrderSearchMaxChar"/>
+            <TextView
+                    android:id="@+id/settingview_OrderSearchMaxChar"
+                    style="@style/TextViewStyleLeft50Percent"
+                    local:MvxBind="Text TextOrderSearchMaxChar"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/darker_gray"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Autom. Preisselektierung"
+                    local:MvxBind="Text LabelPriceSelect"/>
+            <MvxSpinner
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/MySpinnerItem"
+                    local:MvxDropDownItemTemplate="@layout/MySpinnerDropDownItem"
+                    local:MvxBind="ItemsSource Pricegroups; SelectedItemPosition SelectedIndexPriceSelect"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Preis &gt; EK in %"
+                    local:MvxBind="Text LabelGreaterEKInPercent"/>
+            <TextView
+                    android:id="@+id/settingview_GreaterEKInPercent"
+                    style="@style/TextViewStyleLeft50Percent"
+                    local:MvxBind="Text TextGreaterEKInPercent"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Preis Eingabe in %"
+                    local:MvxBind="Text LabelLowerInputInPercent"/>
+            <TextView
+                    android:id="@+id/settingview_LowerInputInPercent"
+                    style="@style/TextViewStyleLeft50Percent"
+                    local:MvxBind="Text TextLowerInputInPercent"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Anfangsnummer Bestellung"
+                    local:MvxBind="Text LabelOrderNumberBegin"/>
+            <TextView
+                    android:id="@+id/settingview_beginordernumber"
+                    style="@style/TextViewStyleLeft50Percent"
+                    local:MvxBind="Text TextOrderNumberBegin"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Aktuelle Bestellnummer"
+                    local:MvxBind="Text LabelOrderNumberCurrent"/>
+            <TextView
+                    android:id="@+id/settingview_currentordernumber"
+                    style="@style/TextViewStyleLeft50Percent"
+                    local:MvxBind="Text TextOrderNumberCurrent"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Maximal mögliche Position"
+                    local:MvxBind="Text LabelOrderMaxDocumentdetails"/>
+            <TextView
+                    android:id="@+id/settingview_maxposition"
+                    style="@style/TextViewStyleLeft50Percent"
+                    local:MvxBind="Text TextOrderMaxDocumentdetails"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/darker_gray"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:paddingTop="20dp"
+                android:layout_height="wrap_content">
+            <TextView
+                    style="@style/TextViewStyleLeft50Percent"
+                    android:text="Bilder URL"
+                    local:MvxBind="Text LabelPictureUrl"/>
+            <TextView
+                    android:id="@+id/settingview_pictureurl"
+                    style="@style/TextViewStyleLeft50Percent"
+                    local:MvxBind="Text TextPictureUrl"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/darker_gray"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+            <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@android:color/darker_gray"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

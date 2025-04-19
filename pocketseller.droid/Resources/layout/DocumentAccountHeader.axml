@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="left"
+        android:layout_weight="0.4"
+        android:text="ZA-Datum"
+        local:MvxBind="Text LabelPaymentDate" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        android:text="RE-Datum"
+        local:MvxBind="Text LabelInvoiceDate" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        android:text="RE-Nr"
+        local:MvxBind="Text LabelInvoiceNr" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        android:text="ZAHLUNG"
+        local:MvxBind="Text LabelPayment" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        android:text="SOLL"
+        local:MvxBind="Text LabelCredit" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="right"
+        android:layout_weight="0.2"
+        android:text="HABEN"
+        local:MvxBind="Text LabelDebit" />
+</LinearLayout>

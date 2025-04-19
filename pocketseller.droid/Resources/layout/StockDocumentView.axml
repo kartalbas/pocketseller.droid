@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        layout="@layout/StockDocumentSummaries" />
+    <include
+        layout="@layout/DocumentOrderHeader" />
+    <MvxListView
+        android:id="@+id/documentorder_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textFilterEnabled="true"
+        android:choiceMode="singleChoice"
+        android:clickable="true"
+        android:longClickable="true"
+        local:MvxBind="ItemsSource Order.Orderdetails"
+        local:MvxItemTemplate="@layout/stockdocumentdetailitem" />
+</LinearLayout>

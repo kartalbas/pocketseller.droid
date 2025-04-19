@@ -1,0 +1,1 @@
+keytool -list -v -alias kartalbas -keystore .\kartalbas.keystore

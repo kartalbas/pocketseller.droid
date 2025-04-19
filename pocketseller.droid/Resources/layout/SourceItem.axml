@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/TextViewStyleItem"
+        android:layout_weight="0.10"
+        local:MvxBind="Text Id" />
+    <TextView
+        style="@style/TextViewStyleItem"
+        android:layout_weight="0.30"
+        local:MvxBind="Text Name" />
+    <TextView
+        style="@style/TextViewStyleItem"
+        android:layout_weight="0.40"
+        local:MvxBind="Text Host" />
+    <TextView
+        style="@style/TextViewStyleItem"
+        android:layout_weight="0.15"
+        local:MvxBind="Text DbName" />
+</LinearLayout>

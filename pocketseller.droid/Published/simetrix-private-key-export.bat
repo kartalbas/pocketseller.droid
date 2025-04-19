@@ -1,0 +1,1 @@
+java -jar pepk.jar --keystore=.\kartalbas.keystore --alias=kartalbas --output=encrypted_private_key_path --encryptionkey=xxxx

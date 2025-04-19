@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+    <include
+        layout="@layout/DocumentsHeader" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <MvxListView
+            android:id="@+id/documentssentview_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textFilterEnabled="true"
+            android:choiceMode="singleChoice"
+            local:MvxBind="ItemsSource ListDocuments"
+            local:MvxItemTemplate="@layout/documentitem"
+            android:clickable="true"
+            android:longClickable="true" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <item type="layout" name="MySpinnerItem">@layout/BindedSpinnerItem</item>
+  <item type="layout" name="MySpinnerDropDownItem">@layout/BindedSpinnerDropDownItem</item>
+  
+  <dimen name="slidingmenu_offset">60dp</dimen>
+  <dimen name="slidingmenu_list_padding">10dp</dimen>
+  <dimen name="slidingmenu_shadow_width">15dp</dimen>
+  
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/selectionaddress_addressnumber"
+        style="@style/TextViewStyleItem"
+        android:gravity="center"
+        android:layout_weight="0.15"
+        local:MvxBind="Text Adressnumber" />
+    <TextView
+        android:id="@+id/selectionaddress_name1"
+        style="@style/TextViewStyleItem"
+        android:gravity="left"
+        android:layout_weight="0.4"
+        local:MvxBind="Text Name1" />
+    <TextView
+        android:id="@+id/selectionaddress_zip"
+        style="@style/TextViewStyleItem"
+        android:gravity="center"
+        android:layout_weight="0.15"
+        local:MvxBind="Text Zip" />
+    <TextView
+        android:id="@+id/selectionaddress_city"
+        style="@style/TextViewStyleItem"
+        android:gravity="left"
+        android:layout_weight="0.3"
+        local:MvxBind="Text City" />
+</LinearLayout>

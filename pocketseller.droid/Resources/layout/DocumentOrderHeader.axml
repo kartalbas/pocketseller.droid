@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".1"
+        android:gravity="left"
+        android:text="Pos"
+        local:MvxBind="Text LabelPos" />
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".3"
+        android:gravity="left"
+        android:text="Nr"
+        local:MvxBind="Text LabelArticlenumber" />
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".1"
+        android:gravity="right"
+        android:text="Count"
+        local:MvxBind="Text LabelCount" />
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".1"
+        android:gravity="right"
+        android:text="Content"
+        local:MvxBind="Text LabelContent" />
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".1"
+        android:gravity="right"
+        android:text="Amount"
+        local:MvxBind="Text LabelAmount" />
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".1"
+        android:gravity="right"
+        android:text="Price"
+        local:MvxBind="Text LabelUnitPrice" />
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".1"
+        android:gravity="right"
+        android:text="Sum"
+        local:MvxBind="Text LabelPositionTotal" />
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:layout_weight=".1"
+        android:gravity="right"
+        android:text="" />
+</LinearLayout>

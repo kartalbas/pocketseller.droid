@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+		android:paddingLeft="40dp"
+        android:gravity="center"
+        android:layout_weight="0.25"
+        android:text="Re-Datum"
+        local:MvxBind="Text LabelInvoiceDate" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="center"
+        android:layout_weight="0.25"
+        android:text="Re-Nr"
+        local:MvxBind="Text LabelInvoiceNumber" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+        android:gravity="center"
+        android:layout_weight="0.25"
+        android:text="Re-Betrag"
+        local:MvxBind="Text LabelInvoiceValue" />
+    <TextView
+        style="@style/TextViewStyleHeadertItemSmall"
+		android:paddingRight="40dp"
+        android:gravity="center"
+        android:layout_weight="0.25"
+        android:text="Offen"
+        local:MvxBind="Text LabelInvoiceOpen" />
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LabelStart"
+            local:MvxBind="Text LabelStartDate" />
+        <TextView
+            android:id="@+id/quotation_startdatetime"
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="StartDateTime"
+            local:MvxBind="Text Quotation.StartDateTime, Converter=DateTimeString" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/TextViewStyleHeadertItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="LabelStop"
+            local:MvxBind="Text LabelStopDate" />
+        <TextView
+            android:id="@+id/quotation_stopdatetime"
+            style="@style/TextViewStyleDocumentdetailItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="StopDateTime"
+            local:MvxBind="Text Quotation.StopDateTime, Converter=DateTimeString" />
+    </LinearLayout>
+</LinearLayout>

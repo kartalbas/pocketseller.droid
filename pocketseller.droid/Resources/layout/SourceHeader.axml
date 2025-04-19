@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:gravity="left"
+        android:layout_weight="0.10"
+        android:text="Id"/>
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:gravity="left"
+        android:layout_weight="0.30"
+        android:text="Name"/>
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:gravity="left"
+        android:layout_weight="0.40"
+        android:text="Server"/>
+    <TextView
+        style="@style/TextViewStyleHeadertItem"
+        android:gravity="left"
+        android:layout_weight="0.15"
+        android:text="Database"/>
+</LinearLayout>
